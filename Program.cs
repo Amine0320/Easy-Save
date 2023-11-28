@@ -1,22 +1,56 @@
 ﻿using System;
-//using Project2;
-using System;
 using System.ComponentModel;
 using System.Linq;
 
 static void Main()
 {
-
-
-    Console.WriteLine("Choississ ..../ Choice ...");
+    Console.WriteLine("************************");
+    Console.WriteLine("***Project Easy Save ***");
+    Console.WriteLine("************************");
+    Console.WriteLine("Choisissez les sauvegardes à effectuer (sous format '1-3' ou '1;3')") ;
+    Console.WriteLine("Choose which saves to execute (using the template  '1 - 3' ou '1; 3')") ;
     string saves = Console.ReadLine();
-    Console.WriteLine("Ou sont les fichiers ?/ Where is the files?");
-    string sources = Console.ReadLine();
-    Console.WriteLine("Ou mettre le fichiers? /Where you put the files?");
-    string Cible = Console.ReadLine();
-    Console.WriteLine("Choississ ... // ");
-    string Type = Console.ReadLine();
+    List<int> listeDeSauvegardes = ListeDeSauv(saves);
     Systeme TravailNouvelle = new Systeme();
-    TravailNouvelle.CreerSauvegarde(sources, Cible);
+    if (!Systeme.VerifieDispo(listeDeSauvegardes)) 
+        {
+        Console.WriteLine("Pas Possible"); 
+        }
+    else
+    {
+        foreach (int i in listeDeSauvegardes)
+        {
+            Console.WriteLine("Où sont les fichiers à savegarder?");
+            Console.WriteLine("Where are the files to save?");
+            string Sources = Console.ReadLine();
+            Console.WriteLine("Où sauvegarder les fichiers?");
+            Console.WriteLine("Where should the files be saved?");
+            string Cible = Console.ReadLine();
+            Console.WriteLine("Quel type de sauvegarde (entre 'complete' et 'differentiel')");
+            Console.WriteLine("Which type of save (either 'complete' or 'differentiel')");
+            string Type = Console.ReadLine();
+            TravailNouvelle.EnregistrerSauvegarde(TravailNouvelle.CreerSauvegarde(i, Sources, Cible, Type));
+            Systeme.SauvDejaCreee.Add(i);
+        }
+    }
+}
 
+static List<int> ListeDeSauv(string sauv)
+{
+    List<int> listeSauv = [];
+    ArraySegment<char> arr = sauv.ToCharArray();
+    int len = arr.Count;
+    for (int i = 0; i < len; i++)
+    {
+        if (arr[i].Equals(';')) { }
+        else if (arr[i].Equals('-'))
+        {
+            for (int j = int.Parse(arr[i - 1].ToString()) + 1; j < int.Parse(arr[i + 1].ToString()); j++)
+            {
+                listeSauv.Add(j);
+            }
+        }
+        else { listeSauv.Add(int.Parse(arr[i].ToString())); }
+    }
+    return listeSauv;
 }
