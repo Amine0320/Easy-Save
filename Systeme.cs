@@ -1,24 +1,36 @@
 ﻿
 using PowershellShowcase;
-using System.Management.Automation;
 
 public class Systeme
 {
+    public static List<int> SauvDejaCreee = new List<int>();
+
     private int IdSys = 0;
 
-    public static bool VerifieDispo()
+    public static bool VerifieDispo(List<int> list)
     {
-        return false;
+        foreach (int i in list)
+        {
+            if (SauvDejaCreee.Contains(i)) 
+            {
+                throw new Exception("La sauvegarde" + i.ToString() + "est déjà utilisée./ The save" + i.ToString() + "is already used");
+            }
+        }
+        if (list.Count + SauvDejaCreee.Count >= 5) 
+        {
+            throw new Exception("Tous les travaux de sauvegarde ont déjà été utilisés/ All the save spaces are used");
+        }
+        return true;
     }
 
-    public TravailSauvegarde? CreerSauvegarde(string saves, string sources)
+    public TravailSauvegarde? CreerSauvegarde(int save, string sources, string cibles, string type)
     {
         TravailSauvegarde NewSauvegarder = new TravailSauvegarde();
-        NewSauvegarder.RepSource = saves;
-        NewSauvegarder.RepCible = sources;
-        Console.WriteLine("************************");
-        Console.WriteLine("***Project Easy Save ***");
-        Console.WriteLine("************************");
+        NewSauvegarder.RepSource = sources;
+        NewSauvegarder.RepCible = cibles;
+        //Console.WriteLine("************************");
+        //Console.WriteLine("***Project Easy Save ***");
+        //Console.WriteLine("************************");
         string dateString1 = DateTime.Now.ToString("yyyyMMdd_HHmm");
         //string newfichier = "TravailSauvegarde" + dateString1;
         /// First Execution Create file 
