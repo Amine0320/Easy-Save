@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.IO;
 
 
 static void Main()
@@ -33,10 +34,15 @@ static void Main()
             Console.WriteLine("Where should the files be saved?");
             string Cible = Console.ReadLine();
             Console.WriteLine("");
-            Console.WriteLine("Quel type de sauvegarde (entre 'complete' et 'differentiel')");
-            Console.WriteLine("Which type of save (either 'complete' or 'differentiel')");
+            Console.WriteLine("Choisis la méthode de sauvegarde :");
+            Console.WriteLine("1.Complet");
+            Console.WriteLine("2.Differentiel");
+            Console.WriteLine("Choose the save method :");
+            Console.WriteLine("1.Complete");
+            Console.WriteLine("2.Differential");
             string Type = Console.ReadLine();
-            TravailNouvelle.EnregistrerSauvegarde(TravailNouvelle.CreerSauvegarde(i, Sources, Cible, Type));
+            TypeSauv sauvType = Convertir(Type);
+            TravailNouvelle.EnregistrerSauvegarde(TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType));
             Systeme.SauvDejaCreee.Add(i);
         }
     }
@@ -60,6 +66,18 @@ static List<int> ListeDeSauv(string sauv)
         else { listeSauv.Add(int.Parse(arr[i].ToString())); }
     }
     return listeSauv;
+}
+static TypeSauv Convertir(string Type)
+{
+    if (Type.Equals("1"))
+    {
+        return TypeSauv.Complete;
+    }
+    else if (Type.Equals("2"))
+    {
+        return TypeSauv.Differentielle;
+    }
+    else { throw new Exception("N'est pas une option"); }
 }
 
 Main();

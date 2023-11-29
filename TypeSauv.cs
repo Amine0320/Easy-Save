@@ -1,12 +1,8 @@
 ﻿using System.Management.Automation;
 using System.Text;
 
-namespace PowershellShowcase;
-
-public class TypeSauv
+public enum TypeSauv
 {
-    private string TypeSauve;
-    public string Description;
-
-
+    Complete,
+    Differentielle
 }
