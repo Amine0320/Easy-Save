@@ -7,13 +7,17 @@ public class Systeme
 
     private int IdSys = 0;
 
-    public static bool VerifieDispo(List<int> list)
+    public static bool VerifieDispo(HashSet<int> list)
     {
         foreach (int i in list)
         {
             if (SauvDejaCreee.Contains(i)) 
             {
                 throw new Exception("La sauvegarde" + i.ToString() + "est déjà utilisée./ The save" + i.ToString() + "is already used");
+            }
+            if (i > 5 | i < 1)
+            {
+                throw new Exception("La sauvegarde" + i.ToString() + "ne peut pas etre utilisée./ The save" + i.ToString() + "cannot be used");
             }
         }
         if (list.Count + SauvDejaCreee.Count >= 5) 

@@ -36,7 +36,7 @@ static void Main()
             Console.WriteLine("Quel type de sauvegarde (entre 'complete' et 'differentiel')");
             Console.WriteLine("Which type of save (either 'complete' or 'differentiel')");
             string Type = Console.ReadLine();
-            //TravailNouvelle.EnregistrerSauvegarde(TravailNouvelle.CreerSauvegarde(i, Sources, Cible, Type));
+            TravailNouvelle.EnregistrerSauvegarde(TravailNouvelle.CreerSauvegarde(i, Sources, Cible, Type));
             Systeme.SauvDejaCreee.Add(i);
         }
     }
