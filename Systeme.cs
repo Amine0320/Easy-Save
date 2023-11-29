@@ -25,7 +25,7 @@ public class MethodesEnregistre
                     {
                         File.Copy(sourceFilePath, targetFilePath, true);
                         Console.WriteLine($"Le fichier {fileName} a été mis à jour dans le répertoire cible.");
-                        Console.WriteLine($"File {fileName} was updated in target repertory.");
+                        Console.WriteLine($"File {fileName} was updated in target directory.");
                         FileInfo fileInfo = new FileInfo(sourceFilePath);
                         FileSize += (int)fileInfo.Length;
                     }
@@ -34,7 +34,7 @@ public class MethodesEnregistre
                 {
                     File.Copy(sourceFilePath, targetFilePath);
                     Console.WriteLine($"Le fichier {fileName} a été ajouté au répertoire cible.");
-                    Console.WriteLine($"File {fileName} was added in target repertory.");
+                    Console.WriteLine($"File {fileName} was added in target directory.");
                     FileInfo fileInfo = new FileInfo(sourceFilePath);
                     FileSize += (int)fileInfo.Length;
                 }
@@ -46,7 +46,7 @@ public class MethodesEnregistre
         else
         {
             Console.WriteLine($"Le répertoire source ou le répertoire cible n'existe pas pour la sauvegarde " + i.ToString() + ".");
-            Console.WriteLine($"The target or source repertory doesn't exist for Save " + i.ToString() + ".");
+            Console.WriteLine($"The target or source directory doesn't exist for Save " + i.ToString() + ".");
         }
         return FileSize;
     }
