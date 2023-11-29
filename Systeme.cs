@@ -1,5 +1,6 @@
 ﻿
 using PowershellShowcase;
+using System.Text.Json;
 
 public class MethodesEnregistre
 {
@@ -121,7 +122,7 @@ public class Systeme
         DateTime date2 = DateTime.Now;
         TimeSpan soustraction = date2 - date1;
         double Secondssoustraction = soustraction.TotalSeconds;
-        LogJournalier log1 = new LogJournalier(i.ToString(), "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2);
+        LogJournalier log1 = new LogJournalier(i , "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2);
         string fichier = @"C:\LOGJ";
         string nombrefichier = TodayDateForString + ".json";
         string pathcomplete = Path.Combine(fichier, nombrefichier);
