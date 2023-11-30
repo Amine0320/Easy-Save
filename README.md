@@ -6,7 +6,7 @@ Ce guide vous aidera à créer et gérer vos travaux de sauvegarde.
 
 EasySave vous donne la flexibilité de créer jusqu'à 5 sauvegardes, que ce soit des sauvegardes complètes;
 englobant l'intégralité des répertoires sources vers des répertoires cibles, ou des sauvegardes différentielles; ne copiant que les fichiers modifiés depuis la dernière sauvegarde. 
-Avant de démarrer, assurez-vous de préparer l'environnement en créant un répertoire dédié, tel que "C:/LOGJ", destiné à accueillir les journaux journaliers consignant le suivi précis de vos opérations de sauvegarde.
+Avant de démarrer, assurez-vous de préparer l'environnement en créant un répertoire dédié, tel que "C:/LOGJ", destiné à accueillir les logs journaliers consignant le suivi précis de vos opérations de sauvegarde.
 
 ***********************
 
