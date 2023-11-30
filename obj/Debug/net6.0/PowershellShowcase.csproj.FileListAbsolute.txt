@@ -1,0 +1,6 @@
+C:\Users\kikou\Source\Repos\EasySavePr\obj\Debug\net6.0\PowershellShowcase.csproj.AssemblyReference.cache
+C:\Users\kikou\Source\Repos\EasySavePr\obj\Debug\net6.0\PowershellShowcase.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kikou\Source\Repos\EasySavePr\obj\Debug\net6.0\PowershellShowcase.AssemblyInfoInputs.cache
+C:\Users\kikou\Source\Repos\EasySavePr\obj\Debug\net6.0\PowershellShowcase.AssemblyInfo.cs
+C:\Users\kikou\Source\Repos\EasySavePr\obj\Debug\net6.0\PowershellShowcase.csproj.CoreCompileInputs.cache
+C:\Users\kikou\Source\Repos\EasySavePr\obj\Debug\net6.0\PowershellShowcase.sourcelink.json
