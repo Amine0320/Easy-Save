@@ -4,16 +4,34 @@ param (
     [string]$destinationPath
 )
 
-# Source and destination paths
 $rutaArchivoJson = "C:\LOGJ\state.json"
 $rutaArchivoJson2 = "C:\LOGJ\state2.json"
+## primera parte
+# Source and destination paths
+$fichier = 0
+$TotalFilesSize =0
 # Get the list of files to copy
-$filesToCopy = Get-ChildItem -Path $sourcePath
 
+$filesToCopy = Get-ChildItem -Path $sourcePath -Recurse
+foreach ($file in $filesToCopy) {
+	$file2=$file.FullName -replace [regex]::Escape($sourcePath), ""
+	$newfile=$destinationPath+$file2
+	if (Test-Path $newfile -PathType Leaf) {
+		if ($newfile.LastWriteTime -eq $file.LastWriteTime) {
+		}
+		else
+		{
+			$fichier++
+			$TotalFilesSize=(Get-ChildItem -Path $newfile -Recurse | Measure-Object -Property Length -Sum).Sum + $TotalFilesSize
+
+		}
+	}
+}
 # Initialize progress bar
+$filesToCopy = Get-ChildItem -Path $sourcePath
 $progress = 0
 $totalFiles = $filesToCopy.Count
-
+##Write-Host $fichier
 # Verificar si la carpeta ya existe
 if (-not (Test-Path $destinationPath -PathType Container)) {
     # Si no existe, crear la carpeta
@@ -25,28 +43,38 @@ if (-not (Test-Path $destinationPath -PathType Container)) {
 
 # Copy files with progress
 foreach ($file in $filesToCopy) {
+	$file2=$file.FullName -replace [regex]::Escape($sourcePath), ""
+	$newfile=$destinationPath+$file2
+	$newfile2=Get-ChildItem -Path $newfile
+	
+	if ($newfile2.LastWriteTime -eq $file.LastWriteTime) {
+		}
+		else{
     $progress++
-    $progressPercentage = ($progress / $totalFiles) * 100
+	
+	
+    $progressPercentage = ($progress / $fichier) * 100
 	$EtatReel = @{
 	IdEtaTemp = $ID
 	NomETR  = "Save "+$ID
 	SourceFilePath = $sourcePath
 	TargetFilePath = $destinationPath
 	State = "Active"
-	TotalFilesToCopy = (Get-ChildItem -Path $sourcePath -File -Recurse).Count
-	TotalFilesSize = (Get-ChildItem -Path $sourcePath -Recurse | Measure-Object -Property Length -Sum).Sum
-	NbFilesLeftToDo = (Get-ChildItem -Path $sourcePath -File).Count - (Get-ChildItem -Path $destinationPath -File).Count
+	TotalFilesToCopy = $fichier
+	TotalFilesSize = $TotalFilesSize
+	NbFilesLeftToDo = $fichier - $progress
 	Progression = $progressPercentage
 	}
 	$jsonString = $EtatReel | ConvertTo-Json
     # Display progress bar
     #Write-Progress -Activity "Copying Files" -Status "Progress: $progress/$totalFiles" -PercentComplete $progressPercentage
-	
+	#Start-Sleep -Seconds 1
     # Copy the file
     Copy-Item -Path $file.FullName -Destination $destinationPath -Force
 	$jsonString | Out-File -FilePath $rutaArchivoJson -Encoding UTF8 -Force
+		}
 }
-##Write-Host "La carpeta ya existe en $destinationPath"
+
 $EtatReel = @{
 	IdEtaTemp = $ID
 	NomETR  = "Save "+$ID
@@ -59,7 +87,6 @@ $EtatReel = @{
 	Progression = 0
 	}
 $jsonString = $EtatReel | ConvertTo-Json
-##Write-Host "La carpeta ya existe en $($EtatReel.SourceFilePath)"
 $jsonString | Out-File -FilePath $rutaArchivoJson2 -Append -Encoding UTF8
 
 

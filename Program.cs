@@ -1,23 +1,43 @@
-﻿using System;
+﻿using PowershellShowcase;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.IO;
+using System.Linq;
+using System.Web.Services.Description;
 
 
 static void Main()
 {
+    string rutaArchivo = @"C:\LOGJ\state.json";
+    try
+    {
+        if (File.Exists(rutaArchivo))
+        {
+            // Borrar el archivo
+            File.Delete(rutaArchivo);
+        }
+        else
+        {
+            
+        }
+    }
+    catch (Exception ex)
+    {
+        
+    }
     Console.WriteLine("************************");
     Console.WriteLine("***Project Easy Save ***");
     Console.WriteLine("************************");
-    Console.WriteLine("Choisissez les sauvegardes à effectuer (sous format '1-3' ou '1;3')") ;
-    Console.WriteLine("Choose which saves to execute (using the template  '1-3' or '1; 3')") ;
+    Console.WriteLine("Choisissez les sauvegardes à effectuer (sous format '1-3' ou '1;3')");
+    Console.WriteLine("Choose which saves to execute (using the template  '1-3' or '1; 3')");
     string saves = Console.ReadLine();
     List<int> listeDeSauvegardes = ListeDeSauv(saves);
     Systeme TravailNouvelle = new Systeme();
-    if (!Systeme.VerifieDispo(listeDeSauvegardes)) 
-        {
-        Console.WriteLine("Pas Possible"); 
-        }
+    if (!Systeme.VerifieDispo(listeDeSauvegardes))
+    {
+        Console.WriteLine("Pas Possible");
+    }
     else
     {
         foreach (int i in listeDeSauvegardes)
@@ -34,6 +54,19 @@ static void Main()
             Console.WriteLine("Where should the files be saved?");
             string Cible = Console.ReadLine();
             Console.WriteLine("");
+            /*
+            Console.WriteLine("Quel type de sauvegarde (entre 'complete' et 'differentiel')");
+            Console.WriteLine("Which type of save (either 'complete' or 'differentiel')");
+            TypeSauv Type2 = new TypeSauv();
+            Type2.IDTypeSauve = Console.ReadLine();
+            if (Type2.IDTypeSauve == "complete") { 
+            
+            TravailNouvelle.EnregistrerSauvegarde(i,TravailNouvelle.CreerSauvegarde(i, Sources, Cible, Type2));
+            } else
+            {
+                TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, Type2));
+            }
+            */
             Console.WriteLine("Choisis la méthode de sauvegarde :");
             Console.WriteLine("1.Complet");
             Console.WriteLine("2.Differentiel");
@@ -42,15 +75,22 @@ static void Main()
             Console.WriteLine("2.Differential");
             string Type = Console.ReadLine();
             TypeSauv sauvType = Convertir(Type);
-            TravailNouvelle.EnregistrerSauvegarde(TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType));
-            Systeme.SauvDejaCreee.Add(i);
+            if (sauvType == TypeSauv.Complete)
+            {
+                TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType));
+            } else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType)); }
+                Systeme.SauvDejaCreee.Add(i);
         }
     }
+    string pathfichierActuelle = @"C:\LOGJ\state2.json";
+    string Nouvnomficchier = @"C:\LOGJ\state.json";
+    File.Delete(Nouvnomficchier);
+    File.Move(pathfichierActuelle, Nouvnomficchier);
 }
 
 static List<int> ListeDeSauv(string sauv)
 {
-    List<int> listeSauv = [];
+    List<int> listeSauv = new List<int>();
     ArraySegment<char> arr = sauv.ToCharArray();
     int len = arr.Count;
     for (int i = 0; i < len; i++)
