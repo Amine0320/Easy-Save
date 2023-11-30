@@ -27,8 +27,8 @@ foreach ($file in $filesToCopy) {
     $progress++
     $progressPercentage = ($progress / $totalFiles) * 100
 	$EtatReel = @{
-	IdEtaTemp = $nbr
-	NomETR  = "Save" + $nbr
+	IdEtaTemp = $nbr+1
+	NomETR  = "Save" + $nbr+1
 	SourceFilePath = $sourcePath
 	TargetFilePath = $destinationPath
 	State = "Active"
@@ -44,10 +44,11 @@ foreach ($file in $filesToCopy) {
     # Copy the file
     Copy-Item -Path $file.FullName -Destination $destinationPath -Force
 	$jsonString | Out-File -FilePath $rutaArchivoJson -Encoding UTF8 -Force
+	Write-Host "stop"
 }
 $EtatReel = @{
-	IdEtaTemp = $nbr
-	NomETR  = "Save" + $nbr
+	IdEtaTemp = $nbr+1
+	NomETR  = "Save" + $nbr+1
 	SourceFilePath = ""
 	TargetFilePath = ""
 	State = "End"

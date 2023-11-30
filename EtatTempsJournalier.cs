@@ -48,7 +48,6 @@ public class EtatTempsReel
     }
     public void SaveToJson(int i, string Source, string Target)
     {
-        Console.WriteLine("***En proceso ***");
         string DossierPro = Directory.GetCurrentDirectory();
         string rutaScriptPowerShell = DossierPro + "ExecuteLogTempReel.ps1";
         ProcessStartInfo psi = new ProcessStartInfo
