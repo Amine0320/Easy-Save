@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bruno\\Source\\Repos\\EasySaveProject\\PowershellShowcase.csproj": {}
+    "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bruno\\Source\\Repos\\EasySaveProject\\PowershellShowcase.csproj": {
+    "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bruno\\Source\\Repos\\EasySaveProject\\PowershellShowcase.csproj",
+        "projectUniqueName": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj",
         "projectName": "PowershellShowcase",
-        "projectPath": "C:\\Users\\bruno\\Source\\Repos\\EasySaveProject\\PowershellShowcase.csproj",
-        "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bruno\\Source\\Repos\\EasySaveProject\\obj\\",
+        "projectPath": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj",
+        "packagesPath": "C:\\Users\\kikou\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kikou\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -48,6 +48,10 @@
             "Cake": {
               "target": "Package",
               "version": "[1.1.0, )"
+            },
+            "Microsoft.CodeAnalysis.Analyzers": {
+              "target": "Package",
+              "version": "[3.3.2, )"
             },
             "Microsoft.PowerShell.SDK": {
               "target": "Package",

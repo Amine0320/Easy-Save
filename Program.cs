@@ -76,11 +76,19 @@ static void Main()
             Console.WriteLine("1.Complete");
             Console.WriteLine("2.Differential");
             string Type = Console.ReadLine();
+            Console.WriteLine("");
+            Console.WriteLine("Choisis sous quel type mettre le fichier le log journalier :");
+            Console.WriteLine("1.JSON");
+            Console.WriteLine("2.XML");
+            Console.WriteLine("Choose which type the daily logs should be saved as:");
+            Console.WriteLine("1.JSON");
+            Console.WriteLine("2.XML");
+            string Log = Console.ReadLine();
             TypeSauv sauvType = Convertir(Type);
             if (sauvType == TypeSauv.Complete)
             {
-                TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType));
-            } else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType)); }
+                TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), int.Parse(Log));
+            } else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), int.Parse(Log)); }
                 Systeme.SauvDejaCreee.Add(i);
         }
     }
