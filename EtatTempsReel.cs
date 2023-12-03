@@ -62,7 +62,7 @@ namespace EasySaveProSoft.Version1
                 string resultado = proceso.StandardOutput.ReadToEnd();
 
                 // Mostrar la salida (puedes hacer otras cosas con el resultado)
-                Console.WriteLine("Resultado:");
+                //Console.WriteLine("Resultado:");
                 Console.WriteLine(resultado);
             }
             return ;
@@ -105,7 +105,7 @@ namespace EasySaveProSoft.Version1
                 string resultado = proceso.StandardOutput.ReadToEnd();
 
                 // Mostrar la salida (puedes hacer otras cosas con el resultado)
-                Console.WriteLine("Resultado:");
+                //Console.WriteLine("Resultado:");
                 Console.WriteLine(resultado);
             }
             return;

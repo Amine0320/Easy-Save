@@ -26,6 +26,8 @@ static void Main()
     {
         
     }
+	Systeme TravailNouvelle = new Systeme();
+	TravailNouvelle.ActivePowershell();
     Console.WriteLine("************************");
     Console.WriteLine("***Project Easy Save ***");
     Console.WriteLine("************************");
@@ -33,7 +35,7 @@ static void Main()
     Console.WriteLine("Choose which saves to execute (using the template  '1-3' or '1; 3')");
     string saves = Console.ReadLine();
     List<int> listeDeSauvegardes = ListeDeSauv(saves);
-    Systeme TravailNouvelle = new Systeme();
+    
     if (!Systeme.VerifieDispo(listeDeSauvegardes))
     {
         Console.WriteLine("Pas Possible");
@@ -54,19 +56,6 @@ static void Main()
             Console.WriteLine("Where should the files be saved?");
             string Cible = Console.ReadLine();
             Console.WriteLine("");
-            /*
-            Console.WriteLine("Quel type de sauvegarde (entre 'complete' et 'differentiel')");
-            Console.WriteLine("Which type of save (either 'complete' or 'differentiel')");
-            TypeSauv Type2 = new TypeSauv();
-            Type2.IDTypeSauve = Console.ReadLine();
-            if (Type2.IDTypeSauve == "complete") { 
-            
-            TravailNouvelle.EnregistrerSauvegarde(i,TravailNouvelle.CreerSauvegarde(i, Sources, Cible, Type2));
-            } else
-            {
-                TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, Type2));
-            }
-            */
             Console.WriteLine("Choisis la méthode de sauvegarde :");
             Console.WriteLine("1.Complet");
             Console.WriteLine("2.Differentiel");
@@ -81,6 +70,7 @@ static void Main()
             } else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType)); }
                 Systeme.SauvDejaCreee.Add(i);
         }
+
     }
     string pathfichierActuelle = @"C:\LOGJ\state2.json";
     string Nouvnomficchier = @"C:\LOGJ\state.json";
