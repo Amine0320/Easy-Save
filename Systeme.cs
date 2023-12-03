@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Collections.Generic;
 using System.Collections;
 using EasySaveProSoft.Version1;
+using System.Diagnostics;
 public class Systeme
 {
     private int IdSys = 0;
@@ -114,6 +115,42 @@ public class Systeme
 
         Console.WriteLine($"Json created in: {pathcomplete}");
         return;
+
+    }
+    public void ActivePowershell()
+    {
+        string DossierPro = Directory.GetCurrentDirectory();
+        string[] ListDossier = DossierPro.Split(@"\");
+        string Dir = "";
+        for (int k = 0; k < ListDossier.Length - 3; k++)
+        {
+            Dir += ListDossier[k] + @"\";
+        }
+        string scriptPath = Dir + "ExecuteActivate.ps1";
+        // Ruta al archivo de script PowerShell (.ps1)
+        
+
+        // Configurar la información del proceso
+        ProcessStartInfo processStartInfo = new ProcessStartInfo
+        {
+            FileName = "powershell.exe",
+            Arguments = $"-NoProfile -ExecutionPolicy Bypass -File \"{scriptPath}\"",
+            Verb = "runas", // Solicitar elevación de privilegios
+            UseShellExecute = true,
+        };
+
+        try
+        {
+            // Iniciar el proceso
+            using (Process process = new Process { StartInfo = processStartInfo })
+            {
+                process.Start();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al iniciar el script: {ex.Message}");
+        }
 
     }
 }

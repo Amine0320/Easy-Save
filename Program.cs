@@ -26,6 +26,8 @@ static void Main()
     {
         
     }
+    Systeme TravailNouvelle = new Systeme();
+    TravailNouvelle.ActivePowershell();
     Console.WriteLine("************************");
     Console.WriteLine("***Project Easy Save ***");
     Console.WriteLine("************************");
@@ -33,7 +35,7 @@ static void Main()
     Console.WriteLine("Choose which saves to execute (using the template  '1-3' or '1; 3')");
     string saves = Console.ReadLine();
     List<int> listeDeSauvegardes = ListeDeSauv(saves);
-    Systeme TravailNouvelle = new Systeme();
+    
     if (!Systeme.VerifieDispo(listeDeSauvegardes))
     {
         Console.WriteLine("Pas Possible");

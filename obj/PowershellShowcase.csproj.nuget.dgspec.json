@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj": {}
+    "C:\\Users\\bruno\\Source\\Repos\\EasySaveProject\\PowershellShowcase.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj": {
+    "C:\\Users\\bruno\\Source\\Repos\\EasySaveProject\\PowershellShowcase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj",
+        "projectUniqueName": "C:\\Users\\bruno\\Source\\Repos\\EasySaveProject\\PowershellShowcase.csproj",
         "projectName": "PowershellShowcase",
-        "projectPath": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj",
-        "packagesPath": "C:\\Users\\kikou\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\obj\\",
+        "projectPath": "C:\\Users\\bruno\\Source\\Repos\\EasySaveProject\\PowershellShowcase.csproj",
+        "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bruno\\Source\\Repos\\EasySaveProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\kikou\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
