@@ -9,6 +9,7 @@
       "PowershellShowcase/1.0.0": {
         "dependencies": {
           "Cake": "1.1.0",
+          "Microsoft.CodeAnalysis.Analyzers": "3.3.2",
           "Microsoft.PowerShell.SDK": "7.2.2",
           "Newtonsoft.Json": "13.0.3",
           "System.Management.Automation": "7.2.2"
