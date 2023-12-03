@@ -7,6 +7,7 @@ using System.Xml;
 using System.Management.Automation;
 using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace EasySaveProSoft.Version1
 {
@@ -25,9 +26,15 @@ namespace EasySaveProSoft.Version1
 
         public void SaveToJson(string Source, string Target, int iden)
         {
-            Console.WriteLine("***En proceso ***");
+            //Console.WriteLine("***En proceso ***");
             string DossierPro = Directory.GetCurrentDirectory();
-            string rutaScriptPowerShell = @"C:\CESIProject2\Csharp\ExecuteLogTempReel.ps1";
+            string[] ListDossier = DossierPro.Split(@"\");
+            string Dir = "";
+            for (int k = 0; k < ListDossier.Length - 3; k++)
+            {
+                Dir += ListDossier[k] + @"\";
+            }
+            string rutaScriptPowerShell = Dir + "ExecuteLogTempReel.ps1";
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = "powershell.exe",
@@ -37,7 +44,7 @@ namespace EasySaveProSoft.Version1
                 CreateNoWindow = true,
                 UseShellExecute = false
             };
-            Console.WriteLine("***Ejecutando ***");
+            //Console.WriteLine("***Ejecutando ***");
             using (Process proceso = new Process { StartInfo = psi })
             {
                 proceso.Start();
@@ -62,9 +69,15 @@ namespace EasySaveProSoft.Version1
         }
         public void SaveToJsonDiff(string Source, string Target, int iden)
         {
-            Console.WriteLine("***En proceso ***");
+            //Console.WriteLine("***En proceso ***");
             string DossierPro = Directory.GetCurrentDirectory();
-            string rutaScriptPowerShell = @"C:\CESIProject2\Csharp\ExecuteLogTempReelDiff.ps1";
+            string[] ListDossier = DossierPro.Split(@"\");
+            string Dir = "";
+            for (int k = 0; k < ListDossier.Length - 3; k++ ) 
+            {
+                Dir += ListDossier[k] + @"\";
+            }
+            string rutaScriptPowerShell = Dir + "ExecuteLogTempReelDiff.ps1";
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = "powershell.exe",
@@ -74,7 +87,7 @@ namespace EasySaveProSoft.Version1
                 CreateNoWindow = true,
                 UseShellExecute = false
             };
-            Console.WriteLine("***Ejecutando ***");
+            //Console.WriteLine("***Ejecutando ***");
             using (Process proceso = new Process { StartInfo = psi })
             {
                 proceso.Start();

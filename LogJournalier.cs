@@ -45,7 +45,13 @@ public class LogJournalier
         public string Consulter()
         {
             string DossierPro = Directory.GetCurrentDirectory();
-            string rutaScriptPowerShell = @"C:\CESIProject2\Csharp\ExecuteJorJournalier.ps1";
+            string[] ListDossier = DossierPro.Split(@"\");
+            string Dir = "";
+            for (int k = 0; k < ListDossier.Length - 3; k++)
+            {
+                Dir += ListDossier[k] + @"\";
+            }
+            string rutaScriptPowerShell = Dir + "ExecuteJorJournalier.ps1";
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = "powershell.exe",

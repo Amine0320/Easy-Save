@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kikou\\source\\repos\\EasySavePr\\PowershellShowcase.csproj": {}
+    "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kikou\\source\\repos\\EasySavePr\\PowershellShowcase.csproj": {
+    "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kikou\\source\\repos\\EasySavePr\\PowershellShowcase.csproj",
+        "projectUniqueName": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj",
         "projectName": "PowershellShowcase",
-        "projectPath": "C:\\Users\\kikou\\source\\repos\\EasySavePr\\PowershellShowcase.csproj",
+        "projectPath": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj",
         "packagesPath": "C:\\Users\\kikou\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kikou\\source\\repos\\EasySavePr\\obj\\",
+        "outputPath": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -22,7 +22,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -30,8 +30,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -42,16 +42,24 @@
         }
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
+            "Cake": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
             "Microsoft.PowerShell.SDK": {
               "target": "Package",
-              "version": "[7.4.0, )"
+              "version": "[7.2.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "System.Management.Automation": {
               "target": "Package",
-              "version": "[7.4.0, )"
+              "version": "[7.2.2, )"
             }
           },
           "imports": [
@@ -70,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
