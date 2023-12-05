@@ -140,6 +140,7 @@ static void AppelerCryptosoft(string Sources, byte[] cle, string Cible)
 {
     try
     {
+        // appel cryptosoft
         // Chemin vers l'exécutable Cryptosoft
          string cheminCryptosoft = @"C:\Users\manel\source\repos\Programme cryptosoft\Programme cryptosoft\bin\Debug\net8.0\Programme cryptosoft.exe";
         // string cheminCryptosoft = @"C:\Users\manel\source\repos\EasySaveCryptosoft\Programme cryptosoft.exe";
