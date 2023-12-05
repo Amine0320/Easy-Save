@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web.Services.Description;
@@ -19,12 +20,12 @@ static void Main()
         }
         else
         {
-            
+
         }
     }
     catch (Exception ex)
     {
-        
+
     }
     Systeme TravailNouvelle = new Systeme();
     TravailNouvelle.ActivePowershell();
@@ -35,7 +36,7 @@ static void Main()
     Console.WriteLine("Choose which saves to execute (using the template  '1-3' or '1; 3')");
     string saves = Console.ReadLine();
     List<int> listeDeSauvegardes = ListeDeSauv(saves);
-    
+
     if (!Systeme.VerifieDispo(listeDeSauvegardes))
     {
         Console.WriteLine("Pas Possible");
@@ -88,46 +89,104 @@ static void Main()
             if (sauvType == TypeSauv.Complete)
             {
                 TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), int.Parse(Log));
-            } else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), int.Parse(Log)); }
-                Systeme.SauvDejaCreee.Add(i);
+            }
+            else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), int.Parse(Log)); }
+            Systeme.SauvDejaCreee.Add(i);
         }
     }
     string pathfichierActuelle = @"C:\LOGJ\state2.json";
     string Nouvnomficchier = @"C:\LOGJ\state.json";
     File.Delete(Nouvnomficchier);
     File.Move(pathfichierActuelle, Nouvnomficchier);
+
+
 }
 
-static List<int> ListeDeSauv(string sauv)
-{
-    List<int> listeSauv = new List<int>();
-    ArraySegment<char> arr = sauv.ToCharArray();
-    int len = arr.Count;
-    for (int i = 0; i < len; i++)
+
+    static List<int> ListeDeSauv(string sauv)
     {
-        if (arr[i].Equals(';')) { }
-        else if (arr[i].Equals('-'))
+        List<int> listeSauv = new List<int>();
+        ArraySegment<char> arr = sauv.ToCharArray();
+        int len = arr.Count;
+        for (int i = 0; i < len; i++)
         {
-            for (int j = int.Parse(arr[i - 1].ToString()) + 1; j < int.Parse(arr[i + 1].ToString()); j++)
+            if (arr[i].Equals(';')) { }
+            else if (arr[i].Equals('-'))
             {
-                listeSauv.Add(j);
+                for (int j = int.Parse(arr[i - 1].ToString()) + 1; j < int.Parse(arr[i + 1].ToString()); j++)
+                {
+                    listeSauv.Add(j);
+                }
             }
+            else { listeSauv.Add(int.Parse(arr[i].ToString())); }
         }
-        else { listeSauv.Add(int.Parse(arr[i].ToString())); }
+        return listeSauv;
     }
-    return listeSauv;
-}
-static TypeSauv Convertir(string Type)
+    static TypeSauv Convertir(string Type)
+    {
+        if (Type.Equals("1"))
+        {
+            return TypeSauv.Complete;
+        }
+        else if (Type.Equals("2"))
+        {
+            return TypeSauv.Differentielle;
+        }
+        else { throw new Exception("N'est pas une option"); }
+    }
+
+
+static void AppelerCryptosoft(string Sources, byte[] cle, string Cible)
 {
-    if (Type.Equals("1"))
+    try
     {
-        return TypeSauv.Complete;
+        // Chemin vers l'exécutable Cryptosoft
+         string cheminCryptosoft = @"C:\Users\manel\source\repos\Programme cryptosoft\Programme cryptosoft\bin\Debug\net8.0\Programme cryptosoft.exe";
+        // string cheminCryptosoft = @"C:\Users\manel\source\repos\EasySaveCryptosoft\Programme cryptosoft.exe";
+
+
+        
+        // Convertir le tableau d'octets en chaîne hexadécimale
+        string cleHex = BitConverter.ToString(cle).Replace("-", "");
+
+        // Construire la chaîne d'arguments
+        string argumentsCryptosoft = $"{Sources} {cleHex} {Cible}";
+
+        // Construire la chaîne d'arguments
+        // string argumentsCryptosoft = $"{Sources} {cle} {Cible}";
+
+        // Configurer le processus de démarrage
+        ProcessStartInfo startInfo = new ProcessStartInfo
+        {
+            FileName = cheminCryptosoft,
+            Arguments = argumentsCryptosoft,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        // Démarrer le processus
+        using (Process process = new Process { StartInfo = startInfo })
+        {
+            process.Start();
+
+            // Lire la sortie standard et d'erreur (si nécessaire)
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+
+            // Attendre la fin du processus
+            process.WaitForExit();
+
+            // Traiter la sortie (si nécessaire)
+            Console.WriteLine($"Cryptosoft Output: {output}");
+            Console.WriteLine($"Cryptosoft Error: {error}");
+        }
     }
-    else if (Type.Equals("2"))
+    catch (Exception ex)
     {
-        return TypeSauv.Differentielle;
+        Console.WriteLine($"Error calling Cryptosoft: {ex.Message}");
     }
-    else { throw new Exception("N'est pas une option"); }
 }
 
 Main();

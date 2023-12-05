@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj": {}
+    "C:\\Users\\manel\\source\\repos\\EasySaveCryptosoft\\PowershellShowcase.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj": {
+    "C:\\Users\\manel\\source\\repos\\EasySaveCryptosoft\\PowershellShowcase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj",
+        "projectUniqueName": "C:\\Users\\manel\\source\\repos\\EasySaveCryptosoft\\PowershellShowcase.csproj",
         "projectName": "PowershellShowcase",
-        "projectPath": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj",
-        "packagesPath": "C:\\Users\\kikou\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\obj\\",
+        "projectPath": "C:\\Users\\manel\\source\\repos\\EasySaveCryptosoft\\PowershellShowcase.csproj",
+        "packagesPath": "C:\\Users\\manel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\manel\\source\\repos\\EasySaveCryptosoft\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\kikou\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\manel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -77,6 +77,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.25, 6.0.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.25, 6.0.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.25, 6.0.25]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.25, 6.0.25]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
