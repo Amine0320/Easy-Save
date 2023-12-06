@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QG/FPQFzqqw1h9TiPEkohjjqJ1ET6wrB95Z9IGqu8l8TtYC0300JEQ2+seJcZ3q9WR7+qCZnFb1LLdIpLslunA==",
+  "dgSpecHash": "R6j7avQ5rlIreI31DcNCHkb1I7GeV6xAw4sjkUPHxoTJpxt55jvak0RpmVWfwpuc8+4UWj3w4Us5zjT/0pJ1MQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\kikou\\Source\\Repos\\EasySavev1\\PowershellShowcase.csproj",
+  "projectFilePath": "C:\\Users\\kikou\\Source\\Repos\\EasySave\\EasySave.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kikou\\.nuget\\packages\\cake\\1.1.0\\cake.1.1.0.nupkg.sha512",
     "C:\\Users\\kikou\\.nuget\\packages\\markdig.signed\\0.22.0\\markdig.signed.0.22.0.nupkg.sha512",

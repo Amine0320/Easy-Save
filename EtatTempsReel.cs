@@ -11,7 +11,8 @@ using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext
 
 namespace EasySaveProSoft.Version1
 {
-    public class EtatTempsReel
+
+public class EtatTempsReel
     {
         // Declaration des attribus 
         public int IdEtaTemp { get; set; }
@@ -24,9 +25,11 @@ namespace EasySaveProSoft.Version1
         public int NbFilesLeftToDo { get; set; }
         public int Progression { get; set; }
 
+
         public void SaveToJson(string Source, string Target, int iden)
         {
             //Console.WriteLine("***En proceso ***");
+
             string DossierPro = Directory.GetCurrentDirectory();
             string[] ListDossier = DossierPro.Split(@"\");
             string Dir = "";

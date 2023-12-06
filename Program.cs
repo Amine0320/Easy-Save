@@ -17,10 +17,6 @@ static void Main()
             // Borrar el archivo
             File.Delete(rutaArchivo);
         }
-        else
-        {
-            
-        }
     }
     catch (Exception ex)
     {
@@ -85,17 +81,28 @@ static void Main()
             Console.WriteLine("2.XML");
             string Log = Console.ReadLine();
             TypeSauv sauvType = Convertir(Type);
-            if (sauvType == TypeSauv.Complete)
+            if (LogMetier.CheckAppsInDirectory(Sources))
             {
-                TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), int.Parse(Log));
-            } else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), int.Parse(Log)); }
+                Console.WriteLine("Logiciel Métier détecté: la sauvegarde n'a pas été faite.");
+                Console.WriteLine("Work App detected: could not start save.");
+            }
+            else
+            {
+                if (sauvType == TypeSauv.Complete)
+                {
+                    TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), int.Parse(Log));
+                }
+                else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), int.Parse(Log)); }
                 Systeme.SauvDejaCreee.Add(i);
+            }
         }
     }
     string pathfichierActuelle = @"C:\LOGJ\state2.json";
-    string Nouvnomficchier = @"C:\LOGJ\state.json";
-    File.Delete(Nouvnomficchier);
-    File.Move(pathfichierActuelle, Nouvnomficchier);
+    if (File.Exists(pathfichierActuelle))
+    {
+        File.Delete(rutaArchivo);
+        File.Move(pathfichierActuelle, rutaArchivo);
+    }
 }
 
 static List<int> ListeDeSauv(string sauv)

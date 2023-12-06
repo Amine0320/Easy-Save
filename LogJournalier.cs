@@ -42,7 +42,13 @@ namespace PowershellShowcase
         public string Consulter(int outputFormat)
         {
             string DossierPro = Directory.GetCurrentDirectory();
-            string scriptPowerShellPath = DossierPro + "ExecuteJorJournalier.ps1";
+            string[] ListDossier = DossierPro.Split(@"\");
+            string Dir = "";
+            for (int k = 0; k < ListDossier.Length - 3; k++)
+            {
+                Dir += ListDossier[k] + @"\";
+            }
+            string scriptPowerShellPath = Dir + "ExecuteJorJournalier.ps1";
             //@"C:\CESIProject2\Csharp\ExecuteJorJournalier.ps1";
             ProcessStartInfo psi = new ProcessStartInfo
             {
