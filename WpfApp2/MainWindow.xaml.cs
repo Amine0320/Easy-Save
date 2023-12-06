@@ -51,6 +51,7 @@ namespace WpfApp2
         {
             //Window1 Fenetre = new Window1();
             this.Close();
+            Application.Current.Shutdown();
             //Fenetre.Show();
         }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -78,8 +79,8 @@ namespace WpfApp2
         private void Button_France(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
-            LabelSysteme.Content = "BIENVENUE A NOTRE SISTEME DE SAUVEGARDE! BY CESI INFO A3 INFORMATIQUE";
-            ButtonQuit.Content = "SORTIR";
+            LabelSysteme.Content = "BIENVENUE A NOTRE SYSTEME DE SAUVEGARDE! BY CESI INFO A3 INFORMATIQUE";
+            ButtonQuit.Content = "QUITTER";
             ButtonSave.Content = "ENREGISTRER";
             //Fenetre.Show();
         }
@@ -94,9 +95,9 @@ namespace WpfApp2
         private void Button_Arab(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
-            LabelSysteme.Content = "السنة الثالثة علوم الحاسوب في cesi";
+            LabelSysteme.Content =  "CESI A3"+ "مرحبا بكم في نظام النسخ الاحتياطي! من فريق معلوماتية ";
             ButtonQuit.Content = "خروج";
-            ButtonSave.Content = "حفظ";
+            ButtonSave.Content = "نسخ";
             //Fenetre.Show();
         }
     }

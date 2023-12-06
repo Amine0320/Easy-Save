@@ -21,8 +21,8 @@
             <ListBoxItem Content="2"/>
         </ComboBox>
         <ComboBox x:Name="Option1" HorizontalAlignment="Left" Margin="289,127,0,0" VerticalAlignment="Top" Width="35" SelectedIndex="0" Text="-">
-            <ListBoxItem Content="-"/>
             <ListBoxItem Content=";"/>
+            <ListBoxItem Content="-"/>
         </ComboBox>
         <Label x:Name="NombLabel" Content="Nombres de Sauvegardes" HorizontalAlignment="Left" Margin="213,87,0,0" VerticalAlignment="Top" Width="147" RenderTransformOrigin="0.183,0.53"/>
         <Button x:Name="ButtonCommence" Content="Commence" HorizontalAlignment="Left" Height="29" Margin="282,251,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>

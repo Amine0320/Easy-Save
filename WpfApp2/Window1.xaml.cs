@@ -42,15 +42,23 @@ namespace WpfApp2
             int quan;
             if (Option1.Text.ToString()=="-")
             {
-                 quan= int.Parse(Fin.Text) - int.Parse(Debut.Text) + 1;
+                 quan = int.Parse(Fin.Text) - int.Parse(Debut.Text) + 1;
                 using (StreamWriter writer = new StreamWriter(path))
                 {
                     writer.Write(quan);
                     writer.Close();
                 }
-                } else if (Option1.Text.ToString() == ";")
+                } 
+            else if (Option1.Text.ToString() == ";")
             {
-                quan = 2;
+                if (Fin.Text.Equals(""))
+                {
+                    quan = 1;
+                }
+                else 
+                {
+                    quan = 2;
+                }
                 using (StreamWriter writer = new StreamWriter(path))
                 {
                     writer.Write(quan);
@@ -59,7 +67,7 @@ namespace WpfApp2
             }
             
             Programproc program = new Programproc();
-            program.EventMain(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString()) ;
+            program.EventMain(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString()) ;
             Window2 Fenetre2 = new Window2();
             this.Close();
             Fenetre2.Show();
@@ -68,6 +76,7 @@ namespace WpfApp2
         {
             
             this.Close();
+            Application.Current.Shutdown();
             
         }
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -122,7 +131,7 @@ namespace WpfApp2
             TypeSauvLabel.Content = "TypeSauv";
             NombLabel.Content = "Nombres de Sauvegardes";
             ButtonCommence.Content = "Commence";
-            ButtonQuit.Content = "Sortir";
+            ButtonQuit.Content = "Quitter";
             //Fenetre.Show();
         }
         private void Button_Espagnol(object sender, RoutedEventArgs e)

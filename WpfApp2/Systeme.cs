@@ -29,14 +29,10 @@ namespace WpfApp2
                 {
                     throw new Exception("La sauvegarde" + i.ToString() + "est déjà utilisée./ The save" + i.ToString() + "is already used");
                 }
-                if (i > 5 | i < 1)
+                if (i < 1)
                 {
                     throw new Exception("La sauvegarde" + i.ToString() + "ne peut pas etre utilisée./ The save" + i.ToString() + "cannot be used");
                 }
-            }
-            if (list.Count + SauvDejaCreee.Count >= 5)
-            {
-                throw new Exception("Tous les travaux de sauvegarde ont déjà été utilisés/ All the save spaces are used");
             }
             return true;
         }
@@ -52,7 +48,7 @@ namespace WpfApp2
             return NewSauvegarder;
         }
 
-        public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder)
+        public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log)
         {
             EtatTempsReel etatTempsReel = new EtatTempsReel();
             Console.WriteLine("************************");
@@ -76,7 +72,12 @@ namespace WpfApp2
             double Secondssoustraction = soustraction.TotalSeconds;
             LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2);
             string fichier = @"C:\LOGJ";
-            string nombrefichier = TodayDateForString + ".json";
+            string logtype = ".json";
+            if (log == 2)
+            {
+                logtype = ".xml";
+            }
+            string nombrefichier = TodayDateForString + logtype;
             string pathcomplete = Path.Combine(fichier, nombrefichier);
             string jsonString = JsonSerializer.Serialize(log1);
             using (StreamWriter sw = File.AppendText(pathcomplete))
@@ -84,11 +85,11 @@ namespace WpfApp2
                 sw.WriteLine(jsonString);
             }
 
-            Console.WriteLine($"Json created in: {pathcomplete}");
+            //Console.WriteLine($"Log created in: {pathcomplete}");
             return;
 
         }
-        public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder)
+        public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log)
         {
             EtatTempsReel etatTempsReel = new EtatTempsReel();
             Console.WriteLine("************************");
@@ -112,7 +113,12 @@ namespace WpfApp2
             double Secondssoustraction = soustraction.TotalSeconds;
             LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2);
             string fichier = @"C:\LOGJ";
-            string nombrefichier = TodayDateForString + ".json";
+            string logtype = ".json";
+            if (log == 2)
+            {
+                logtype = ".xml";
+            }
+            string nombrefichier = TodayDateForString + logtype;
             string pathcomplete = Path.Combine(fichier, nombrefichier);
             string jsonString = JsonSerializer.Serialize(log1.Consulter());
             using (StreamWriter sw = File.AppendText(pathcomplete))
@@ -120,7 +126,7 @@ namespace WpfApp2
                 // sw.WriteLine(jsonString);
             }
 
-            Console.WriteLine($"Json created in: {pathcomplete}");
+            //Console.WriteLine($"Json created in: {pathcomplete}");
             return;
 
         }

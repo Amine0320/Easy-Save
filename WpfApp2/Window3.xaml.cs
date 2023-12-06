@@ -35,11 +35,12 @@ namespace WpfApp2
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
+            Application.Current.Shutdown();
         }
         private void Button_England(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
-            SauvReu.Content = "Saved successfully";
+            SauvReu.Content = "End of backups";
             VoirLog.Content = "Open Log";
             VoirEtat.Content = "Open Status";
             ButtonSortir.Content = "Exit";
@@ -49,7 +50,7 @@ namespace WpfApp2
         private void Button_France(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
-            SauvReu.Content = "Sauvegarde reussie";
+            SauvReu.Content = "Fin des sauvegardes";
             VoirLog.Content = "Ouvrir Log";
             VoirEtat.Content = "Ouvrir Etat";
             ButtonSortir.Content = "Sortir";
