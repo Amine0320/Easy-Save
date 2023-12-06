@@ -23,14 +23,10 @@ public class Systeme
             {
                 throw new Exception("La sauvegarde" + i.ToString() + "est déjà utilisée./ The save" + i.ToString() + "is already used");
             }
-            if (i > 5 | i < 1)
+            if (i < 1)
             {
                 throw new Exception("La sauvegarde" + i.ToString() + "ne peut pas etre utilisée./ The save" + i.ToString() + "cannot be used");
             }
-        }
-        if (list.Count + SauvDejaCreee.Count >= 5)
-        {
-            throw new Exception("Tous les travaux de sauvegarde ont déjà été utilisés/ All the save spaces are used");
         }
         return true;
     }
