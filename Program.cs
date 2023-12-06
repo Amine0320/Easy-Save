@@ -1,11 +1,16 @@
-﻿using PowershellShowcase;
+﻿using Microsoft.PowerShell.Commands;
+using PowershellShowcase;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
+using System.Text;
 using System.Web.Services.Description;
+using Programme_cryptosoft;
+
 
 
 static void Main()
@@ -13,6 +18,7 @@ static void Main()
     string rutaArchivo = @"C:\LOGJ\state.json";
     try
     {
+
         if (File.Exists(rutaArchivo))
         {
             // Borrar el archivo
@@ -84,6 +90,8 @@ static void Main()
             Console.WriteLine("Choose which type the daily logs should be saved as:");
             Console.WriteLine("1.JSON");
             Console.WriteLine("2.XML");
+            // HONA HONA 
+
             string Log = Console.ReadLine();
             TypeSauv sauvType = Convertir(Type);
             if (sauvType == TypeSauv.Complete)
@@ -92,15 +100,67 @@ static void Main()
             }
             else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), int.Parse(Log)); }
             Systeme.SauvDejaCreee.Add(i);
+
+
+            // Lire les extensions depuis la console
+            Console.WriteLine("\nSelect file extensions to encrypt:");
+            Console.WriteLine("1. TXT");
+            Console.WriteLine("2. JPG");
+            Console.WriteLine("3. PNG");
+            Console.WriteLine("4. PDF");
+            Console.WriteLine("5. DOCX");
+
+            // ...
+
+            // Récupérer les extensions à chiffrer depuis la console
+            Console.WriteLine("Enter the numbers of the extensions you want to encrypt (e.g., 1,2,3):");
+            string selectedExtensionsInput = Console.ReadLine();
+            List<int> selectedExtensions = selectedExtensionsInput.Split(',')
+    .Select(part => int.Parse(part.Trim()))
+    .ToList();
+
+
+            // Lancer le programme CryptoSoft avec les arguments nécessaires
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "Programme cryptosoft.exe",
+                Arguments = $"{Sources} {Cible} {selectedExtensionsInput}",
+               
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            };
+
+            using (NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "CryptoSoftPipe", PipeDirection.InOut))
+            {
+                pipeClient.Connect();
+
+                using (StreamReader sr = new StreamReader(pipeClient))
+                using (StreamWriter sw = new StreamWriter(pipeClient, Encoding.UTF8))
+                {
+                    // Lire la clé du tube nommé
+                    string cleString = sr.ReadLine();
+                    byte[] cle = Convert.FromBase64String(cleString);
+
+                    // Appeler la fonction de chiffrement dans le programme CryptoSoft
+                    ProgramCryptoSoft cryptoSoft = new ProgramCryptoSoft();
+                    int returnCode = cryptoSoft.ChiffrerDossier(Sources, Cible, cle, selectedExtensions);
+
+                    Console.WriteLine(returnCode == 1 ? "Encryption successful." : $"Encryption failed. Error code: {returnCode}");
+              
+                }
+
+            }
+
         }
     }
+
     string pathfichierActuelle = @"C:\LOGJ\state2.json";
     string Nouvnomficchier = @"C:\LOGJ\state.json";
-    File.Delete(Nouvnomficchier);
-    File.Move(pathfichierActuelle, Nouvnomficchier);
+    //File.Delete(Nouvnomficchier);
+    //File.Move(pathfichierActuelle, Nouvnomficchier);
 
-
-}
 
 
     static List<int> ListeDeSauv(string sauv)
@@ -135,59 +195,5 @@ static void Main()
         else { throw new Exception("N'est pas une option"); }
     }
 
-
-static void AppelerCryptosoft(string Sources, byte[] cle, string Cible)
-{
-    try
-    {
-        // appel cryptosoft
-        // Chemin vers l'exécutable Cryptosoft
-         string cheminCryptosoft = @"C:\Users\manel\source\repos\Programme cryptosoft\Programme cryptosoft\bin\Debug\net8.0\Programme cryptosoft.exe";
-        // string cheminCryptosoft = @"C:\Users\manel\source\repos\EasySaveCryptosoft\Programme cryptosoft.exe";
-
-
-        
-        // Convertir le tableau d'octets en chaîne hexadécimale
-        string cleHex = BitConverter.ToString(cle).Replace("-", "");
-
-        // Construire la chaîne d'arguments
-        string argumentsCryptosoft = $"{Sources} {cleHex} {Cible}";
-
-        // Construire la chaîne d'arguments
-        // string argumentsCryptosoft = $"{Sources} {cle} {Cible}";
-
-        // Configurer le processus de démarrage
-        ProcessStartInfo startInfo = new ProcessStartInfo
-        {
-            FileName = cheminCryptosoft,
-            Arguments = argumentsCryptosoft,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
-
-        // Démarrer le processus
-        using (Process process = new Process { StartInfo = startInfo })
-        {
-            process.Start();
-
-            // Lire la sortie standard et d'erreur (si nécessaire)
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
-
-            // Attendre la fin du processus
-            process.WaitForExit();
-
-            // Traiter la sortie (si nécessaire)
-            Console.WriteLine($"Cryptosoft Output: {output}");
-            Console.WriteLine($"Cryptosoft Error: {error}");
-        }
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error calling Cryptosoft: {ex.Message}");
-    }
 }
-
 Main();

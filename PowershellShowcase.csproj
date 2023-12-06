@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -10,9 +10,17 @@
   <ItemGroup>
     <PackageReference Include="Cake" Version="1.1.0" />
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.2" />
+    <PackageReference Include="Microsoft.Win32.Primitives" Version="4.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="runtime.unix.Microsoft.Win32.Primitives" Version="4.3.0" />
+    <PackageReference Include="runtime.win.Microsoft.Win32.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="System.Management.Automation" Version="7.2.2" />
 	<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Programme cryptosoft\Programme cryptosoft\Programme cryptosoft.csproj" />
   </ItemGroup>
 
 </Project>

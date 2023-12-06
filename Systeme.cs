@@ -45,6 +45,9 @@ public class Systeme
         NewSauvegarder.Type = Type;
         return NewSauvegarder;
     }
+    // appel fonction 
+  
+
 
     public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log)
     {
@@ -83,10 +86,13 @@ public class Systeme
             sw.WriteLine(jsonString);
         }
 
+
         Console.WriteLine($"Log created in: {pathcomplete}");
         return;
 
     }
+
+
     public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log)
     {
         EtatTempsReel etatTempsReel = new EtatTempsReel();
@@ -164,4 +170,6 @@ public class Systeme
         }
 
     }
+    // nimporte quoi : 
+
 }
