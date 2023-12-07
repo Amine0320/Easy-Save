@@ -7387,11 +7387,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kikou\\source\\repos\\EasySave\\WpfApp2\\WpfApp2.csproj",
-      "projectName": "WpfApp2",
-      "projectPath": "C:\\Users\\kikou\\source\\repos\\EasySave\\WpfApp2\\WpfApp2.csproj",
+      "projectUniqueName": "C:\\Users\\kikou\\Source\\Repos\\EasySaveWPF2\\WpfApp2\\EasySavev2.csproj",
+      "projectName": "EasySavev2",
+      "projectPath": "C:\\Users\\kikou\\Source\\Repos\\EasySaveWPF2\\WpfApp2\\EasySavev2.csproj",
       "packagesPath": "C:\\Users\\kikou\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kikou\\source\\repos\\EasySave\\WpfApp2\\obj\\",
+      "outputPath": "C:\\Users\\kikou\\Source\\Repos\\EasySaveWPF2\\WpfApp2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

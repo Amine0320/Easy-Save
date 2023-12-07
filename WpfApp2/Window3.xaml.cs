@@ -53,7 +53,7 @@ namespace WpfApp2
             SauvReu.Content = "Fin des sauvegardes";
             VoirLog.Content = "Ouvrir Log";
             VoirEtat.Content = "Ouvrir Etat";
-            ButtonSortir.Content = "Sortir";
+            ButtonSortir.Content = "Quitter";
             //Fenetre.Show();
         }
         private void Button_Espagnol(object sender, RoutedEventArgs e)

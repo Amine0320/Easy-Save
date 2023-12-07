@@ -54,14 +54,14 @@ namespace WpfApp2
                         Systeme.SauvDejaCreee.Add(i);
                     }
                 }
+                string pathfichierActuelle = @"C:\LOGJ\state2.json";
+                if (File.Exists(pathfichierActuelle))
+                {
+                    File.Delete(rutaArchivo);
+                    File.Move(pathfichierActuelle, rutaArchivo);
+                }
+            }
 
-            }
-            string pathfichierActuelle = @"C:\LOGJ\state2.json";
-            if (File.Exists(pathfichierActuelle))
-            {
-                File.Delete(rutaArchivo);
-                File.Move(pathfichierActuelle, rutaArchivo);
-            }
 
 
         }

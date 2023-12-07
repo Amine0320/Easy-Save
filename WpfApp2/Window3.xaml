@@ -11,7 +11,7 @@
         <Label x:Name="SauvReu" Content="Sauvegarde reussie" HorizontalAlignment="Left" Margin="85,47,0,0" VerticalAlignment="Top"/>
         <Button x:Name="VoirLog" Content="Voir Log" HorizontalAlignment="Left" Height="29" Margin="21,122,0,0" VerticalAlignment="Top" Width="58" Click="Button_Click" IsEnabled="False"/>
         <Button x:Name="VoirEtat" Content="Voir Etat" HorizontalAlignment="Left" Height="29" Margin="124,124,0,0" VerticalAlignment="Top" Width="58" IsEnabled="False"/>
-        <Button x:Name="ButtonSortir" Content="Quit" HorizontalAlignment="Left" Height="29" Margin="217,126,0,0" VerticalAlignment="Top" Width="58" Click="Button_Click_1"/>
+        <Button x:Name="ButtonSortir" Content="Quitter" HorizontalAlignment="Left" Height="29" Margin="217,126,0,0" VerticalAlignment="Top" Width="58" Click="Button_Click_1"/>
         <Button HorizontalAlignment="Left" Margin="143,11,0,0" VerticalAlignment="Top" Height="26" Width="38">
             <Button.Background>
                 <ImageBrush ImageSource="/Egypt.png"/>
