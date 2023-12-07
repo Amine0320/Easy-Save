@@ -43,8 +43,7 @@ namespace WpfApp2
         // A verifier 
         public string Consulter()
         {
-            string DossierPro = Directory.GetCurrentDirectory();
-            string rutaScriptPowerShell = @"C:\CESIProject2\Csharp\ExecuteJorJournalier.ps1";
+            string rutaScriptPowerShell = GlobalVariables.Dir + "ExecuteJorJournalier.ps1";
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = "powershell.exe",

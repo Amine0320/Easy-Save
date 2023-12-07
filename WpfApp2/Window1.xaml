@@ -21,12 +21,12 @@
             <ListBoxItem Content="2"/>
         </ComboBox>
         <ComboBox x:Name="Option1" HorizontalAlignment="Left" Margin="289,127,0,0" VerticalAlignment="Top" Width="35" SelectedIndex="0" Text="-">
-            <ListBoxItem Content="-"/>
             <ListBoxItem Content=";"/>
+            <ListBoxItem Content="-"/>
         </ComboBox>
         <Label x:Name="NombLabel" Content="Nombres de Sauvegardes" HorizontalAlignment="Left" Margin="213,87,0,0" VerticalAlignment="Top" Width="147" RenderTransformOrigin="0.183,0.53"/>
         <Button x:Name="ButtonCommence" Content="Commence" HorizontalAlignment="Left" Height="29" Margin="282,251,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
-        <Button x:Name="ButtonQuit" Content="Quit" HorizontalAlignment="Left" Height="29" Margin="285,301,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click2"/>
+        <Button x:Name="ButtonQuit" Content="Quitter" HorizontalAlignment="Left" Height="29" Margin="285,301,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click2"/>
         <TextBox x:Name="Cible" HorizontalAlignment="Left" Margin="51,187,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="Source" HorizontalAlignment="Left" Margin="53,130,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="Debut" HorizontalAlignment="Left" Margin="225,130,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="47"/>

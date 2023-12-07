@@ -23,46 +23,7 @@ namespace WpfApp2
 
         public void SaveToJson(string Source, string Target, int iden)
         {
-            Console.WriteLine("***En proceso ***");
-            string DossierPro = Directory.GetCurrentDirectory();
-            string rutaScriptPowerShell = @"C:\CESIProject2\Csharp\ExecuteLogTempReel.ps1";
-            ProcessStartInfo psi = new ProcessStartInfo
-            {
-                FileName = "powershell.exe",
-                RedirectStandardInput = true,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true,
-                UseShellExecute = false
-            };
-            Console.WriteLine("***Ejecutando ***");
-            using (Process proceso = new Process { StartInfo = psi })
-            {
-                proceso.Start();
-
-                // Cargar y ejecutar el script PowerShell
-                using (System.IO.StreamWriter sw = proceso.StandardInput)
-                {
-                    if (sw.BaseStream.CanWrite)
-                    {
-                        sw.WriteLine($"& '{rutaScriptPowerShell}' -sourcePath " + Source + " -destinationPath " + Target + " -ID " + iden);
-                    }
-                }
-
-                // Obtener la salida del proceso
-                string resultado = proceso.StandardOutput.ReadToEnd();
-
-                // Mostrar la salida (puedes hacer otras cosas con el resultado)
-                Console.WriteLine("Resultado:");
-                Console.WriteLine(resultado);
-            }
-            return;
-        }
-        public void SaveToJsonDiff(string Source, string Target, int iden)
-        {
-            //Console.WriteLine("***En proceso ***");
-            string DossierPro = Directory.GetCurrentDirectory();
-            string rutaScriptPowerShell = @"C:\CESIProject2\Csharp\ExecuteLogTempReelDiff.ps1";
+            string rutaScriptPowerShell = GlobalVariables.Dir + "ExecuteLogTempReel.ps1";
             ProcessStartInfo psi = new ProcessStartInfo
             {
                 FileName = "powershell.exe",
@@ -87,11 +48,47 @@ namespace WpfApp2
                 }
 
                 // Obtener la salida del proceso
-                string resultado = proceso.StandardOutput.ReadToEnd();
+                //string resultado = proceso.StandardOutput.ReadToEnd();
 
                 // Mostrar la salida (puedes hacer otras cosas con el resultado)
-                Console.WriteLine("Resultado:");
-                Console.WriteLine(resultado);
+                //Console.WriteLine("Resultado:");
+                //Console.WriteLine(resultado);
+            }
+            return;
+        }
+        public void SaveToJsonDiff(string Source, string Target, int iden)
+        {
+            //Console.WriteLine("***En proceso ***");
+            string rutaScriptPowerShell = GlobalVariables.Dir + "ExecuteLogTempReelDiff.ps1";
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+                UseShellExecute = false
+            };
+            //Console.WriteLine("***Ejecutando ***");
+            using (Process proceso = new Process { StartInfo = psi })
+            {
+                proceso.Start();
+
+                // Cargar y ejecutar el script PowerShell
+                using (System.IO.StreamWriter sw = proceso.StandardInput)
+                {
+                    if (sw.BaseStream.CanWrite)
+                    {
+                        sw.WriteLine($"& '{rutaScriptPowerShell}' -sourcePath " + Source + " -destinationPath " + Target + " -ID " + iden);
+                    }
+                }
+
+                // Obtener la salida del proceso
+                //string resultado = proceso.StandardOutput.ReadToEnd();
+
+                // Mostrar la salida (puedes hacer otras cosas con el resultado)
+                //Console.WriteLine("Resultado:");
+                //Console.WriteLine(resultado);
             }
             return;
         }

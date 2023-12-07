@@ -25,9 +25,6 @@ namespace WpfApp2
         public Window2()
         {
             InitializeComponent();
-
-
-            
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -39,10 +36,6 @@ namespace WpfApp2
             if (pbConteo.Value == 100)
             {
                 timer.Stop();
-            }
-            else
-            {
-                
             }
             //
         }
@@ -57,6 +50,7 @@ namespace WpfApp2
             string trutj;
             Window1 Fenetre1 = new Window1();
             Window3 Fenetre3 = new Window3();
+            if (GlobalVariables.Exist) { this.Close(); }
             if (pbConteo.Value == 100)
             {
                 using (StreamReader reader = new StreamReader(path))
@@ -98,6 +92,7 @@ namespace WpfApp2
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
+            Application.Current.Shutdown();
         }
 
     }
