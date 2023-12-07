@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PowershellShowcase")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b25bc652d01bbf2d85fe3834e5407e4ca75ed5c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("PowershellShowcase")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PowershellShowcase")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

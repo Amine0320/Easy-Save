@@ -13,6 +13,7 @@ using Programme_cryptosoft;
 
 
 
+
 static void Main()
 {
     string rutaArchivo = @"C:\LOGJ\state.json";
@@ -125,7 +126,6 @@ static void Main()
             {
                 FileName = "Programme cryptosoft.exe",
                 Arguments = $"{Sources} {Cible} {selectedExtensionsInput}",
-               
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -134,7 +134,16 @@ static void Main()
 
             using (NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "CryptoSoftPipe", PipeDirection.InOut))
             {
-                pipeClient.Connect();
+                // Tentative de connexion à la canalisation nommée
+                try
+                {
+                    pipeClient.Connect();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error connecting to CryptoSoftPipe: {ex.Message}");
+                    return; // Arrêter le processus si la connexion échoue
+                }
 
                 using (StreamReader sr = new StreamReader(pipeClient))
                 using (StreamWriter sw = new StreamWriter(pipeClient, Encoding.UTF8))
@@ -146,12 +155,10 @@ static void Main()
                     // Appeler la fonction de chiffrement dans le programme CryptoSoft
                     ProgramCryptoSoft cryptoSoft = new ProgramCryptoSoft();
                     int returnCode = cryptoSoft.ChiffrerDossier(Sources, Cible, cle, selectedExtensions);
-
                     Console.WriteLine(returnCode == 1 ? "Encryption successful." : $"Encryption failed. Error code: {returnCode}");
-              
                 }
-
             }
+
 
         }
     }
