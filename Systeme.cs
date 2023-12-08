@@ -68,10 +68,11 @@ public class Systeme
         //string output = PowerShellHandler.Command(Execute);
         etatTempsReel.SaveToJson(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i);
         Console.WriteLine("***copie réussie ***");
+        int timeCrypt= 0;
         DateTime date2 = DateTime.Now;
         TimeSpan soustraction = date2 - date1;
         double Secondssoustraction = soustraction.TotalSeconds;
-        LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2);
+        LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction);
         string fichier = @"C:\LOGJ";
         string logtype = ".json";
         if (log == 2)
@@ -113,9 +114,10 @@ public class Systeme
         etatTempsReel.SaveToJsonDiff(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i);
         Console.WriteLine("***copie réussie ***");
         DateTime date2 = DateTime.Now;
+        int timeCrypt = 0;
         TimeSpan soustraction = date2 - date1;
         double Secondssoustraction = soustraction.TotalSeconds;
-        LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2);
+        LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2) ;
         string fichier = @"C:\LOGJ";
         string logtype = ".json";
         if (log == 2)

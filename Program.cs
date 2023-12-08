@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Services.Description;
 using Programme_cryptosoft;
-
+using System.Threading.Tasks;
 
 
 
@@ -131,14 +131,15 @@ static void Main()
                 RedirectStandardError = true,
                 CreateNoWindow = true
             };
-
-            using (NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "CryptoSoftPipe", PipeDirection.InOut))
-            {
-                // Tentative de connexion à la canalisation nommée
-                try
+            ProgramCryptoSoft cryptoSoft = new ProgramCryptoSoft();
+            cryptoSoft.Main();
+            var pipeClient = new NamedPipeClientStream("CryptoSoftPipe");
+            
+            try
                 {
                     pipeClient.Connect();
-                }
+                     
+                  }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error connecting to CryptoSoftPipe: {ex.Message}");
@@ -151,15 +152,14 @@ static void Main()
                     // Lire la clé du tube nommé
                     string cleString = sr.ReadLine();
                     byte[] cle = Convert.FromBase64String(cleString);
+                Task.Delay(10000).Wait();
+                // Appeler la fonction de chiffrement dans le programme CryptoSoft
+                //  ProgramCryptoSoft cryptoSoft = new ProgramCryptoSoft();
 
-                    // Appeler la fonction de chiffrement dans le programme CryptoSoft
-                    ProgramCryptoSoft cryptoSoft = new ProgramCryptoSoft();
-                    int returnCode = cryptoSoft.ChiffrerDossier(Sources, Cible, cle, selectedExtensions);
+                int returnCode = cryptoSoft.ChiffrerDossier(Sources, Cible, cle, selectedExtensions);
                     Console.WriteLine(returnCode == 1 ? "Encryption successful." : $"Encryption failed. Error code: {returnCode}");
                 }
-            }
-
-
+            
         }
     }
 

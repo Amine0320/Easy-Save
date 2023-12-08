@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace PowershellShowcase
 {
@@ -16,7 +18,8 @@ namespace PowershellShowcase
         public long FileSize { get; set; }
         public double FileTransferTime { get; set; }
         public string Time { get; set; }
-
+        public string timeCrypt { get; set; }
+        
         public LogJournalier(int idLogJourn, string nomLj, string fileSource, string fileTarget, long fileSize, double fileTransferTime, string time)
         {
             this.IdLogJourn = idLogJourn;
@@ -26,6 +29,7 @@ namespace PowershellShowcase
             this.FileSize = fileSize;
             this.FileTransferTime = fileTransferTime;
             this.Time = time;
+            this.timeCrypt = ObtenuValeur();
         }
 
         public void Modifier(int idLogJourn, string nomLj, string fileSource, string fileTarget, long fileSize, double fileTransferTime, string time)
@@ -37,7 +41,11 @@ namespace PowershellShowcase
             this.FileSize = fileSize;
             this.FileTransferTime = fileTransferTime;
             this.Time = time;
+            //this.timeCrypt = timeCrypt;
         }
+
+
+
 
         public string Consulter(int outputFormat)
         {
@@ -51,9 +59,10 @@ namespace PowershellShowcase
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 CreateNoWindow = true,
-                UseShellExecute = false
+                UseShellExecute = false,
             };
-
+            //      EnregistrerTempsCryptage(this.timeCrypt);
+            
             using (Process process = new Process { StartInfo = psi })
             {
                 process.Start();
@@ -62,7 +71,8 @@ namespace PowershellShowcase
                 {
                     if (sw.BaseStream.CanWrite)
                     {
-                        sw.WriteLine($"& '{scriptPowerShellPath}' -IdLogJourn {this.IdLogJourn} -NomLj {this.NomLj} -FileSource {this.FileSource} -FileTarget {this.FileTarget} -FileSize {this.FileSize} -FileTransferTime {this.FileTransferTime} -Time {this.Time}");
+                        sw.WriteLine($"& '{scriptPowerShellPath}' -IdLogJourn {this.IdLogJourn} -NomLj {this.NomLj} -FileSource {this.FileSource} -FileTarget {this.FileTarget} -FileSize {this.FileSize} -FileTransferTime {this.FileTransferTime} -Time {this.Time} -timeCrypt {timeCrypt}");
+
                     }
                 }
 
@@ -81,7 +91,7 @@ namespace PowershellShowcase
 
         private string SerializeToJson(string result)
         {
-            return JsonSerializer.Serialize(result);
+            return System.Text.Json.JsonSerializer.Serialize(result);
         }
 
         private string SerializeToXml(string result)
@@ -96,24 +106,44 @@ namespace PowershellShowcase
                 return stringWriter.ToString();
             }
         }
+        public string ObtenuValeur()
+        {
+            // Spécifiez le chemin du fichier JSON
+            string cheminFichierJson = @"C:\LOGJ\state3.json";
+            
+            string timetre="";
+            try
+            {
+                // Lire le contenu du fichier JSON
+                string contenuJson = File.ReadAllText(cheminFichierJson);
+
+                // Analyser le JSON en tant qu'objet (JObject)
+                JObject jsonObject = JObject.Parse(contenuJson);
+
+                // Extraire les deux propriétés
+                JProperty timeCryptProperty = jsonObject.Property("timeCrypt");
+                JProperty dateEnregistrementProperty = jsonObject.Property("DateEnregistrement");
+                timetre = timeCryptProperty.Value.ToString();
+                // Vérifier si les propriétés existent
+                if (timeCryptProperty != null && dateEnregistrementProperty != null)
+                {
+                    // Traitez les deux propriétés comme nécessaire
+                    Console.WriteLine($"timeCrypt : {timeCryptProperty.Value}");
+                    Console.WriteLine($"DateEnregistrement : {dateEnregistrementProperty.Value}");
+                    timetre= timeCryptProperty.Value.ToString();
+
+                }
+                else
+                {
+                    Console.WriteLine("Le fichier JSON ne contient pas les propriétés attendues.");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur s'est produite : " + e.Message);
+            }
+            return timetre;
+        }
+        
     }
 }
-
-/* return $"Id du journal : {this.IdLogJourn}\r\n" +
-        $"Nom du journal : {this.NomLj}\r\n" +
-        $"Fichier source : {this.FileSource}\r\n" +
-        $"Fichier cible : {this.FileTarget}\r\n" +
-        $"Taille du fichier : {this.FileSize}\r\n" +
-        $"Temps de transfert du fichier : {this.FileTransferTime}\r\n" +
-        $"Heure : {this.Time}";
- }
-/* public string Consulter()
-{
-  return $"Id du journal : {this.IdLogJourn}\n" +
-         $"Nom du journal : {this.NomLj}\n" +
-         $"Fichier source : {this.FileSource}\n" +
-         $"Fichier cible : {this.FileTarget}\n" +
-         $"Taille du fichier : {this.FileSize}\n" +
-         $"Temps de transfert du fichier : {this.FileTransferTime}\n" +
-         $"Heure : {this.Time}";
-}*/  
