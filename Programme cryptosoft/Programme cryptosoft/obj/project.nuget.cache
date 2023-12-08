@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "wBStpEzwOEAUKi7T2moHPDQpSIwkzXQchJP2wnbAymjGt3z3SYQpckeZpyRuUrJYzPmoG1iS0zYC4ok/sACKQA==",
+  "success": true,
+  "projectFilePath": "C:\\LOGJ\\Aller\\EasySave\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bruno\\.nuget\\packages\\microsoft.management.infrastructure\\3.0.0\\microsoft.management.infrastructure.3.0.0.nupkg.sha512",
+    "C:\\Users\\bruno\\.nuget\\packages\\microsoft.management.infrastructure.runtime.unix\\3.0.0\\microsoft.management.infrastructure.runtime.unix.3.0.0.nupkg.sha512",
+    "C:\\Users\\bruno\\.nuget\\packages\\microsoft.management.infrastructure.runtime.win\\3.0.0\\microsoft.management.infrastructure.runtime.win.3.0.0.nupkg.sha512",
+    "C:\\Users\\bruno\\.nuget\\packages\\system.codedom\\8.0.0\\system.codedom.8.0.0.nupkg.sha512",
+    "C:\\Users\\bruno\\.nuget\\packages\\system.management\\8.0.0\\system.management.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
