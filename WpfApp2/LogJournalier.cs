@@ -41,6 +41,7 @@ namespace WpfApp2
         }
         // Methode Consulter qui existe dans le Travail de sauvergarde est sera herite par LogJournalier
         // A verifier 
+
         public string Consulter()
         {
             string rutaScriptPowerShell = GlobalVariables.Dir + "ExecuteJorJournalier.ps1";

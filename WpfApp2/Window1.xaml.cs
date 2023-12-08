@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+
 
 namespace WpfApp2
 {
@@ -66,8 +68,10 @@ namespace WpfApp2
                 }
             }
             
+
+
             Programproc program = new Programproc();
-            program.EventMain(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString()) ;
+            program.EventMain(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString())) ;
             Window2 Fenetre2 = new Window2();
             this.Close();
             Fenetre2.Show();
@@ -149,7 +153,14 @@ namespace WpfApp2
             ButtonQuit.Content = "Salir";
             //Fenetre.Show();
         }
-
+        private int GetExtension(string ext)
+        {
+            else if (ext.Equals(".txt")) { return 1; }
+            else if (ext.Equals(".jpg")) { return 2; }
+            else if (ext.Equals(".png")) { return 3; }
+            else if (ext.Equals(".pdf")) { return 4; }
+            else { return 5; }
+        }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

@@ -15,7 +15,7 @@ namespace WpfApp2
 {
     public class Programproc
     {
-        public void EventMain(string @Sources2,string @Cible2, string Type2, string saves2, string TypeLog)
+        public void EventMain(string @Sources2,string @Cible2, string Type2, string saves2, string TypeLog, int ext)
         {
             string rutaArchivo = @"C:\LOGJ\state.json";
             try
@@ -48,9 +48,9 @@ namespace WpfApp2
                     {
                         if (sauvType == TypeSauv.Complete)
                         {
-                            TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log);
+                            TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log, ext);
                         }
-                        else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log); }
+                        else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log, ext); }
                         Systeme.SauvDejaCreee.Add(i);
                     }
                 }

@@ -65,7 +65,6 @@
             </Button.Background>
         </Button>
         <ComboBox x:Name="Extension" HorizontalAlignment="Left" Margin="266,185,0,0" VerticalAlignment="Top" Width="111" SelectedIndex="0" IsTextSearchCaseSensitive="True" Height="21">
-            <ListBoxItem Content="Aucune"/>
             <ListBoxItem Content=".txt"/>
             <ListBoxItem Content=".jpg"/>
             <ListBoxItem Content=".png"/>
