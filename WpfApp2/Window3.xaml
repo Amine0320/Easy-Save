@@ -5,39 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="Window3" Height="239" Width="303">
+        Title="EasySavev2.0" Height="239" Width="303">
     <Grid Margin="0,0,4,0">
         <TextBox HorizontalAlignment="Left" Height="0" Margin="97,24,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="68"/>
-        <Label x:Name="SauvReu" Content="Sauvegarde reussie" HorizontalAlignment="Left" Margin="85,47,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="VoirLog" Content="Voir Log" HorizontalAlignment="Left" Height="29" Margin="21,122,0,0" VerticalAlignment="Top" Width="58" Click="Button_Click" IsEnabled="False"/>
-        <Button x:Name="VoirEtat" Content="Voir Etat" HorizontalAlignment="Left" Height="29" Margin="124,124,0,0" VerticalAlignment="Top" Width="58" IsEnabled="False"/>
-        <Button x:Name="ButtonSortir" Content="Quitter" HorizontalAlignment="Left" Height="29" Margin="217,126,0,0" VerticalAlignment="Top" Width="58" Click="Button_Click_1"/>
-        <Button HorizontalAlignment="Left" Margin="143,11,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Label x:Name="SauvReu" Content="Fin des sauvegardes" HorizontalAlignment="Left" Margin="95,94,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="VoirLog" Content="Voir Log" HorizontalAlignment="Left" Height="29" Margin="30,168,0,0" VerticalAlignment="Top" Width="58" Click="Button_Click" IsEnabled="False"/>
+        <Button x:Name="VoirEtat" Content="Voir Etat" HorizontalAlignment="Left" Height="29" Margin="124,168,0,0" VerticalAlignment="Top" Width="58" IsEnabled="False" RenderTransformOrigin="0.514,0.523"/>
+        <Button x:Name="ButtonSortir" Content="Quitter" HorizontalAlignment="Left" Height="29" Margin="218,168,0,0" VerticalAlignment="Top" Width="58" Click="Button_Click_1"/>
+        <Button HorizontalAlignment="Left" Margin="153,20,0,0" VerticalAlignment="Top" Height="26" Width="38">
             <Button.Background>
                 <ImageBrush ImageSource="/Egypt.png"/>
             </Button.Background>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="181,11,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Button HorizontalAlignment="Left" Margin="190,20,0,0" VerticalAlignment="Top" Height="26" Width="38">
             <Button.Background>
                 <ImageBrush ImageSource="/Tunisie.png"/>
             </Button.Background>
         </Button>
-        <Button Content="" HorizontalAlignment="Left" Margin="30,11,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_France" >
+        <Button Content="" HorizontalAlignment="Left" Margin="40,20,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_France" >
             <Button.Background>
                 <ImageBrush ImageSource="/France.png"/>
             </Button.Background>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="105,11,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Button HorizontalAlignment="Left" Margin="115,20,0,0" VerticalAlignment="Top" Height="26" Width="38">
             <Button.Background>
                 <ImageBrush ImageSource="/Algerie.png"/>
             </Button.Background>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="219,11,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Espagnol">
+        <Button HorizontalAlignment="Left" Margin="228,20,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Espagnol">
             <Button.Background>
                 <ImageBrush ImageSource="/Peru.png"/>
             </Button.Background>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="67,11,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_England">
+        <Button HorizontalAlignment="Left" Margin="77,20,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_England">
             <Button.Background>
                 <ImageBrush ImageSource="/England.png"/>
             </Button.Background>

@@ -118,6 +118,7 @@ namespace WpfApp2
             TypeLogLabel.Content = "LogType";
             TypeSauvLabel.Content = "LogSav";
             NombLabel.Content = "Number of Backups";
+            ExtLabel.Content = "Extensions to encrypt";
             ButtonCommence.Content = "Start";
             ButtonQuit.Content = "Quit";
             //Fenetre.Show();
@@ -130,6 +131,7 @@ namespace WpfApp2
             TypeLogLabel.Content = "TypeLog";
             TypeSauvLabel.Content = "TypeSauv";
             NombLabel.Content = "Nombres de Sauvegardes";
+            ExtLabel.Content = "Extensions à chiffrer";
             ButtonCommence.Content = "Commence";
             ButtonQuit.Content = "Quitter";
             //Fenetre.Show();
@@ -142,9 +144,15 @@ namespace WpfApp2
             TypeLogLabel.Content = "TipoLog";
             TypeSauvLabel.Content = "TipoGuar";
             NombLabel.Content = "Cantidad de Salvaguardado";
+            ExtLabel.Content = "Extensiones para cifrar";
             ButtonCommence.Content = "Comenzar";
             ButtonQuit.Content = "Salir";
             //Fenetre.Show();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
