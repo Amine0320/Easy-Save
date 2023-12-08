@@ -116,6 +116,7 @@ namespace WpfApp2
             TimeSpan soustraction = date2 - date1;
             double Secondssoustraction = soustraction.TotalSeconds;
             LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2, timeCrypt) ;
+            log1.timeCrypt = log1.ObtenuValeur();
             string fichier = @"C:\LOGJ";
             string logtype = ".json";
             if (log == 2)
