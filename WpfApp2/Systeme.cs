@@ -48,7 +48,7 @@ namespace WpfApp2
             return NewSauvegarder;
         }
 
-        public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log)
+        public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log, int ext)
         {
             EtatTempsReel etatTempsReel = new EtatTempsReel();
             Console.WriteLine("************************");
@@ -89,7 +89,7 @@ namespace WpfApp2
             return;
 
         }
-        public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log)
+        public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log, int ext)
         {
             EtatTempsReel etatTempsReel = new EtatTempsReel();
             Console.WriteLine("************************");

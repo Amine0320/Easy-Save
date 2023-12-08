@@ -59,7 +59,7 @@ namespace WpfApp2
         private void Button_Espagnol(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
-            SauvReu.Content = "Guardado Exitoso";
+            SauvReu.Content = "Fin de las copias de seguridad";
             VoirLog.Content = "Abrir Log";
             VoirEtat.Content = "Abrir Estado";
             ButtonSortir.Content = "Salir";
