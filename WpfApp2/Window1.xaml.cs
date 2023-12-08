@@ -67,8 +67,8 @@ namespace WpfApp2
                     writer.Close();
                 }
             }
-            
 
+            
 
             Programproc program = new Programproc();
             program.EventMain(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString())) ;
@@ -155,6 +155,7 @@ namespace WpfApp2
         }
         private int GetExtension(string ext)
         {
+            if (ext.Equals("Aucune")) { return 0; }
             else if (ext.Equals(".txt")) { return 1; }
             else if (ext.Equals(".jpg")) { return 2; }
             else if (ext.Equals(".png")) { return 3; }

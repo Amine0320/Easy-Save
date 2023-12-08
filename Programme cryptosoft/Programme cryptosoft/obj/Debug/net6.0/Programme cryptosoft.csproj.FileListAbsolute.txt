@@ -1,0 +1,29 @@
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\Programme cryptosoft.exe
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\Programme cryptosoft.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\obj\Debug\net6.0\Programme cryptosoft.csproj.AssemblyReference.cache
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\obj\Debug\net6.0\Programme cryptosoft.GeneratedMSBuildEditorConfig.editorconfig
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\obj\Debug\net6.0\Programme cryptosoft.AssemblyInfoInputs.cache
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\obj\Debug\net6.0\Programme cryptosoft.AssemblyInfo.cs
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\obj\Debug\net6.0\Programme cryptosoft.csproj.CoreCompileInputs.cache
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\obj\Debug\net6.0\Programme cryptosoft.csproj.CopyComplete
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\obj\Debug\net6.0\Programme cryptosoft.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\obj\Debug\net6.0\refint\Programme cryptosoft.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\obj\Debug\net6.0\Programme cryptosoft.pdb
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\Programme cryptosoft.deps.json
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\Programme cryptosoft.runtimeconfig.json
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\Programme cryptosoft.pdb
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\obj\Debug\net6.0\Programme cryptosoft.genruntimeconfig.cache
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\obj\Debug\net6.0\ref\Programme cryptosoft.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\System.CodeDom.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\System.Management.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\runtimes\unix\lib\netstandard1.6\Microsoft.Management.Infrastructure.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\runtimes\win-arm64\lib\netstandard1.6\microsoft.management.infrastructure.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\runtimes\win-arm64\lib\netstandard1.6\microsoft.management.infrastructure.native.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\runtimes\win-arm64\native\microsoft.management.infrastructure.native.unmanaged.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\runtimes\win-x64\lib\netstandard1.6\microsoft.management.infrastructure.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\runtimes\win-x64\lib\netstandard1.6\microsoft.management.infrastructure.native.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\runtimes\win-x64\native\microsoft.management.infrastructure.native.unmanaged.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\runtimes\win-x86\lib\netstandard1.6\microsoft.management.infrastructure.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\runtimes\win-x86\lib\netstandard1.6\microsoft.management.infrastructure.native.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\runtimes\win-x86\native\microsoft.management.infrastructure.native.unmanaged.dll
+C:\LOGJ\Aller\EasySave\Programme cryptosoft\Programme cryptosoft\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Management.dll

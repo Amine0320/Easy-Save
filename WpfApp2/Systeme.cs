@@ -68,9 +68,12 @@ namespace WpfApp2
             etatTempsReel.SaveToJson(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i);
             Console.WriteLine("***copie réussie ***");
             DateTime date2 = DateTime.Now;
+            string timeCrypt = "";
             TimeSpan soustraction = date2 - date1;
             double Secondssoustraction = soustraction.TotalSeconds;
-            LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2);
+            LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2, timeCrypt);
+            log1.timeCrypt = log1.ObtenuValeur();
+            
             string fichier = @"C:\LOGJ";
             string logtype = ".json";
             if (log == 2)
@@ -109,9 +112,10 @@ namespace WpfApp2
             etatTempsReel.SaveToJsonDiff(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i);
             Console.WriteLine("***copie réussie ***");
             DateTime date2 = DateTime.Now;
+            string timeCrypt = "";
             TimeSpan soustraction = date2 - date1;
             double Secondssoustraction = soustraction.TotalSeconds;
-            LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2);
+            LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2, timeCrypt) ;
             string fichier = @"C:\LOGJ";
             string logtype = ".json";
             if (log == 2)

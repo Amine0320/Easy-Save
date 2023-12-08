@@ -10,6 +10,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Web.Services.Description;
+using Programme_cryptosoft;
+using System.Diagnostics;
+using System.IO.Pipes;
 
 namespace WpfApp2
 {
@@ -44,6 +47,62 @@ namespace WpfApp2
                     if (TypeLog.Equals("JSON")) { log = 1; }
                     TypeSauv sauvType = Convertir(Type);
                     GlobalVariables.Exist = LogMetier.CheckAppsInDirectory(Sources);
+                    
+                    string selectedExtensionsInput = ext.ToString();
+                    List<int> selectedExtensions = selectedExtensionsInput.Split(',')
+                     .Select(part => int.Parse(part.Trim()))
+                     .ToList();
+
+
+                    // Lancer le programme CryptoSoft avec les arguments nécessaires
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        FileName = "Programme cryptosoft.exe",
+                        Arguments = $"{Sources} {Cible} {selectedExtensionsInput}",
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true
+                    };
+                    ProgramCryptoSoft cryptoSoft = new ProgramCryptoSoft();
+                    var pipeClient = new NamedPipeClientStream("CryptoSoftPipe");
+                    cryptoSoft.Main();
+                    try
+                    {
+                        pipeClient.Connect();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error connecting to CryptoSoftPipe: {ex.Message}");
+                        return; // Arrêter le processus si la connexion échoue
+                    }
+
+                    try
+                    {
+                        using (StreamReader sr = new StreamReader(pipeClient))
+                        using (StreamWriter sw = new StreamWriter(pipeClient, Encoding.UTF8))
+                        {
+
+
+
+                            // Lire la clé du tube nommé
+                            string cleString = sr.ReadLine();
+                            byte[] cle = Convert.FromBase64String(cleString);
+                            Task.Delay(10000).Wait();
+                            // Appeler la fonction de chiffrement dans le programme CryptoSoft
+                            //  ProgramCryptoSoft cryptoSoft = new ProgramCryptoSoft();
+
+                            int returnCode = cryptoSoft.ChiffrerDossier(Sources, Cible, cle, selectedExtensions);
+                            Console.WriteLine(returnCode == 1 ? "Encryption successful." : $"Encryption failed. Error code: {returnCode}");
+
+
+                        }
+                    }
+                    catch (IOException ex)
+                    {
+                        // Handle the exception
+                    }
                     if (!GlobalVariables.Exist)
                     {
                         if (sauvType == TypeSauv.Complete)
@@ -53,7 +112,9 @@ namespace WpfApp2
                         else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log, ext); }
                         Systeme.SauvDejaCreee.Add(i);
                     }
+
                 }
+                
                 string pathfichierActuelle = @"C:\LOGJ\state2.json";
                 if (File.Exists(pathfichierActuelle))
                 {
