@@ -3614,16 +3614,6 @@
             "rid": "win"
           }
         }
-      },
-      "Programme cryptosoft/1.0.0": {
-        "type": "project",
-        "framework": "Unsupported,Version=v0.0",
-        "compile": {
-          "bin/placeholder/Programme cryptosoft.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Programme cryptosoft.dll": {}
-        }
       }
     },
     "net8.0": {
@@ -7238,16 +7228,6 @@
             "assetType": "runtime",
             "rid": "win"
           }
-        }
-      },
-      "Programme cryptosoft/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/Programme cryptosoft.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Programme cryptosoft.dll": {}
         }
       }
     }
@@ -11975,33 +11955,28 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
-    },
-    "Programme cryptosoft/1.0.0": {
-      "type": "project",
-      "path": "../Programme cryptosoft/Programme cryptosoft/Programme cryptosoft.csproj",
-      "msbuildProject": "../Programme cryptosoft/Programme cryptosoft/Programme cryptosoft.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "C:\\Users\\bruno\\Source\\Repos\\EasySave\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj",
       "Cake >= 1.1.0",
       "Microsoft.CodeAnalysis.Analyzers >= 3.3.2",
       "Microsoft.PowerShell.SDK >= 7.2.2",
       "Microsoft.Win32.Primitives >= 4.3.0",
       "Newtonsoft.Json >= 13.0.3",
-      "Programme cryptosoft >= 1.0.0",
       "System.ComponentModel >= 4.3.0",
       "System.Management.Automation >= 7.2.2",
       "runtime.unix.Microsoft.Win32.Primitives >= 4.3.0",
       "runtime.win.Microsoft.Win32.Primitives >= 4.3.0"
     ],
     "net8.0": [
+      "C:\\Users\\bruno\\Source\\Repos\\EasySave\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj",
       "Cake >= 1.1.0",
       "Microsoft.CodeAnalysis.Analyzers >= 3.3.2",
       "Microsoft.PowerShell.SDK >= 7.2.2",
       "Microsoft.Win32.Primitives >= 4.3.0",
       "Newtonsoft.Json >= 13.0.3",
-      "Programme cryptosoft >= 1.0.0",
       "System.ComponentModel >= 4.3.0",
       "System.Management.Automation >= 7.2.2",
       "runtime.unix.Microsoft.Win32.Primitives >= 4.3.0",
@@ -12009,24 +11984,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\manel\\.nuget\\packages\\": {},
+    "C:\\Users\\bruno\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\manel\\source\\repos\\EasySaveCryptosoft\\PowershellShowcase.csproj",
+      "projectUniqueName": "C:\\Users\\bruno\\Source\\Repos\\EasySave\\nose\\PowershellShowcase.csproj",
       "projectName": "PowershellShowcase",
-      "projectPath": "C:\\Users\\manel\\source\\repos\\EasySaveCryptosoft\\PowershellShowcase.csproj",
-      "packagesPath": "C:\\Users\\manel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\manel\\source\\repos\\EasySaveCryptosoft\\obj\\",
+      "projectPath": "C:\\Users\\bruno\\Source\\Repos\\EasySave\\nose\\PowershellShowcase.csproj",
+      "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bruno\\Source\\Repos\\EasySave\\nose\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\manel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -12043,16 +12018,16 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\manel\\source\\repos\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj": {
-              "projectPath": "C:\\Users\\manel\\source\\repos\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj"
+            "C:\\Users\\bruno\\Source\\Repos\\EasySave\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj": {
+              "projectPath": "C:\\Users\\bruno\\Source\\Repos\\EasySave\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj"
             }
           }
         },
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\manel\\source\\repos\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj": {
-              "projectPath": "C:\\Users\\manel\\source\\repos\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj"
+            "C:\\Users\\bruno\\Source\\Repos\\EasySave\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj": {
+              "projectPath": "C:\\Users\\bruno\\Source\\Repos\\EasySave\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj"
             }
           }
         }
@@ -12115,24 +12090,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.25, 6.0.25]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[6.0.25, 6.0.25]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.25, 6.0.25]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.25, 6.0.25]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -12202,12 +12159,13 @@
   },
   "logs": [
     {
-      "code": "NU1201",
+      "code": "NU1104",
       "level": "Error",
-      "message": "Le projet Programme cryptosoft n'est pas compatible avec net6.0 (.NETCoreApp,Version=v6.0). Le projet Programme cryptosoft prend en charge : net8.0 (.NETCoreApp,Version=v8.0)",
-      "libraryId": "Programme cryptosoft",
+      "message": "Projet 'C:\\Users\\bruno\\Source\\Repos\\EasySave\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj' introuvable. Vérifiez que la référence de projet est valide et que le fichier projet existe.",
+      "libraryId": "C:\\Users\\bruno\\Source\\Repos\\EasySave\\Programme cryptosoft\\Programme cryptosoft\\Programme cryptosoft.csproj",
       "targetGraphs": [
-        "net6.0"
+        "net6.0",
+        "net8.0"
       ]
     }
   ]
