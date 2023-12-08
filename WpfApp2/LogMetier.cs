@@ -1,40 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using WpfApp2;
 
-class LogMetier
+namespace WpfApp2
 {
-    public static bool CheckAppsInDirectory(string sourceDirectory)
+    class LogMetier
     {
-        try
+        public static bool CheckAppsInDirectory(string sourceDirectory)
         {
-            // Read the list of apps from the file
-            string filePath = GlobalVariables.Dir + "logicielmetier.txt";
-            List<string> apps = new List<string>(File.ReadAllLines(filePath));
-            string[] alldirs = Directory.GetDirectories(sourceDirectory, "", SearchOption.AllDirectories);
-            string[] dirs = new string[alldirs.Length + 1];
-            Array.Copy(alldirs, dirs, alldirs.Length);
-            dirs[alldirs.Length] = sourceDirectory;
-            foreach (string dir in dirs)
+            try
             {
-                foreach (string app in apps)
+                // Read the list of apps from the file
+                string filePath = GlobalVariables.Dir + "logicielmetier.txt";
+                List<string> apps = new List<string>(File.ReadAllLines(filePath));
+                string[] alldirs = Directory.GetDirectories(sourceDirectory, "", SearchOption.AllDirectories);
+                string[] dirs = new string[alldirs.Length + 1];
+                Array.Copy(alldirs, dirs, alldirs.Length);
+                dirs[alldirs.Length] = sourceDirectory;
+                foreach (string dir in dirs)
                 {
-                    string appPath = Path.Combine(dir, app);
-
-                    if (Directory.Exists(appPath) || File.Exists(appPath))
+                    foreach (string app in apps)
                     {
-                        return true;
+                        string appPath = Path.Combine(dir, app);
+
+                        if (Directory.Exists(appPath) || File.Exists(appPath))
+                        {
+                            return true;
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                //Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+            return false;
         }
-        catch (Exception ex)
-        {
-            //Console.WriteLine($"An error occurred: {ex.Message}");
-        }
-        return false;
+
     }
-
 }
-
