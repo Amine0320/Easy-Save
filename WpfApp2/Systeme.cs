@@ -48,7 +48,7 @@ namespace WpfApp2
             return NewSauvegarder;
         }
 
-        public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log, int ext)
+        public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log)
         {
             EtatTempsReel etatTempsReel = new EtatTempsReel();
             Console.WriteLine("************************");
@@ -92,7 +92,7 @@ namespace WpfApp2
             return;
 
         }
-        public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log, int ext)
+        public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log)
         {
             EtatTempsReel etatTempsReel = new EtatTempsReel();
             Console.WriteLine("************************");
@@ -125,10 +125,10 @@ namespace WpfApp2
             }
             string nombrefichier = TodayDateForString + logtype;
             string pathcomplete = Path.Combine(fichier, nombrefichier);
-            string jsonString = JsonSerializer.Serialize(log1.Consulter());
+            string jsonString = JsonSerializer.Serialize(log1);
             using (StreamWriter sw = File.AppendText(pathcomplete))
             {
-                // sw.WriteLine(jsonString);
+                sw.WriteLine(jsonString);
             }
 
             //Console.WriteLine($"Json created in: {pathcomplete}");

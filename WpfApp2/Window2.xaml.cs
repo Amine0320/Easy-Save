@@ -32,7 +32,7 @@ namespace WpfApp2
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Dt_tick;
             timer.Start();
-            
+
             if (pbConteo.Value == 100)
             {
                 timer.Stop();
@@ -64,6 +64,11 @@ namespace WpfApp2
 
                     Fenetre3.Show();
                     File.Delete(path);
+                    if (File.Exists(@"C:\LOGJ\state2.json"))
+                    {
+                        File.Delete(@"C:\LOGJ\state.json");
+                        File.Move(@"C:\LOGJ\state2.json", @"C:\LOGJ\state.json");
+                    }
                     timer.Stop();
 
                 }

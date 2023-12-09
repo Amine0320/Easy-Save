@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Web.Services.Description;
 using Programme_cryptosoft;
 using System.Diagnostics;
@@ -107,22 +106,16 @@ namespace WpfApp2
                     {
                         if (sauvType == TypeSauv.Complete)
                         {
-                            TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log, ext);
+                            TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log);
                         }
-                        else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log, ext); }
+                        else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log); }
                         Systeme.SauvDejaCreee.Add(i);
                     }
 
                 }
                 
-                string pathfichierActuelle = @"C:\LOGJ\state2.json";
-                if (File.Exists(pathfichierActuelle))
-                {
-                    File.Delete(rutaArchivo);
-                    File.Move(pathfichierActuelle, rutaArchivo);
-                }
-            }
 
+            }
 
 
         }

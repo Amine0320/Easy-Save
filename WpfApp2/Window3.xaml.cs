@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace WpfApp2
 {
@@ -35,6 +36,7 @@ namespace WpfApp2
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
+            File.Delete("C:/LOGJ/state3.json");
             Application.Current.Shutdown();
         }
         private void Button_England(object sender, RoutedEventArgs e)

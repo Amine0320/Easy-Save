@@ -71,8 +71,9 @@ namespace Programme_cryptosoft
                     return -4; // Code d'erreur pour répertoire Cible invalide
                 }
 
-                Console.WriteLine($"Sourcess Directory: {Sources}");
+                Console.WriteLine($"Sources Directory: {Sources}");
                 Console.WriteLine($"Cible Directory: {Cible}");
+                int extExist = 0;
 
                 string[] files = Directory.GetFiles(Sources);
 
@@ -86,6 +87,7 @@ namespace Programme_cryptosoft
 
                     if (selectedExtensions.Contains(GetExtensionIndex(fileExtension)))
                     {
+                        extExist++;
                         string encryptedFilePath = Path.Combine(Cible, "encrypted_" + fileName + ".txt");
 
                         using (FileStream fsSources = new FileStream(filePath, FileMode.Open, FileAccess.Read))
@@ -116,7 +118,9 @@ namespace Programme_cryptosoft
                 }
 
                 encryptionStopwatch.Stop();
-                TimeSpan timeCrypt = encryptionStopwatch.Elapsed;
+                TimeSpan timeCrypt = TimeSpan.FromSeconds(0);
+                if (extExist != 0) { timeCrypt = encryptionStopwatch.Elapsed; }
+                
 
                 Console.WriteLine($"Temps de cryptage total : {timeCrypt.TotalMilliseconds} millisecondes");
 
