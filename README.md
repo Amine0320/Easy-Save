@@ -14,6 +14,8 @@ Avant de démarrer, assurez-vous de préparer l'environnement en créant un rép
 les logs journaliers consignant le suivi précis de vos opérations de sauvegarde.
 Vous pouvez définir des logiciels métiers à ne pas copier dans le fichier "C:/LOGJ/logicielmetier.txt".
 
+Vous trouverez l'application dans ".../bin/Debug/net8.0-windows/EasySavev2.exe".
+
 ***********************
 
 
@@ -38,7 +40,7 @@ Before you begin, make sure to prepare the environment by creating a dedicated d
 the precise progress of your backup operations.
 You can define the work apps you do not want to copy in the file "C:/LOGJ/logicielmetier.txt".
 
-
+You will find the app in ".../bin/Debug/net8.0-windows/EasySavev2.exe".
 
 
 
