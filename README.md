@@ -29,7 +29,7 @@ Welcome to EasySave, your simple and effective backup tool.
 This guide will help you create and manage your backup tasks. 
 * Follow these steps to make the most of the application.
 
-EasySave gives you the flexibility to create up to 5 backups, whether they are full backups (option 1) encompassing 
+EasySave gives you the flexibility to create multiple backups, whether they are full backups (option 1) encompassing 
 entire source directories to target directories or differential backups (option 2), only copying files modified since the last backup.
 EasySave also allows you to encrypt files with the chosen extensions with the XOR method.
 
