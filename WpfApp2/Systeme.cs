@@ -13,6 +13,7 @@ using System.IO;
 using System.Text.Json;
 using System.Collections.Generic;
 using System.Collections;
+using System.Diagnostics;
 //using EasySaveProSoft.Version1;
 
 namespace WpfApp2
@@ -102,12 +103,48 @@ namespace WpfApp2
             var dateString2 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime date1 = DateTime.Now;
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
-            string Execute = @"Copy-Item -Path " + NewSauvegarder.RepSource + " -Destination " + NewSauvegarder.RepCible + " -Recurse -Force";
-            string ExecuteFileSize = @"(Get-ChildItem -Path " + NewSauvegarder.RepSource + " -Recurse | Measure-Object -Property Length -Sum).Sum";
-            //Console.WriteLine(ExecuteFileSize);
-            string output2 = PowerShellHandler.Command(ExecuteFileSize);
+            int FileModifie = 0;
+            int FileSize = 0;
+            int FileProcessed = 0;
+            if (Directory.Exists(NewSauvegarder.RepSource) && Directory.Exists(NewSauvegarder.RepCible))
+            {
+                string[] sourceFiles = Directory.GetFiles(NewSauvegarder.RepSource);
+                int totalFiles = sourceFiles.Length;
 
-            long FileSize = long.Parse(output2);
+                foreach (string sourceFilePath in sourceFiles)
+                {
+                    string fileName = Path.GetFileName(sourceFilePath);
+                    string targetFilePath = Path.Combine(NewSauvegarder.RepCible, fileName);
+
+                    if (File.Exists(targetFilePath))
+                    {
+                        DateTime sourceLastModified = File.GetLastWriteTime(sourceFilePath);
+                        DateTime targetLastModified = File.GetLastWriteTime(targetFilePath);
+
+                        if (sourceLastModified < targetLastModified)
+                        {
+                            File.Copy(sourceFilePath, targetFilePath, true);
+                            Console.WriteLine($"Le fichier {fileName} a été mis à jour dans le répertoire cible.");
+                            Console.WriteLine($"File {fileName} was updated in target directory.");
+                            FileInfo fileInfo = new FileInfo(sourceFilePath);
+                            FileSize += (int)fileInfo.Length;
+                            FileModifie++;
+                        }
+                    }
+                    else
+                    {
+                        File.Copy(sourceFilePath, targetFilePath);
+                        Console.WriteLine($"Le fichier {fileName} a été ajouté au répertoire cible.");
+                        Console.WriteLine($"File {fileName} was added in target directory.");
+                        FileInfo fileInfo = new FileInfo(sourceFilePath);
+                        FileSize += (int)fileInfo.Length;
+                        FileModifie++;
+                    }
+                    int FilesRestant = totalFiles - FileProcessed - FileModifie;
+                    FileProcessed++;
+
+                }
+            }
             //string output = PowerShellHandler.Command(Execute);
             etatTempsReel.SaveToJsonDiff(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i);
             Console.WriteLine("***copie réussie ***");
@@ -115,7 +152,7 @@ namespace WpfApp2
             string timeCrypt = "";
             TimeSpan soustraction = date2 - date1;
             double Secondssoustraction = soustraction.TotalSeconds;
-            LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2, timeCrypt) ;
+            LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2, timeCrypt);
             log1.timeCrypt = log1.ObtenuValeur();
             string fichier = @"C:\LOGJ";
             string logtype = ".json";
@@ -131,9 +168,8 @@ namespace WpfApp2
                 sw.WriteLine(jsonString);
             }
 
-            //Console.WriteLine($"Json created in: {pathcomplete}");
+                //Console.WriteLine($"Json created in: {pathcomplete}");
             return;
-
         }
     }
 }
