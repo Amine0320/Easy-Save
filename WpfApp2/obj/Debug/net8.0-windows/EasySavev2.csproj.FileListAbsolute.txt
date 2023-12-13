@@ -748,3 +748,5 @@ C:\Users\kikou\Source\Repos\EasySaveWPF3\WpfApp2\obj\Debug\net8.0-windows\refint
 C:\Users\kikou\Source\Repos\EasySaveWPF3\WpfApp2\obj\Debug\net8.0-windows\EasySavev2.pdb
 C:\Users\kikou\Source\Repos\EasySaveWPF3\WpfApp2\obj\Debug\net8.0-windows\EasySavev2.genruntimeconfig.cache
 C:\Users\kikou\Source\Repos\EasySaveWPF3\WpfApp2\obj\Debug\net8.0-windows\ref\EasySavev2.dll
+C:\Users\kikou\source\repos\EasySaveWPF3\WpfApp2\obj\Debug\net8.0-windows\ParaWindow.g.cs
+C:\Users\kikou\source\repos\EasySaveWPF3\WpfApp2\obj\Debug\net8.0-windows\ParaWindow.baml

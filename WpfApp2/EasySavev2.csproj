@@ -14,6 +14,7 @@
     <None Remove="Egypt.png" />
     <None Remove="England.png" />
     <None Remove="Espagne.png" />
+    <None Remove="explorer.png" />
     <None Remove="France.png" />
     <None Remove="Peru.png" />
     <None Remove="Tunisie.png" />
@@ -34,6 +35,7 @@
     <Resource Include="Egypt.png" />
     <Resource Include="England.png" />
     <Resource Include="Espagne.png" />
+    <Resource Include="explorer.png" />
     <Resource Include="France.png" />
     <Resource Include="Peru.png" />
     <Resource Include="Tunisie.png" />

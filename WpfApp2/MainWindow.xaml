@@ -34,7 +34,7 @@
                 <ImageBrush ImageSource="/England.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="ButtonQuit" Grid.Column="1" Content="Quitter" HorizontalAlignment="Left" Margin="280,426,0,0" VerticalAlignment="Top" Height="56" Width="109" Click="Button_Click_1" Grid.ColumnSpan="2" FontSize="14"/>
+        <Button x:Name="ButtonQuit" Grid.Column="2" Content="Quitter" HorizontalAlignment="Center" Margin="0,426,0,0" VerticalAlignment="Top" Height="56" Width="109" Click="Button_Click_1" FontSize="14"/>
         <Button x:Name="ButtonSave" Grid.Column="1" Content="Enregistrer" HorizontalAlignment="Left" Margin="90,425,0,0" VerticalAlignment="Top" Height="56" Width="109" Click="Button_Click" FontSize="14" Focusable="False"/>
         <Button Grid.Column="2" HorizontalAlignment="Left" Margin="281,58,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arab">
             <Button.Background>
@@ -61,5 +61,6 @@
                 <ImageBrush ImageSource="/Peru.png"/>
             </Button.Background>
         </Button>
+        <Button x:Name="Parameters" Grid.Column="2" Content="Paramètres" HorizontalAlignment="Left" Margin="14,426,0,0" VerticalAlignment="Top" Height="56" Width="109" Click="Button_Parameters" FontSize="14"/>
     </Grid>
 </Window>

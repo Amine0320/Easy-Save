@@ -35,11 +35,6 @@ namespace WpfApp2
             public string ImagePath { get; set; }
             public BitmapImage ImageSource => new BitmapImage(new Uri(ImagePath, UriKind.RelativeOrAbsolute));
         }
-        private void MiBoton_Click(object sender, RoutedEventArgs e)
-        {
-            // Código a ejecutar cuando se hace clic en el botón
-            MessageBox.Show("¡Haz hecho clic en el botón!");
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -47,6 +42,13 @@ namespace WpfApp2
             this.Close();
             Fenetre.Show();
         }
+        private void Button_Parameters(object sender, RoutedEventArgs e)
+        {
+            ParaWindow Fenetre = new ParaWindow();
+            this.Close();
+            Fenetre.Show();
+        }
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
