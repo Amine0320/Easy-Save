@@ -5,16 +5,16 @@ winexe
 C#
 .cs
 C:\Users\kikou\source\repos\EasySaveWPF3\WpfApp2\obj\Debug\net8.0-windows\
-EasySavev2_vmxetcqi_wpftmp
+EasySavev2
 none
 false
-TRACE;RELEASE;NET;NET8_0;NETCOREAPP
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\kikou\source\repos\EasySaveWPF3\WpfApp2\App.xaml
 5-538838135
 
-23-1571628097
-4921077263440
+17-880857187
+246538631720
 MainWindow.xaml;ParaWindow.xaml;Window1.xaml;Window2.xaml;Window3.xaml;
 
-True
+False
 

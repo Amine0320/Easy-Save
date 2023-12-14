@@ -47,7 +47,6 @@ namespace WpfApp2
         }
         private void Button_Click2(object sender, RoutedEventArgs e)
         {
-            
             this.Close();
             Application.Current.Shutdown();
             
@@ -60,16 +59,29 @@ namespace WpfApp2
 
         private void Button_England(object sender, RoutedEventArgs e)
         {
-            //Window1 Fenetre = new Window1();
+            ExtensionsLabel.Content = "Extensions to prioritize";
+            MetierLabel.Content = "Work Apps";
+            ButtonQuit.Content = "Quit";
+            ButtonRetour.Content = "Return";
+            AjtExt.Content = "Add";
+            BoutonAjtMetier.Content = AjtExt.Content;
         }
         private void Button_France(object sender, RoutedEventArgs e)
         {
-            //Window1 Fenetre = new Window1();
+            ExtensionsLabel.Content = "Extensions à prioritiser";
+            MetierLabel.Content = "Logiciels Métiers";
+            ButtonQuit.Content = "Quitter";
+            ButtonRetour.Content = "Retour";
+            AjtExt.Content = "Ajoute";
+            BoutonAjtMetier.Content = AjtExt.Content;
         }
         private void Button_Espagnol(object sender, RoutedEventArgs e)
         {
 
         }
+
+        private void Button_Arabe(object sender, RoutedEventArgs e)
+        { }
 
         private void txt_Checked(object sender, RoutedEventArgs e)
         {

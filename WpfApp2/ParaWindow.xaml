@@ -11,12 +11,12 @@
         <Button x:Name="ButtonRetour" Content="Retour" HorizontalAlignment="Left" Height="29" Margin="285,248,0,0" VerticalAlignment="Top" Width="92" Click="Retour"/>
         <Button x:Name="ButtonQuit" Content="Quitter" HorizontalAlignment="Left" Height="29" Margin="285,301,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click2"/>
         <TextBox x:Name="LogMetier" HorizontalAlignment="Left" Margin="53,130,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button HorizontalAlignment="Left" Margin="281,44,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Button HorizontalAlignment="Left" Margin="281,44,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arabe">
             <Button.Background>
                 <ImageBrush ImageSource="/Egypt.png"/>
             </Button.Background>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="320,44,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Button HorizontalAlignment="Left" Margin="320,44,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arabe">
             <Button.Background>
                 <ImageBrush ImageSource="/Tunisie.png"/>
             </Button.Background>
@@ -26,7 +26,7 @@
                 <ImageBrush ImageSource="/France.png"/>
             </Button.Background>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="244,44,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Button HorizontalAlignment="Left" Margin="244,44,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arabe">
             <Button.Background>
                 <ImageBrush ImageSource="/Algerie.png"/>
             </Button.Background>
