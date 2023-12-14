@@ -60,6 +60,6 @@
             <Button.Background>
                 <ImageBrush ImageSource="/Peru.png"/>
             </Button.Background>
-        </Button>
-    </Grid>
-</Window>
+        </Button> 
+    </Grid> 
+</Window> 

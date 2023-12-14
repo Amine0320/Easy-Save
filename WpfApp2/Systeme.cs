@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using PowershellShowcase;
-
+using System; 
+using PowershellShowcase; 
 using System.ComponentModel;
 using System.Linq;
 using System.Management.Automation;
@@ -16,7 +15,7 @@ using System.Collections;
 using System.Diagnostics;
 //using EasySaveProSoft.Version1;
 
-namespace WpfApp2
+namespace WpfApp2  
 {
     public class Systeme
     {
@@ -48,8 +47,14 @@ namespace WpfApp2
             NewSauvegarder.Type = Type;
             return NewSauvegarder;
         }
-
-        public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log)
+        // Thread for EnregistrerSauvegarde 
+        public void EnregistrerSauvegardeAsync(int i, TravailSauvegarde NewSauvegarder, int log)
+        {
+            // Create a new thread and start it with the EnregistrerSauvegarde method
+            Thread thread = new Thread(() => EnregistrerSauvegarde(i, NewSauvegarder, log));
+            thread.Start();
+        } 
+        public  void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log)
         {
             EtatTempsReel etatTempsReel = new EtatTempsReel();
             Console.WriteLine("************************");
@@ -61,11 +66,8 @@ namespace WpfApp2
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
             string Execute = @"Copy-Item -Path " + NewSauvegarder.RepSource + " -Destination " + NewSauvegarder.RepCible + " -Recurse -Force";
             string ExecuteFileSize = @"(Get-ChildItem -Path " + NewSauvegarder.RepSource + " -Recurse | Measure-Object -Property Length -Sum).Sum";
-            //Console.WriteLine(ExecuteFileSize);
             string output2 = PowerShellHandler.Command(ExecuteFileSize);
-            //Console.WriteLine("*******************************");
             long FileSize = long.Parse(output2);
-            //string output = PowerShellHandler.Command(Execute);
             etatTempsReel.SaveToJson(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i);
             Console.WriteLine("***copie réussie ***");
             DateTime date2 = DateTime.Now;
@@ -74,7 +76,7 @@ namespace WpfApp2
             double Secondssoustraction = soustraction.TotalSeconds;
             LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2, timeCrypt);
             log1.timeCrypt = log1.ObtenuValeur();
-            
+
             string fichier = @"C:\LOGJ";
             string logtype = ".json";
             if (log == 2)
@@ -88,18 +90,23 @@ namespace WpfApp2
             {
                 sw.WriteLine(jsonString);
             }
-
-            //Console.WriteLine($"Log created in: {pathcomplete}");
-            return;
-
+            return; 
         }
-        public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log)
+        // Thread for EnregistrerSauvegardeDiff 
+        public void EnregistrerSauvegardeDiffAsync(int i, TravailSauvegarde NewSauvegarder, int log)
+        {
+            // Create a new thread and start it with the EnregistrerSauvegardeDiff method
+            Thread thread = new Thread(() => EnregistrerSauvegardeDiff(i, NewSauvegarder, log));
+            thread.Start();
+        }
+
+        public  void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log)
         {
             EtatTempsReel etatTempsReel = new EtatTempsReel();
             Console.WriteLine("************************");
             Console.WriteLine("***Project Easy Save ***");
             Console.WriteLine("************************");
-            string dateString1 = DateTime.Now.ToString("yyyyMMdd_HHmm");
+            string dateString1 = DateTime.Now.ToString("yyyyMMdd_HHmm"); 
             var dateString2 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime date1 = DateTime.Now;
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
@@ -145,7 +152,6 @@ namespace WpfApp2
 
                 }
             }
-            //string output = PowerShellHandler.Command(Execute);
             etatTempsReel.SaveToJsonDiff(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i);
             Console.WriteLine("***copie réussie ***");
             DateTime date2 = DateTime.Now;
@@ -166,10 +172,8 @@ namespace WpfApp2
             using (StreamWriter sw = File.AppendText(pathcomplete))
             {
                 sw.WriteLine(jsonString);
-            }
-
-                //Console.WriteLine($"Json created in: {pathcomplete}");
-            return;
+            } 
+            return; 
         }
     }
 }

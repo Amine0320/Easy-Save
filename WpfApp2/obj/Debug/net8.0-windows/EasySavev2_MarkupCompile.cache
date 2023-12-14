@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\kikou\Source\Repos\EasySaveWPF3\WpfApp2\obj\Debug\net8.0-windows\
-EasySavev2
+C:\Users\Elbah\source\repos\EasySave3\WpfApp2\obj\Debug\net8.0-windows\
+EasySavev2_m1zjqy50_wpftmp
 none
 false
-TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Users\kikou\Source\Repos\EasySaveWPF3\WpfApp2\App.xaml
-4-1508649396
+TRACE;RELEASE;NET;NET8_0;NETCOREAPP
+C:\Users\Elbah\source\repos\EasySave3\WpfApp2\App.xaml
+5288655555
 
-16-153703166
-246538631720
-MainWindow.xaml;Window1.xaml;Window2.xaml;Window3.xaml;
+23678634570
+4921661254318
+MainWindow.xaml;Window1.xaml;Window2.xaml;Window3.xaml;Window4.xaml;
 
-False
+True
 

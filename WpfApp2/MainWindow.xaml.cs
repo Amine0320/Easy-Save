@@ -1,11 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using JetBrains.Annotations;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
+using System.Windows.Media; 
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -17,8 +18,10 @@ namespace WpfApp2
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
+        // variable de l'entier qu'on va utiliser pour la sauvegarde en parallele // 
+        private int storedInteger; 
+        public MainWindow() 
+        { 
             InitializeComponent();
 
             Items = new ObservableCollection<ComboBoxItem>
@@ -99,6 +102,6 @@ namespace WpfApp2
             ButtonQuit.Content = "خروج";
             ButtonSave.Content = "نسخ";
             //Fenetre.Show();
-        }
+        }  
     }
-}
+} 

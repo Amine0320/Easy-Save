@@ -14,13 +14,21 @@ using System.Diagnostics;
 using System.IO.Pipes;
 
 namespace WpfApp2
-{
-    public class Programproc
+{ 
+
+    public class Programproc 
     {
+        // Thread for the function EventMain 
+        public void EventMainAsync(string @Sources2, string @Cible2, string Type2, string saves2, string TypeLog, int ext)
+        { 
+            Thread thread = new Thread(() => EventMainAsync(@Sources2, @Cible2, Type2 , saves2 , TypeLog , ext )); 
+            thread.Start();
+        }  
+
         public void EventMain(string @Sources2,string @Cible2, string Type2, string saves2, string TypeLog, int ext)
         {
             string rutaArchivo = @"C:\LOGJ\state.json";
-            try
+            try 
             {
                 if (File.Exists(rutaArchivo))
                 {
@@ -106,10 +114,10 @@ namespace WpfApp2
                     {
                         if (sauvType == TypeSauv.Complete)
                         {
-                            TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log);
+                            TravailNouvelle.EnregistrerSauvegardeAsync(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log);
                         }
-                        else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log); }
-                        Systeme.SauvDejaCreee.Add(i);
+                        else { TravailNouvelle.EnregistrerSauvegardeDiffAsync(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log); }
+                        Systeme.SauvDejaCreee.Add(i); 
                     }
 
                 }
@@ -173,6 +181,6 @@ namespace WpfApp2
             get { return _Exist; }
             set { _Exist = value; }
         }
-        public static string Dir {get; set;} = GetDir();
-    }
+        public static string Dir {get; set;} = GetDir(); 
+    } 
 }

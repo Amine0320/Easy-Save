@@ -13,12 +13,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.Windows.Controls.Primitives;
 
 namespace WpfApp2
 {
     /// <summary>
     /// Logique d'interaction pour Window3.xaml
-    /// </summary>
+    /// </summary> 
     public partial class Window3 : Window
     {
         public Window3()
@@ -67,5 +68,14 @@ namespace WpfApp2
             ButtonSortir.Content = "Salir";
             //Fenetre.Show();
         }
+        private void Button_Arab(object sender, RoutedEventArgs e)
+        {
+            //Window1 Fenetre = new Window1();
+            SauvReu.Content = "نهاية الحفظ";
+            VoirLog.Content = "فتح اللوق";
+            VoirEtat.Content = "فتح الحالة";
+            ButtonSortir.Content = "خروج"; 
+            //Fenetre.Show(); 
+        }
     }
-}
+} 

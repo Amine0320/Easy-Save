@@ -8,18 +8,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
+using System.Windows.Input; 
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace WpfApp2
-{
-    /// <summary>
-    /// Logique d'interaction pour Window2.xaml
-    /// </summary>
-    public partial class Window2 : Window
+namespace WpfApp2 
+{  
+    public partial class Window2 : Window 
     {
         DispatcherTimer timer = new DispatcherTimer();
         public Window2()
@@ -36,10 +33,9 @@ namespace WpfApp2
             if (pbConteo.Value == 100)
             {
                 timer.Stop();
-            }
-            //
+            } 
         }
-        private int incremet =0;
+        private int incremet =0; 
         private void Dt_tick(object sender, EventArgs e)
         {
             incremet= incremet + 25;
@@ -50,50 +46,19 @@ namespace WpfApp2
             string trutj;
             Window1 Fenetre1 = new Window1();
             Window3 Fenetre3 = new Window3();
-            if (GlobalVariables.Exist) { this.Close(); }
-            if (pbConteo.Value == 100)
-            {
+            if (GlobalVariables.Exist) { this.Close(); } 
+            if (pbConteo.Value == 100) 
+            { 
                 using (StreamReader reader = new StreamReader(path))
                 {
 
                     contenido = reader.ReadLine();
-                }
-                if (contenido == "1")
-                {
-                    drro = int.Parse(contenido) - 1;
-
-                    Fenetre3.Show();
-                    File.Delete(path);
-                    if (File.Exists(@"C:\LOGJ\state2.json"))
-                    {
-                        File.Delete(@"C:\LOGJ\state.json");
-                        File.Move(@"C:\LOGJ\state2.json", @"C:\LOGJ\state.json");
-                    }
-                    timer.Stop();
-
-                }
-                else if (contenido != "1")
-                {
-                    drro = int.Parse(contenido) - 1;
-
-                    using (StreamWriter writer = new StreamWriter(path))
-                    {
-                        // Escribir contenido en el archivo
-                        trutj = drro.ToString();
-                        writer.WriteLine(trutj);
-                    }
-
-                    Fenetre1.Show();
-                    timer.Stop();
-                }
-                this.Close();
-                
-                
-            }
-            
-            
-            
+                    Fenetre3.Show(); 
+                } 
+                this.Close();   
+            } 
         }
+        // Button click to end the all application same button as Window1 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -101,4 +66,4 @@ namespace WpfApp2
         }
 
     }
-}
+} 
