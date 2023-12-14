@@ -7381,23 +7381,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kikou\\.nuget\\packages\\": {},
+    "C:\\Users\\manel\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kikou\\Source\\Repos\\EasySaveWPF3\\WpfApp2\\EasySavev2.csproj",
+      "projectUniqueName": "C:\\Users\\manel\\Desktop\\Ma partie 3\\EasySave3\\WpfApp2\\EasySavev2.csproj",
       "projectName": "EasySavev2",
-      "projectPath": "C:\\Users\\kikou\\Source\\Repos\\EasySaveWPF3\\WpfApp2\\EasySavev2.csproj",
-      "packagesPath": "C:\\Users\\kikou\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kikou\\Source\\Repos\\EasySaveWPF3\\WpfApp2\\obj\\",
+      "projectPath": "C:\\Users\\manel\\Desktop\\Ma partie 3\\EasySave3\\WpfApp2\\EasySavev2.csproj",
+      "packagesPath": "C:\\Users\\manel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\manel\\Desktop\\Ma partie 3\\EasySave3\\WpfApp2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\kikou\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\manel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

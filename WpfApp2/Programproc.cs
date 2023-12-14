@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace WpfApp2
 {
     public class Programproc
     {
-        public void EventMain(string @Sources2,string @Cible2, string Type2, string saves2, string TypeLog, int ext)
+        public void EventMain(string @Sources2, string @Cible2, string Type2, string saves2, string TypeLog, int ext)
         {
             string rutaArchivo = @"C:\LOGJ\state.json";
             try
@@ -29,7 +30,7 @@ namespace WpfApp2
                 }
             }
             catch (Exception ex)
-            {}
+            { }
 
             string saves = saves2;
             List<int> listeDeSauvegardes = ListeDeSauv(saves);
@@ -46,12 +47,11 @@ namespace WpfApp2
                     if (TypeLog.Equals("JSON")) { log = 1; }
                     TypeSauv sauvType = Convertir(Type);
                     GlobalVariables.Exist = LogMetier.CheckAppsInDirectory(Sources);
-                    
+                   
                     string selectedExtensionsInput = ext.ToString();
                     List<int> selectedExtensions = selectedExtensionsInput.Split(',')
                      .Select(part => int.Parse(part.Trim()))
                      .ToList();
-
 
                     // Lancer le programme CryptoSoft avec les arguments nécessaires
                     ProcessStartInfo startInfo = new ProcessStartInfo
@@ -113,7 +113,7 @@ namespace WpfApp2
                     }
 
                 }
-                
+
 
             }
 
@@ -155,24 +155,24 @@ namespace WpfApp2
     }
 
     public class GlobalVariables
-    {   
-        private static string GetDir() 
-            {            
-                string DossierPro = Directory.GetCurrentDirectory();
-                string[] ListDossier = DossierPro.Split(@"\");
-                string Dir = "";
-                for (int k = 0; k < ListDossier.Length - 3; k++ ) 
-                {
-                    Dir += ListDossier[k] + @"\";
-                }
-                return Dir;
+    {
+        private static string GetDir()
+        {
+            string DossierPro = Directory.GetCurrentDirectory();
+            string[] ListDossier = DossierPro.Split(@"\");
+            string Dir = "";
+            for (int k = 0; k < ListDossier.Length - 3; k++)
+            {
+                Dir += ListDossier[k] + @"\";
             }
-        public static bool _Exist {get; set;} = false;
-        public static bool Exist 
-        {        
+            return Dir;
+        }
+        public static bool _Exist { get; set; } = false;
+        public static bool Exist
+        {
             get { return _Exist; }
             set { _Exist = value; }
         }
-        public static string Dir {get; set;} = GetDir();
+        public static string Dir { get; set; } = GetDir();
     }
 }

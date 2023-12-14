@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\kikou\Source\Repos\EasySaveWPF3\WpfApp2\obj\Debug\net8.0-windows\
+C:\Users\manel\Desktop\Ma partie 3\EasySave3\WpfApp2\obj\Debug\net8.0-windows\
 EasySavev2
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Users\kikou\Source\Repos\EasySaveWPF3\WpfApp2\App.xaml
-4-1508649396
+C:\Users\manel\Desktop\Ma partie 3\EasySave3\WpfApp2\App.xaml
+5-538838135
 
-18-951611074
-246538631720
-MainWindow.xaml;Window1.xaml;Window2.xaml;Window3.xaml;
+20-475584179
+2461217591456
+MainWindow.xaml;ParaWindow.xaml;Window1.xaml;Window2.xaml;Window3.xaml;
 
-True
+False
 
