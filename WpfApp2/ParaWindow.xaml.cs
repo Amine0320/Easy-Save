@@ -24,9 +24,9 @@ namespace WpfApp2
             string metier = LogMetier.Text.ToString();
             if (metier.Split(".").Last() == "exe")
             {
-                using (StreamWriter writer = new StreamWriter(path))
+                using (StreamWriter writer = new StreamWriter(path, true))
                 {
-                    writer.Write(metier);
+                    writer.Write(metier + "\n");
                     writer.Close();
                 }
             }
@@ -35,7 +35,7 @@ namespace WpfApp2
         private void Button_OuvreLM(object sender, RoutedEventArgs e) 
         {
             string path = GlobalVariables.Dir + "logicielmetier.txt";
-            Process.Start(path);
+            Process.Start( "notepad.exe", path);
 
         }
 
@@ -67,6 +67,11 @@ namespace WpfApp2
             //Window1 Fenetre = new Window1();
         }
         private void Button_Espagnol(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void txt_Checked(object sender, RoutedEventArgs e)
         {
 
         }
