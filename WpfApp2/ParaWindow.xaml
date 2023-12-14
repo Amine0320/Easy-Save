@@ -46,16 +46,11 @@
 
         <Label x:Name="ExtensionsLabel" Content="Extensions à prioritiser" HorizontalAlignment="Left" Margin="45,172,0,0" VerticalAlignment="Top"/>
 
-        <CheckBox  x:Name="txt" Content="CheckBox" HorizontalAlignment="Left" Height="14" Margin="53,0,0,0" VerticalAlignment="Center" Width="16" Checked="CheckBox_Checked"/>
-        <CheckBox x:Name="pdf" Content="CheckBox" HorizontalAlignment="Left" Height="14" Margin="53,229,0,0" VerticalAlignment="Top" Width="16" Checked="CheckBox_Checked"/>
-        <CheckBox x:Name="png" Content="CheckBox" HorizontalAlignment="Left" Height="14" Margin="53,248,0,0" VerticalAlignment="Top" Width="16" Checked="CheckBox_Checked"/>
-        <CheckBox x:Name="jpg" Content="CheckBox" HorizontalAlignment="Left" Height="14" Margin="53,267,0,0" VerticalAlignment="Top" Width="16" Checked="CheckBox_Checked" />
-        <CheckBox x:Name="docx" Content="CheckBox" HorizontalAlignment="Left" Height="14" Margin="53,286,0,0" VerticalAlignment="Top" Width="16" Checked="CheckBox_Checked"/>
-        <Label x:Name="txtLabel" Content=".txt" HorizontalAlignment="Left" Margin="72,0,0,0" VerticalAlignment="Center" Height="21" FontSize="9"/>
-        <Label x:Name="pdfLabel" Content=".pdf" HorizontalAlignment="Left" Margin="72,226,0,0" VerticalAlignment="Top" Height="21" FontSize="9"/>
-        <Label x:Name="pngLabel" Content=".png" HorizontalAlignment="Left" Margin="72,243,0,0" VerticalAlignment="Top" Height="25" FontSize="9"/>
-        <Label x:Name="jpgLabel" Content=".jpg" HorizontalAlignment="Left" Margin="72,262,0,0" VerticalAlignment="Top" Height="25" FontSize="9"/>
-        <Label x:Name="docxLabel" Content=".docx" HorizontalAlignment="Left" Margin="72,281,0,0" VerticalAlignment="Top" Height="25" FontSize="9"/>
+        <CheckBox  x:Name="txt" Content=".txt" HorizontalAlignment="Left" Height="14" Margin="53,210,0,0" VerticalAlignment="Top" Width="82" FontSize="11" Checked="CheckBox_Checked"/>
+        <CheckBox x:Name="pdf" Content=".pdf" HorizontalAlignment="Left" Height="14" Margin="53,229,0,0" VerticalAlignment="Top" Width="82" FontSize="11" Checked="CheckBox_Checked"/>
+        <CheckBox x:Name="png" Content=".png" HorizontalAlignment="Left" Height="14" Margin="53,248,0,0" VerticalAlignment="Top" Width="82" FontSize="11" Checked="CheckBox_Checked"/>
+        <CheckBox x:Name="jpg" Content=".jpg" HorizontalAlignment="Left" Height="14" Margin="53,267,0,0" VerticalAlignment="Top" Width="82" FontSize="11" Checked="CheckBox_Checked" />
+        <CheckBox x:Name="docx" Content=".docx" HorizontalAlignment="Left" Height="14" Margin="53,286,0,0" VerticalAlignment="Top" Width="82" FontSize="11" Checked="CheckBox_Checked"/>
         <Button x:Name = "AjtExt" Content="Ajoute" HorizontalAlignment="Left" Margin="83,308,0,0" VerticalAlignment="Top" Height="18" Width="52" FontSize="9" Click="AjtExt_Click"/>
     </Grid>
 </Window>

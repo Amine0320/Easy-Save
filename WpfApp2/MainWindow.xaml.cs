@@ -74,32 +74,36 @@ namespace WpfApp2
         {
             //Window1 Fenetre = new Window1();
             LabelSysteme.Content = "WELCOME TO OUR BACKUP SYSTEM! BY CESI INFO A3 COMPUTER SCIENCE";
-            ButtonQuit.Content = "QUIT";
-            ButtonSave.Content = "SAVE";
+            ButtonQuit.Content = "Quit";
+            ButtonSave.Content = "Save";
+            Parameters.Content = "Settings";
             //Fenetre.Show();
         }
         private void Button_France(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
             LabelSysteme.Content = "BIENVENUE A NOTRE SYSTEME DE SAUVEGARDE! BY CESI INFO A3 INFORMATIQUE";
-            ButtonQuit.Content = "QUITTER";
-            ButtonSave.Content = "ENREGISTRER";
+            ButtonQuit.Content = "Quitter";
+            Parameters.Content = "Paramètres";
+            ButtonSave.Content = "Enregister";
             //Fenetre.Show();
         }
         private void Button_Espagnol(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
             LabelSysteme.Content = "¡BIENVENIDO A NUESTRO SISTEMA DE RESPALDO! POR CESI INFO A3 INFORMATICA";
-            ButtonQuit.Content = "SALIR";
-            ButtonSave.Content = "GUARDAR";
+            ButtonQuit.Content = "Salir";
+            ButtonSave.Content = "Guardar";
+            Parameters.Content = "Parámetros";
             //Fenetre.Show();
         }
         private void Button_Arab(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
-            LabelSysteme.Content =  "CESI A3"+ "مرحبا بكم في نظام النسخ الاحتياطي! من فريق معلوماتية ";
+            LabelSysteme.Content = "CESI A3" + "مرحبا بكم في نظام النسخ الاحتياطي! من فريق معلوماتية ";
             ButtonQuit.Content = "خروج";
             ButtonSave.Content = "نسخ";
+            Parameters.Content = "إعدادات";
             //Fenetre.Show();
         }
     }
