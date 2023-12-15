@@ -169,11 +169,12 @@ namespace WpfApp2
                 LabelCible.Background = new SolidColorBrush(Colors.Red);
             }
             string pathfichier = @"C:\LOGJ\state.json";
+            statelog statelog1 = new statelog();
             if (File.Exists(pathfichier))
             {
                 string contenidoJson = File.ReadAllText(pathfichier);
                 string firststate = contenidoJson.Split("}")[0] + "}";
-                statelog statelog1 = JsonSerializer.Deserialize<statelog>(firststate);
+                statelog1 = JsonSerializer.Deserialize<statelog>(firststate);
                 incremet2 = statelog1.Progression;
                 pbConteo.Value = statelog1.Progression;
             }
@@ -187,7 +188,6 @@ namespace WpfApp2
             string trutj;
             Window1 Fenetre1 = new Window1();
             Window3 Fenetre3 = new Window3();
-            if (GlobalVariables.Exist) { this.Close(); }
             if (pbConteo.Value == 100)
             {
                 string endstate = @"C:\LOGJ\state2.json";
@@ -201,21 +201,19 @@ namespace WpfApp2
                 this.Close();
                 pbConteo.Value = pbConteo.Value + 10;
 
-            }else
+            }
+            else
             {
-                try
+                while (true)
                 {
-                    if (cancellationTokenSource != null)
-                {
-                    
-                        //cancellationTokenSource.Token.ThrowIfCancellationRequested();
-                    
-
-                }
-                }
-                catch (OperationCanceledException)
-                {
-                    throw;
+                    LogMetier.CheckAppsInDirectory(statelog1.SourceFilePath);
+                    if (GlobalVariables.Active)
+                    {
+                        using (StreamWriter escritor = new StreamWriter(@"C:\LOGJ\stop.exe"))
+                        {
+                            escritor.WriteLine("stop");
+                        }
+                    }
                 }
 
             }

@@ -54,8 +54,6 @@ namespace WpfApp2
                     int log = 2;
                     if (TypeLog.Equals("JSON")) { log = 1; }
                     TypeSauv sauvType = Convertir(Type);
-                    GlobalVariables.Exist = LogMetier.CheckAppsInDirectory(Sources);
-                    
                     string selectedExtensionsInput = ext.ToString();
                     List<int> selectedExtensions = selectedExtensionsInput.Split(',')
                      .Select(part => int.Parse(part.Trim()))
@@ -111,15 +109,12 @@ namespace WpfApp2
                     {
                         // Handle the exception
                     } 
-                    if (!GlobalVariables.Exist)
+                    if (sauvType == TypeSauv.Complete)
                     {
-                        if (sauvType == TypeSauv.Complete)
-                        {
-                            TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log, cancellationTokenSource);
-                        }
-                        else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log,cancellationTokenSource); }
-                        Systeme.SauvDejaCreee.Add(i);
+                        TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log, cancellationTokenSource);
                     }
+                    else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log,cancellationTokenSource); }
+                    Systeme.SauvDejaCreee.Add(i);
 
                 }
                 
@@ -176,11 +171,11 @@ namespace WpfApp2
                 }
                 return Dir;
             }
-        public static bool _Exist {get; set;} = false;
-        public static bool Exist 
+        public static bool _Active {get; set;} = false;
+        public static bool Active 
         {        
-            get { return _Exist; }
-            set { _Exist = value; }
+            get { return _Active; }
+            set { _Active = value; }
         }
         public static string Dir {get; set;} = GetDir();
     }

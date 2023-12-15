@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
 
 namespace WpfApp2
 {
     class LogMetier
     {
-        public static bool CheckAppsInDirectory(string sourceDirectory)
+        public static void CheckAppsInDirectory(string sourceDirectory)
         {
             try
             {
@@ -25,7 +25,11 @@ namespace WpfApp2
 
                         if (Directory.Exists(appPath) || File.Exists(appPath))
                         {
-                            return true;
+                            string appName = Path.GetFileName(appPath);
+                            while (true) 
+                            {
+                                GlobalVariables.Active = IsActive(appName);
+                            }
                         }
                     }
                 }
@@ -34,7 +38,12 @@ namespace WpfApp2
             {
                 //Console.WriteLine($"An error occurred: {ex.Message}");
             }
-            return false;
+        }
+
+        public static bool IsActive(string appName) 
+        {
+            Process[] processes = Process.GetProcessesByName(appName);
+            return processes.Length > 0;
         }
 
     }
