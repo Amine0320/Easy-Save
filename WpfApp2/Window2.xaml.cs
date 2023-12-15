@@ -54,41 +54,12 @@ namespace WpfApp2
             if (pbConteo.Value == 100)
             {
                 using (StreamReader reader = new StreamReader(path))
-                {
-
-                    contenido = reader.ReadLine();
-                }
-                if (contenido == "1")
-                {
-                    drro = int.Parse(contenido) - 1;
-
-                    Fenetre3.Show();
-                    File.Delete(path);
-                    if (File.Exists(@"C:\LOGJ\state2.json"))
-                    {
-                        File.Delete(@"C:\LOGJ\state.json");
-                        File.Move(@"C:\LOGJ\state2.json", @"C:\LOGJ\state.json");
-                    }
-                    timer.Stop();
-
-                }
-                else if (contenido != "1")
-                {
-                    drro = int.Parse(contenido) - 1;
-
-                    using (StreamWriter writer = new StreamWriter(path))
-                    {
-                        // Escribir contenido en el archivo
-                        trutj = drro.ToString();
-                        writer.WriteLine(trutj);
-                    }
-
+                { 
+             
                     Fenetre1.Show();
                     timer.Stop();
                 }
-                this.Close();
-                
-                
+                this.Close(); 
             }
             
             

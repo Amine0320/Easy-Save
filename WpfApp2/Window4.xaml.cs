@@ -45,8 +45,9 @@ namespace WpfApp2
         private void Button_Click(object sender, RoutedEventArgs e)
         { 
            OuiClicked = true; 
-            Window1 Fenetre = new Window1(); 
-            this.Close();
+            Window1 Fenetre = new Window1();  
+            Window4 Fenetre4 = new Window4(); 
+            Fenetre4.Close(); 
             Fenetre.Show();
 
             // If I clicked yes 
@@ -55,7 +56,19 @@ namespace WpfApp2
             Application.Current.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Background);
             string path = @"C:\LOGJ\quant.txt";
             Programproc program = new Programproc();
-            program.EventMainAsync(Fenetre.Source.Text.ToString(), Fenetre.Cible.Text.ToString(), Fenetre.TypeSauv.Text.ToString(), Fenetre.Debut.Text.ToString() + Fenetre.Option1.Text.ToString() + Fenetre.Fin.Text.ToString(), Fenetre.TypeLog.Text.ToString(), Fenetre.GetExtension(Fenetre.Extension.Text.ToString()));
+            //program.EventMainAsync(Fenetre.Source.Text.ToString(), Fenetre.Cible.Text.ToString(), Fenetre.TypeSauv.Text.ToString(), Fenetre.Debut.Text.ToString() + Fenetre.Option1.Text.ToString() + Fenetre.Fin.Text.ToString(), Fenetre.TypeLog.Text.ToString(), Fenetre.GetExtension(Fenetre.Extension.Text.ToString()));
+            this.Dispatcher.Invoke(() =>
+            {
+                program.EventMainAsync(
+                    Fenetre.Source.Text.ToString(),
+                    Fenetre.Cible.Text.ToString(),
+                    Fenetre.TypeSauv.Text.ToString(),
+                    Fenetre.Debut.Text.ToString() + Fenetre.Option1.Text.ToString() + Fenetre.Fin.Text.ToString(),
+                    Fenetre.TypeLog.Text.ToString(),
+                    Fenetre.GetExtension(Fenetre.Extension.Text.ToString())
+                ); 
+            });
+
             // Ouvrir la deuxième fenêtre 
             //Window2 Fenetre2 = new Window2();
             //Fenetre2.Show() ;   
@@ -68,9 +81,8 @@ namespace WpfApp2
             Window4 Fenetre1 = new Window4();
             this.Close();
             Window1 Fenetre = new Window1();
-          
-
-
+            Window3 Fenetre3 = new Window3(); 
+            Fenetre3.Show(); 
         }  
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -55,20 +55,28 @@ namespace WpfApp2
             Fenetre.Show();
 
             // Utiliser une boucle while pour attendre que OuiClicked devienne vrai
-            if (Fenetre.OuiClicked)
-            {
-                // Mise en veille pour éviter de bloquer le thread
+        
+                // Mise en veille pour éviter de bloquer le thread 
                 System.Threading.Thread.Sleep(100);
                 Application.Current.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Background);
                 string path = @"C:\LOGJ\quant.txt";
-                Programproc program = new Programproc();
-                program.EventMainAsync(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
-                Fenetre.Close();
-                // Ouvrir la deuxième fenêtre 
-                //Window2 Fenetre2 = new Window2();
-                //Fenetre2.Show();   
+                //Programproc program = new Programproc();
+                //program.EventMainAsync(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
+            // Ouvrir la deuxième fenêtre 
+            //Window2 Fenetre2 = new Window2();
+            //Fenetre2.Show();   
 
-            }
+            await Task.Run(() =>
+            {
+                Programproc program = new Programproc();
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    program.EventMain(cancellationTokenSource, Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
+                });
+            }); 
+
+
+
 
 
             /*
@@ -112,22 +120,22 @@ namespace WpfApp2
                 });
              */
             //cancellationTokenSource = new CancellationTokenSource();
-           /*
-            * Autre partie ver Bruno
-            await Task.Run(() =>
-            {
-                Programproc program = new Programproc();
-                Application.Current.Dispatcher.Invoke(() =>
-                { 
-                 program.EventMain(cancellationTokenSource, Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
-                });
-            });
-            bool ejer = cancellationTokenSource.IsCancellationRequested;
+            /*
+             * Autre partie ver Bruno
+             await Task.Run(() =>
+             {
+                 Programproc program = new Programproc();
+                 Application.Current.Dispatcher.Invoke(() =>
+                 { 
+                  program.EventMain(cancellationTokenSource, Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
+                 });
+             });
+             bool ejer = cancellationTokenSource.IsCancellationRequested;
 
-            Window2 Fenetre2 = new Window2();
-            cancellationTokenSource.Cancel();
-            ejer = cancellationTokenSource.IsCancellationRequested;
-           */
+             Window2 Fenetre2 = new Window2();
+             cancellationTokenSource.Cancel();
+             ejer = cancellationTokenSource.IsCancellationRequested;
+            */
         }
         private void Button_Click2(object sender, RoutedEventArgs e)
         {
@@ -187,6 +195,7 @@ namespace WpfApp2
             string trutj;
             Window1 Fenetre1 = new Window1();
             Window3 Fenetre3 = new Window3();
+            Window4 Fenetre4 = new Window4(); 
             if (GlobalVariables.Exist) { this.Close(); }
             if (pbConteo.Value == 100)
             {
@@ -197,9 +206,12 @@ namespace WpfApp2
                     File.Move(endstate, pathfichier);
                 }
                 timer.Stop();
-                Fenetre3.Show();
-                this.Close();
+    
+                //Fenetre3.Show();
+                //this.Close();
                 pbConteo.Value = pbConteo.Value + 10;
+                
+
 
             }else
             {
@@ -218,7 +230,7 @@ namespace WpfApp2
                     throw;
                 }
 
-            }
+            } 
         }
         private void Button_England(object sender, RoutedEventArgs e)
         {
@@ -353,7 +365,7 @@ namespace WpfApp2
             }
             catch (Exception ex)
             {
-                //Console.WriteLine($"Error al crear el archivo: {ex.Message}");
+                //Console.WriteLine($"Error al crear el archivo: {ex.Message}"); 
             }
         }
     }

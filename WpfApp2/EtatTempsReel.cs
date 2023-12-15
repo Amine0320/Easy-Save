@@ -37,7 +37,7 @@ namespace WpfApp2
                     FileName = "powershell.exe",
                     RedirectStandardInput = true,
                     RedirectStandardOutput = true,
-                    RedirectStandardError = true,
+                    RedirectStandardError = true, 
                     CreateNoWindow = true,
                     UseShellExecute = false
                 };

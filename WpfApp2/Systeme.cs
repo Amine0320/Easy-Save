@@ -30,7 +30,7 @@ namespace WpfApp2
             {
                 if (SauvDejaCreee.Contains(i))
                 {
-                    throw new Exception("La sauvegarde" + i.ToString() + "est déjà utilisée./ The save" + i.ToString() + "is already used");
+                    //throw new Exception("La sauvegarde" + i.ToString() + "est déjà utilisée./ The save" + i.ToString() + "is already used");
                 }
                 if (i < 1)
                 {
