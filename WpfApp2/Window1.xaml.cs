@@ -50,6 +50,29 @@ namespace WpfApp2
         DispatcherTimer timer = new DispatcherTimer();
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            Window4 Fenetre = new Window4();
+            Window1 Fenetre1 = new Window1();
+            Fenetre.Show();
+
+            // Utiliser une boucle while pour attendre que OuiClicked devienne vrai
+            if (Fenetre.OuiClicked)
+            {
+                // Mise en veille pour éviter de bloquer le thread
+                System.Threading.Thread.Sleep(100);
+                Application.Current.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Background);
+                string path = @"C:\LOGJ\quant.txt";
+                Programproc program = new Programproc();
+                program.EventMainAsync(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
+                Fenetre.Close();
+                // Ouvrir la deuxième fenêtre 
+                //Window2 Fenetre2 = new Window2();
+                //Fenetre2.Show();   
+
+            }
+
+
+            /*
+             * Version Bruno
             string path = @"C:\LOGJ\quant.txt";
             int quan;
             
@@ -89,6 +112,8 @@ namespace WpfApp2
                 });
              */
             //cancellationTokenSource = new CancellationTokenSource();
+           /*
+            * Autre partie ver Bruno
             await Task.Run(() =>
             {
                 Programproc program = new Programproc();
@@ -102,6 +127,7 @@ namespace WpfApp2
             Window2 Fenetre2 = new Window2();
             cancellationTokenSource.Cancel();
             ejer = cancellationTokenSource.IsCancellationRequested;
+           */
         }
         private void Button_Click2(object sender, RoutedEventArgs e)
         {
@@ -233,7 +259,7 @@ namespace WpfApp2
             ButtonQuit.Content = "Salir";
             //Fenetre.Show();
         }
-        private int GetExtension(string ext)
+        public int GetExtension(string ext)
         {
             if (ext.Equals("Aucune")) { return 0; }
             else if (ext.Equals(".txt")) { return 1; }

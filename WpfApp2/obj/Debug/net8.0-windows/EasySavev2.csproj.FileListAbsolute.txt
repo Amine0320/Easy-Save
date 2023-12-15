@@ -1504,3 +1504,5 @@ C:\Users\kikou\source\repos\EasySave\WpfApp2\obj\Debug\net8.0-windows\EasySavev2
 C:\Users\kikou\source\repos\EasySave\WpfApp2\obj\Debug\net8.0-windows\ref\EasySavev2.dll
 C:\Users\kikou\source\repos\EasySave\WpfApp2\obj\Debug\net8.0-windows\ParaWindow.g.cs
 C:\Users\kikou\source\repos\EasySave\WpfApp2\obj\Debug\net8.0-windows\ParaWindow.baml
+C:\Users\kikou\source\repos\EasySave\WpfApp2\obj\Debug\net8.0-windows\Window4.g.cs
+C:\Users\kikou\source\repos\EasySave\WpfApp2\obj\Debug\net8.0-windows\Window4.baml

@@ -21,6 +21,7 @@ namespace WpfApp2
 {
     public class Systeme
     {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private int IdSys = 0;
         public static List<int> SauvDejaCreee = new List<int>();
         public static bool VerifieDispo(List<int> list)
@@ -48,6 +49,13 @@ namespace WpfApp2
             NewSauvegarder.RepCible = sources;
             NewSauvegarder.Type = Type;
             return NewSauvegarder;
+        }
+
+        public void EnregistrerSauvegardeAsync(int i, TravailSauvegarde NewSauvegarder, int log)
+        {
+            // Create a new thread and start it with the EnregistrerSauvegarde method
+            Thread thread = new Thread(() => EnregistrerSauvegarde(i, NewSauvegarder, log, cancellationTokenSource));
+            thread.Start();
         }
 
         public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log, CancellationTokenSource cancellationTokenSource)
@@ -93,6 +101,12 @@ namespace WpfApp2
             //Console.WriteLine($"Log created in: {pathcomplete}");
             return;
 
+        }
+        public void EnregistrerSauvegardeDiffAsync(int i, TravailSauvegarde NewSauvegarder, int log)
+        {
+            // Create a new thread and start it with the EnregistrerSauvegardeDiff method
+            Thread thread = new Thread(() => EnregistrerSauvegardeDiff(i, NewSauvegarder, log, cancellationTokenSource));
+            thread.Start();
         }
         public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log, CancellationTokenSource cancellationTokenSource)
         {

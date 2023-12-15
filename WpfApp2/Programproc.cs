@@ -17,6 +17,13 @@ namespace WpfApp2
 {
     public class Programproc
     {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        public void EventMainAsync(string @Sources2, string @Cible2, string Type2, string saves2, string TypeLog, int ext)
+        {
+            Thread thread = new Thread(() => EventMain(cancellationTokenSource, @Sources2, @Cible2, Type2, saves2, TypeLog, ext));
+            thread.Start();
+        }
+
         public async void EventMain(CancellationTokenSource cancellationTokenSource, string @Sources2,string @Cible2, string Type2, string saves2, string TypeLog, int ext)
         {
 
