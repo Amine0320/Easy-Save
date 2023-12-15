@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Services.Description;
@@ -16,7 +17,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-
+using System.Text.Json;
+using System.Threading.Tasks;
+using static WpfApp2.Window1;
+using System.Numerics;
+using System.Threading;
+using System.DirectoryServices.ActiveDirectory;
 
 namespace WpfApp2
 {
@@ -29,6 +35,7 @@ namespace WpfApp2
         {
             InitializeComponent();
             string path = @"C:\LOGJ\quant.txt";
+            /*
             if (File.Exists(path))
             {
                 Debut.IsReadOnly = true;
@@ -36,28 +43,31 @@ namespace WpfApp2
                 Option1.Text = "";
                 Option1.IsEnabled = false;
             }
+            */
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        DispatcherTimer timer = new DispatcherTimer();
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             string path = @"C:\LOGJ\quant.txt";
             int quan;
-            if (Option1.Text.ToString()=="-")
+            
+            /*if (Option1.Text.ToString() == "-")
             {
-                 quan = int.Parse(Fin.Text) - int.Parse(Debut.Text) + 1;
+                quan = int.Parse(Fin.Text) - int.Parse(Debut.Text) + 1;
                 using (StreamWriter writer = new StreamWriter(path))
                 {
                     writer.Write(quan);
                     writer.Close();
                 }
-                } 
+            }
             else if (Option1.Text.ToString() == ";")
             {
                 if (Fin.Text.Equals(""))
                 {
                     quan = 1;
                 }
-                else 
+                else
                 {
                     quan = 2;
                 }
@@ -67,14 +77,30 @@ namespace WpfApp2
                     writer.Close();
                 }
             }
-
             
+                
 
-            Programproc program = new Programproc();
-            program.EventMain(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString())) ;
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    
+                    this.Close();
+                    Fenetre2.Show();
+                });
+             */
+            //cancellationTokenSource = new CancellationTokenSource();
+            await Task.Run(() =>
+            {
+                Programproc program = new Programproc();
+                Application.Current.Dispatcher.Invoke(() =>
+                { 
+                 program.EventMain(cancellationTokenSource, Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
+                });
+            });
+            bool ejer = cancellationTokenSource.IsCancellationRequested;
+
             Window2 Fenetre2 = new Window2();
-            this.Close();
-            Fenetre2.Show();
+            cancellationTokenSource.Cancel();
+            ejer = cancellationTokenSource.IsCancellationRequested;
         }
         private void Button_Click2(object sender, RoutedEventArgs e)
         {
@@ -89,12 +115,14 @@ namespace WpfApp2
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DispatcherTimer timer = new DispatcherTimer();
+            
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Dt_tick;
             timer.Start();
+            
         }
         private int incremet = 0;
+        private double incremet2 = 0;
         private void Dt_tick(object sender, EventArgs e)
         {
             incremet ++;
@@ -112,6 +140,52 @@ namespace WpfApp2
             else
             {
                 LabelCible.Background = new SolidColorBrush(Colors.Red);
+            }
+            string pathfichier = @"C:\LOGJ\state.json";
+            if (File.Exists(pathfichier))
+            {
+                string contenidoJson = File.ReadAllText(pathfichier);
+
+                statelog statelog1 = JsonSerializer.Deserialize<statelog>(contenidoJson);
+                incremet2 = statelog1.Progression;
+                pbConteo.Value = statelog1.Progression;
+            }
+            else
+            {
+                pbConteo.Value = 0;
+            }
+            int drro;
+            string path = @"C:\LOGJ\quant.txt";
+            string contenido;
+            string trutj;
+            Window1 Fenetre1 = new Window1();
+            Window3 Fenetre3 = new Window3();
+            if (GlobalVariables.Exist) { this.Close(); }
+            if (pbConteo.Value == 100)
+            {
+                timer.Stop();
+                
+                Fenetre3.Show();
+                this.Close();
+                pbConteo.Value = pbConteo.Value + 10;
+
+            }else
+            {
+                try
+                {
+                    if (cancellationTokenSource != null)
+                {
+                    
+                        //cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                    
+
+                }
+                }
+                catch (OperationCanceledException)
+                {
+                    throw;
+                }
+
             }
         }
         private void Button_England(object sender, RoutedEventArgs e)
@@ -165,6 +239,94 @@ namespace WpfApp2
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            string rutaArchivo = @"C:\LOGJ\stop.txt";
+
+            // Contenido que se escribirá en el archivo
+            string contenido = "stop";
+
+            try
+            {
+                // Crear un objeto StreamWriter y escribir en el archivo
+                using (StreamWriter escritor = new StreamWriter(rutaArchivo))
+                {
+                    escritor.WriteLine(contenido);
+                }
+
+                //Console.WriteLine("Archivo creado exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine($"Error al crear el archivo: {ex.Message}");
+            }
+            Exitstop exitstop = new Exitstop();
+            exitstop.Show();
+            this.Close();
+        }
+        public class statelog
+        {
+            public string IdEtaTemp { get; set; }
+            public int NbFilesLeftToDo { get; set; }
+            public double Progression { get; set; }
+            public string State { get; set; }
+            public string NomETR { get; set; }
+            public long TotalFilesSize { get; set; }
+            public string SourceFilePath { get; set; }
+            public long TotalFilesToCopy { get; set; }
+
+            public string TargetFilePath { get; set; }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            string rutaArchivo = @"C:\LOGJ\stop.txt";
+
+            // Contenido que se escribirá en el archivo
+            string contenido = "stop";
+
+            try
+            {
+                // Crear un objeto StreamWriter y escribir en el archivo
+                using (StreamWriter escritor = new StreamWriter(rutaArchivo))
+                {
+                    escritor.WriteLine(contenido);
+                }
+
+                //Console.WriteLine("Archivo creado exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine($"Error al crear el archivo: {ex.Message}");
+            }
+            //Exitstop exitstop = new Exitstop();
+            //exitstop.Show();
+            //this.Close();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            string rutaArchivo = @"C:\LOGJ\stop.txt";
+
+            // Contenido que se escribirá en el archivo
+            string content = "go";
+
+            try
+            {
+                // Crear un objeto StreamWriter y escribir en el archivo
+                using (StreamWriter escritor = new StreamWriter(rutaArchivo))
+                {
+                    escritor.WriteLine(content);
+                }
+
+                //Console.WriteLine("Archivo creado exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine($"Error al crear el archivo: {ex.Message}");
+            }
         }
     }
 }

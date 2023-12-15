@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Collections.Generic;
 using System.Collections;
 using System.Diagnostics;
+using System.Threading;
 //using EasySaveProSoft.Version1;
 
 namespace WpfApp2
@@ -49,7 +50,7 @@ namespace WpfApp2
             return NewSauvegarder;
         }
 
-        public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log)
+        public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log, CancellationTokenSource cancellationTokenSource)
         {
             EtatTempsReel etatTempsReel = new EtatTempsReel();
             Console.WriteLine("************************");
@@ -66,7 +67,7 @@ namespace WpfApp2
             //Console.WriteLine("*******************************");
             long FileSize = long.Parse(output2);
             //string output = PowerShellHandler.Command(Execute);
-            etatTempsReel.SaveToJson(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i);
+            etatTempsReel.SaveToJson(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i, cancellationTokenSource);
             Console.WriteLine("***copie réussie ***");
             DateTime date2 = DateTime.Now;
             string timeCrypt = "";
@@ -93,7 +94,7 @@ namespace WpfApp2
             return;
 
         }
-        public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log)
+        public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log, CancellationTokenSource cancellationTokenSource)
         {
             EtatTempsReel etatTempsReel = new EtatTempsReel();
             Console.WriteLine("************************");
@@ -146,7 +147,7 @@ namespace WpfApp2
                 }
             }
             //string output = PowerShellHandler.Command(Execute);
-            etatTempsReel.SaveToJsonDiff(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i);
+            etatTempsReel.SaveToJsonDiff(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i, cancellationTokenSource);
             Console.WriteLine("***copie réussie ***");
             DateTime date2 = DateTime.Now;
             string timeCrypt = "";

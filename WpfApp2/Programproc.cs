@@ -17,8 +17,10 @@ namespace WpfApp2
 {
     public class Programproc
     {
-        public void EventMain(string @Sources2,string @Cible2, string Type2, string saves2, string TypeLog, int ext)
+        public async void EventMain(CancellationTokenSource cancellationTokenSource, string @Sources2,string @Cible2, string Type2, string saves2, string TypeLog, int ext)
         {
+
+            
             string rutaArchivo = @"C:\LOGJ\state.json";
             try
             {
@@ -38,7 +40,7 @@ namespace WpfApp2
             {
                 foreach (int i in listeDeSauvegardes)
                 {
-
+                    
                     string Sources = Sources2;
                     string Cible = Cible2;
                     string Type = Type2;
@@ -46,13 +48,13 @@ namespace WpfApp2
                     if (TypeLog.Equals("JSON")) { log = 1; }
                     TypeSauv sauvType = Convertir(Type);
                     GlobalVariables.Exist = LogMetier.CheckAppsInDirectory(Sources);
-                    
+                    /*
                     string selectedExtensionsInput = ext.ToString();
                     List<int> selectedExtensions = selectedExtensionsInput.Split(',')
                      .Select(part => int.Parse(part.Trim()))
                      .ToList();
 
-
+                    
                     // Lancer le programme CryptoSoft avec les arguments nécessaires
                     ProcessStartInfo startInfo = new ProcessStartInfo
                     {
@@ -101,14 +103,14 @@ namespace WpfApp2
                     catch (IOException ex)
                     {
                         // Handle the exception
-                    }
+                    } */
                     if (!GlobalVariables.Exist)
                     {
                         if (sauvType == TypeSauv.Complete)
                         {
-                            TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log);
+                            TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log, cancellationTokenSource);
                         }
-                        else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log); }
+                        else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log,cancellationTokenSource); }
                         Systeme.SauvDejaCreee.Add(i);
                     }
 
@@ -117,7 +119,7 @@ namespace WpfApp2
 
             }
 
-
+            
         }
 
         static List<int> ListeDeSauv(string sauv)
