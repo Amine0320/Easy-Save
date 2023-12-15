@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bruno\\source\\repos\\EasySave\\pauseet\\WpfApp2\\EasySavev2.csproj": {}
+    "C:\\Users\\kikou\\source\\repos\\EasySave\\WpfApp2\\EasySavev2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bruno\\source\\repos\\EasySave\\pauseet\\WpfApp2\\EasySavev2.csproj": {
+    "C:\\Users\\kikou\\source\\repos\\EasySave\\WpfApp2\\EasySavev2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bruno\\source\\repos\\EasySave\\pauseet\\WpfApp2\\EasySavev2.csproj",
+        "projectUniqueName": "C:\\Users\\kikou\\source\\repos\\EasySave\\WpfApp2\\EasySavev2.csproj",
         "projectName": "EasySavev2",
-        "projectPath": "C:\\Users\\bruno\\source\\repos\\EasySave\\pauseet\\WpfApp2\\EasySavev2.csproj",
-        "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bruno\\source\\repos\\EasySave\\pauseet\\WpfApp2\\obj\\",
+        "projectPath": "C:\\Users\\kikou\\source\\repos\\EasySave\\WpfApp2\\EasySavev2.csproj",
+        "packagesPath": "C:\\Users\\kikou\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kikou\\source\\repos\\EasySave\\WpfApp2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kikou\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

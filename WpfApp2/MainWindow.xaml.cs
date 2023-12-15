@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,13 +20,6 @@ namespace WpfApp2
         public MainWindow()
         {
             InitializeComponent();
-
-            Items = new ObservableCollection<ComboBoxItem>
-            {
-                new ComboBoxItem { Text = "Opción 1", ImagePath = "England.png" },
-                new ComboBoxItem { Text = "Opción 2", ImagePath = "Espagne.png" },
-                new ComboBoxItem { Text = "Opción 3", ImagePath = "Egypt.png" }
-            };
         }
         public ObservableCollection<ComboBoxItem> Items { get; set; }
         public class ComboBoxItem
@@ -36,37 +28,20 @@ namespace WpfApp2
             public string ImagePath { get; set; }
             public BitmapImage ImageSource => new BitmapImage(new Uri(ImagePath, UriKind.RelativeOrAbsolute));
         }
-        private void MiBoton_Click(object sender, RoutedEventArgs e)
-        {
-            // Código a ejecutar cuando se hace clic en el botón
-            MessageBox.Show("¡Haz hecho clic en el botón!");
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string pathfichier = @"C:\LOGJ\stop.txt";
-
-            // Contenido que se escribirá en el archivo
-            string content = "go";
-
-            try
-            {
-                // Crear un objeto StreamWriter y escribir en el archivo
-                using (StreamWriter writer = new StreamWriter(pathfichier))
-                {
-                    writer.WriteLine(content);
-                }
-
-                //Console.WriteLine("Archivo creado exitosamente.");
-            }
-            catch (Exception ex)
-            {
-                //Console.WriteLine($"Error al crear el archivo: {ex.Message}");
-            }
             Window1 Fenetre = new Window1();
             this.Close();
             Fenetre.Show();
         }
+        private void Button_Parameters(object sender, RoutedEventArgs e)
+        {
+            ParaWindow Fenetre = new ParaWindow();
+            this.Close();
+            Fenetre.Show();
+        }
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
@@ -74,42 +49,31 @@ namespace WpfApp2
             Application.Current.Shutdown();
             //Fenetre.Show();
         }
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-             
-        }
-
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
         private void Button_England(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
             LabelSysteme.Content = "WELCOME TO OUR BACKUP SYSTEM! BY CESI INFO A3 COMPUTER SCIENCE";
-            ButtonQuit.Content = "QUIT";
-            ButtonSave.Content = "SAVE";
+            ButtonQuit.Content = "Quit";
+            ButtonSave.Content = "Save";
+            Parameters.Content = "Settings";
             //Fenetre.Show();
         }
         private void Button_France(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
             LabelSysteme.Content = "BIENVENUE A NOTRE SYSTEME DE SAUVEGARDE! BY CESI INFO A3 INFORMATIQUE";
-            ButtonQuit.Content = "QUITTER";
-            ButtonSave.Content = "ENREGISTRER";
+            ButtonQuit.Content = "Quitter";
+            Parameters.Content = "Paramètres";
+            ButtonSave.Content = "Enregister";
             //Fenetre.Show();
         }
         private void Button_Espagnol(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
             LabelSysteme.Content = "¡BIENVENIDO A NUESTRO SISTEMA DE RESPALDO! POR CESI INFO A3 INFORMATICA";
-            ButtonQuit.Content = "SALIR";
-            ButtonSave.Content = "GUARDAR";
+            ButtonQuit.Content = "Salir";
+            ButtonSave.Content = "Guardar";
+            Parameters.Content = "Parámetros";
             //Fenetre.Show();
         }
         private void Button_Arab(object sender, RoutedEventArgs e)
@@ -118,6 +82,7 @@ namespace WpfApp2
             LabelSysteme.Content =  "CESI A3"+ "مرحبا بكم في نظام النسخ الاحتياطي! من فريق معلوماتية ";
             ButtonQuit.Content = "خروج";
             ButtonSave.Content = "نسخ";
+            Parameters.Content = "إعدادات";
             //Fenetre.Show();
         }
     }

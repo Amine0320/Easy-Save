@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\bruno\source\repos\EasySave\pauseet\WpfApp2\obj\Release\net8.0-windows\
+C:\Users\kikou\source\repos\EasySave\WpfApp2\obj\Release\net8.0-windows\
 EasySavev2
 none
 false
 TRACE;RELEASE;NET;NET8_0;NETCOREAPP
-C:\Users\bruno\source\repos\EasySave\pauseet\WpfApp2\App.xaml
-4-1508649396
+C:\Users\kikou\source\repos\EasySave\WpfApp2\App.xaml
+6-1626305262
 
-16-1005656299
-246-327350634
-MainWindow.xaml;Window1.xaml;Window2.xaml;Window3.xaml;
+18979088784
+246538631720
+Exitstop.xaml;MainWindow.xaml;ParaWindow.xaml;Window1.xaml;Window2.xaml;Window3.xaml;
 
 True
 

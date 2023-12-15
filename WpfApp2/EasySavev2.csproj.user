@@ -5,5 +5,11 @@
     <Page Update="Exitstop.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ParaWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

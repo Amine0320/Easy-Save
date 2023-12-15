@@ -146,8 +146,8 @@ namespace WpfApp2
             if (File.Exists(pathfichier))
             {
                 string contenidoJson = File.ReadAllText(pathfichier);
-
-                statelog statelog1 = JsonSerializer.Deserialize<statelog>(contenidoJson);
+                string firststate = contenidoJson.Split("}")[0] + "}";
+                statelog statelog1 = JsonSerializer.Deserialize<statelog>(firststate);
                 incremet2 = statelog1.Progression;
                 pbConteo.Value = statelog1.Progression;
             }
@@ -164,8 +164,13 @@ namespace WpfApp2
             if (GlobalVariables.Exist) { this.Close(); }
             if (pbConteo.Value == 100)
             {
+                string endstate = @"C:\LOGJ\state2.json";
+                if (File.Exists(endstate))
+                {
+                    File.Delete(pathfichier);
+                    File.Move(endstate, pathfichier);
+                }
                 timer.Stop();
-                
                 Fenetre3.Show();
                 this.Close();
                 pbConteo.Value = pbConteo.Value + 10;
@@ -237,12 +242,9 @@ namespace WpfApp2
             else if (ext.Equals(".pdf")) { return 4; }
             else { return 5; }
         }
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Stop(object sender, RoutedEventArgs e)
         {
             string rutaArchivo = @"C:\LOGJ\stop.txt";
 
@@ -277,11 +279,10 @@ namespace WpfApp2
             public long TotalFilesSize { get; set; }
             public string SourceFilePath { get; set; }
             public long TotalFilesToCopy { get; set; }
-
             public string TargetFilePath { get; set; }
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_Pause(object sender, RoutedEventArgs e)
         {
             string pathfichier = @"C:\LOGJ\stop.txt";
 
@@ -307,7 +308,7 @@ namespace WpfApp2
             //this.Close();
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void Button_Play(object sender, RoutedEventArgs e)
         {
             string pathfichier = @"C:\LOGJ\stop.txt";
 
