@@ -48,7 +48,7 @@ namespace WpfApp2
                     if (TypeLog.Equals("JSON")) { log = 1; }
                     TypeSauv sauvType = Convertir(Type);
                     GlobalVariables.Exist = LogMetier.CheckAppsInDirectory(Sources);
-                    /*
+                    
                     string selectedExtensionsInput = ext.ToString();
                     List<int> selectedExtensions = selectedExtensionsInput.Split(',')
                      .Select(part => int.Parse(part.Trim()))
@@ -103,7 +103,7 @@ namespace WpfApp2
                     catch (IOException ex)
                     {
                         // Handle the exception
-                    } */
+                    } 
                     if (!GlobalVariables.Exist)
                     {
                         if (sauvType == TypeSauv.Complete)
