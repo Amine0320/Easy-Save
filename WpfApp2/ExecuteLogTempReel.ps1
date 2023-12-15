@@ -27,9 +27,11 @@ if (-not (Test-Path $destinationPath -PathType Container)) {
 
 # Copy files with progress
 foreach ($file in $filesToCopy) {
-	while ($contenidoArchivo -ne "go"){
-		$ririt="txt"
-	}
+	do{
+		Write-Host "Sigo Esperando"
+		Write-Host $file
+		$contenidoArchivo = Get-Content -Path $rutaArchivo
+	}while ($contenidoArchivo -ne "go")
 	
     $progress++
 	$contenidoArchivo = Get-Content -Path $rutaArchivo

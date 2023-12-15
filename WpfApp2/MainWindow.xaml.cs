@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,6 +44,25 @@ namespace WpfApp2
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            string pathfichier = @"C:\LOGJ\stop.txt";
+
+            // Contenido que se escribirá en el archivo
+            string content = "go";
+
+            try
+            {
+                // Crear un objeto StreamWriter y escribir en el archivo
+                using (StreamWriter writer = new StreamWriter(pathfichier))
+                {
+                    writer.WriteLine(content);
+                }
+
+                //Console.WriteLine("Archivo creado exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine($"Error al crear el archivo: {ex.Message}");
+            }
             Window1 Fenetre = new Window1();
             this.Close();
             Fenetre.Show();

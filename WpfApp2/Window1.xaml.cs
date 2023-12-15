@@ -23,6 +23,7 @@ using static WpfApp2.Window1;
 using System.Numerics;
 using System.Threading;
 using System.DirectoryServices.ActiveDirectory;
+using System.Reflection.Metadata;
 
 namespace WpfApp2
 {
@@ -282,17 +283,17 @@ namespace WpfApp2
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            string rutaArchivo = @"C:\LOGJ\stop.txt";
+            string pathfichier = @"C:\LOGJ\stop.txt";
 
             // Contenido que se escribirá en el archivo
-            string contenido = "stop";
+            string content = "stop";
 
             try
             {
                 // Crear un objeto StreamWriter y escribir en el archivo
-                using (StreamWriter escritor = new StreamWriter(rutaArchivo))
+                using (StreamWriter writer = new StreamWriter(pathfichier))
                 {
-                    escritor.WriteLine(contenido);
+                    writer.WriteLine(content);
                 }
 
                 //Console.WriteLine("Archivo creado exitosamente.");
@@ -308,7 +309,7 @@ namespace WpfApp2
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            string rutaArchivo = @"C:\LOGJ\stop.txt";
+            string pathfichier = @"C:\LOGJ\stop.txt";
 
             // Contenido que se escribirá en el archivo
             string content = "go";
@@ -316,9 +317,9 @@ namespace WpfApp2
             try
             {
                 // Crear un objeto StreamWriter y escribir en el archivo
-                using (StreamWriter escritor = new StreamWriter(rutaArchivo))
+                using (StreamWriter writer = new StreamWriter(pathfichier))
                 {
-                    escritor.WriteLine(content);
+                    writer.WriteLine(content);
                 }
 
                 //Console.WriteLine("Archivo creado exitosamente.");
