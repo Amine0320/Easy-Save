@@ -9,7 +9,7 @@ namespace WpfApp2
     public class Programproc
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-
+        
         public async void EventMain(CancellationTokenSource cancellationTokenSource, string @Sources2,string @Cible2, string Type2, int saves2, string TypeLog, int ext)
         {
 
@@ -143,7 +143,5 @@ namespace WpfApp2
         public static List<Task> tasks = new List<Task>();
 
         public static int number = 1;
-
-        public static bool play = false;
     }
 }

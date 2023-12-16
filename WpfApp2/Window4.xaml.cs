@@ -31,7 +31,7 @@ namespace WpfApp2
         private void Button_Click(object sender, RoutedEventArgs e)
         { 
            OuiClicked = true;
-            GlobalVariables.number++;
+           GlobalVariables.number++;
            Window1 Fenetre = new Window1();  
            this.Close();
            Fenetre.Show();
@@ -67,7 +67,20 @@ namespace WpfApp2
                 );
             });
             */
-            GlobalVariables.play = true;
+            string pathfichier = @"C:\LOGJ\stop.txt";
+
+            string content = "go";
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(pathfichier))
+                {
+                    writer.WriteLine(content);
+                }
+
+            }
+            catch (Exception ex)
+            { }
             this.Close();
             Task.WaitAll(GlobalVariables.tasks.ToArray());
             Thread.Sleep(1500);

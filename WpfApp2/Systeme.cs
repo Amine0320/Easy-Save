@@ -21,6 +21,7 @@ namespace WpfApp2
 {
     public class Systeme
     {
+        static SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private int IdSys = 0;
         public static List<int> SauvDejaCreee = new List<int>();
@@ -53,7 +54,8 @@ namespace WpfApp2
 
         public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log, CancellationTokenSource cancellationTokenSource)
         {
-
+            string filePath = GlobalVariables.Dir + "limite.txt";
+            int limite =  Convert.ToInt32(File.ReadAllText(filePath));
             EtatTempsReel etatTempsReel = new EtatTempsReel();
             string dateString1 = DateTime.Now.ToString("yyyyMMdd_HHmm");
             var dateString2 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -61,13 +63,29 @@ namespace WpfApp2
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
             //string Execute = @"Copy-Item -Path " + NewSauvegarder.RepSource + " -Destination " + NewSauvegarder.RepCible + " -Recurse -Force";
             string[] files = Directory.GetFiles(NewSauvegarder.RepSource);
-            while (GlobalVariables.play)
+            string stopPath = @"C:\LOGJ\stop.txt";
+            while (File.ReadAllText(stopPath).Equals("go"))
             {
                 foreach (string file in files)
                 {
-                    string destinationPath = Path.Combine(NewSauvegarder.RepCible, Path.GetFileName(file));
-                    File.Copy(file, destinationPath, true);
-                    Console.WriteLine($"Copied: {file} to {destinationPath}");
+                    long fileSize = new FileInfo(file).Length;
+                    if (fileSize > limite * 1024)
+                    {
+                        semaphore.Wait();
+                        try
+                        {
+                            string destinationPath = Path.Combine(NewSauvegarder.RepCible, Path.GetFileName(file));
+                            File.Copy(file, destinationPath, true);
+                        }
+                        finally { semaphore.Release(); }
+                    }
+                    else 
+                    { 
+                        string destinationPath = Path.Combine(NewSauvegarder.RepCible, Path.GetFileName(file));
+                        File.Copy(file, destinationPath, true);
+                    }
+                    
+                    
                 }
             }
             string ExecuteFileSize = @"(Get-ChildItem -Path " + NewSauvegarder.RepSource + " -Recurse | Measure-Object -Property Length -Sum).Sum";
@@ -106,10 +124,9 @@ namespace WpfApp2
 
         public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log, CancellationTokenSource cancellationTokenSource)
         {
+            string filePath = GlobalVariables.Dir + "limite.txt";
+            int limite = Convert.ToInt32(File.ReadAllText(filePath));
             EtatTempsReel etatTempsReel = new EtatTempsReel();
-            Console.WriteLine("************************");
-            Console.WriteLine("***Project Easy Save ***");
-            Console.WriteLine("************************");
             string dateString1 = DateTime.Now.ToString("yyyyMMdd_HHmm");
             var dateString2 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime date1 = DateTime.Now;
@@ -131,7 +148,8 @@ namespace WpfApp2
                     {
                         DateTime sourceLastModified = File.GetLastWriteTime(sourceFilePath);
                         DateTime targetLastModified = File.GetLastWriteTime(targetFilePath);
-                        while (GlobalVariables.play)
+                        string stopPath = @"C:\LOGJ\stop.txt";
+                        while (File.ReadAllText(stopPath).Equals("go"))
                         {
 
                             if (sourceLastModified < targetLastModified)
@@ -147,12 +165,28 @@ namespace WpfApp2
                     }
                     else
                     {
-                        File.Copy(sourceFilePath, targetFilePath);
-                        Console.WriteLine($"Le fichier {fileName} a été ajouté au répertoire cible.");
-                        Console.WriteLine($"File {fileName} was added in target directory.");
-                        FileInfo fileInfo = new FileInfo(sourceFilePath);
-                        FileSize += (int)fileInfo.Length;
-                        FileModifie++;
+                        long fileSize = new FileInfo(sourceFilePath).Length;
+                        if (fileSize > limite * 1024)
+                        {
+                            semaphore.Wait();
+                            try
+                            {
+                                File.Copy(sourceFilePath, targetFilePath);
+                                //Console.WriteLine($"Le fichier {fileName} a été ajouté au répertoire cible.");
+                                //Console.WriteLine($"File {fileName} was added in target directory.");
+                                FileSize += (int)fileSize;
+                                FileModifie++;
+                            }
+                            finally { semaphore.Release(); }
+                        }
+                        else
+                        {
+                            File.Copy(sourceFilePath, targetFilePath);
+                            //Console.WriteLine($"Le fichier {fileName} a été ajouté au répertoire cible.");
+                            //Console.WriteLine($"File {fileName} was added in target directory.");
+                            FileSize += (int)fileSize;
+                            FileModifie++;
+                        }
                     }
                     int FilesRestant = totalFiles - FileProcessed - FileModifie;
                     FileProcessed++;

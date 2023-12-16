@@ -7,9 +7,9 @@ param (
 # Source and destination paths
 $rutaArchivoJson = "C:\LOGJ\state.json"
 $rutaArchivoJson2 = "C:\LOGJ\state2.json"
-#$rutaArchivo = "C:\LOGJ\stop.txt"
+$rutaArchivo = "C:\LOGJ\stop.txt"
 # Get the list of files to copy
-#$contenidoArchivo = Get-Content -Path $rutaArchivo
+$contenidoArchivo = Get-Content -Path $rutaArchivo
 $filesToCopy = Get-ChildItem -Path $sourcePath
 #$ririt="txt"
 # Initialize progress bar
@@ -27,14 +27,14 @@ if (-not (Test-Path $destinationPath -PathType Container)) {
 
 # Copy files with progress
 foreach ($file in $filesToCopy) {
-	#do{
-	#	Write-Host "Sigo Esperando"
-	#	Write-Host $file
-	#	$contenidoArchivo = Get-Content -Path $rutaArchivo 
-	#}while ($contenidoArchivo -ne "go")
+	do{
+		Write-Host "Sigo Esperando"
+		Write-Host $file
+		$contenidoArchivo = Get-Content -Path $rutaArchivo 
+	}while ($contenidoArchivo -ne "go")
 	
     $progress++
-	#$contenidoArchivo = Get-Content -Path $rutaArchivo 
+	$contenidoArchivo = Get-Content -Path $rutaArchivo 
     $progressPercentage = ($progress / $totalFiles) * 100
 	$EtatReel = @{
 	IdEtaTemp = $ID

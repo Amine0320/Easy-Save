@@ -31,6 +31,17 @@ namespace WpfApp2
                 }
             }
         }
+        private void AjtLimite(object sender, RoutedEventArgs e)
+        {
+            string path = GlobalVariables.Dir + "limite.txt";
+            string limite = Limite.Text.ToString();
+            if (limite.All(char.IsDigit))
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                writer.Write(limite);
+                writer.Close();
+            }
+        }
 
         private void Button_OuvreLM(object sender, RoutedEventArgs e) 
         {

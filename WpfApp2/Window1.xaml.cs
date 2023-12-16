@@ -180,7 +180,7 @@ namespace WpfApp2
                 pbConteo.Value = 0;
             }
             int drro;
-            string path = @"C:\LOGJ\quant.txt";
+            //string path = @"C:\LOGJ\quant.txt";
             string contenido;
             string trutj;
             Window1 Fenetre1 = new Window1();
@@ -271,8 +271,20 @@ namespace WpfApp2
 
         private void Button_Stop(object sender, RoutedEventArgs e)
         {
-            // Contenido que se escribirá en el archivo
-            GlobalVariables.play = false;
+            string pathfichier = @"C:\LOGJ\stop.txt";
+
+            string content = "stop";
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(pathfichier))
+                {
+                    writer.WriteLine(content);
+                }
+
+            }
+            catch (Exception ex)
+            { }
             Exitstop exitstop = new Exitstop();
             exitstop.Show();
             this.Close();
@@ -292,12 +304,36 @@ namespace WpfApp2
 
         private void Button_Pause(object sender, RoutedEventArgs e)
         {
-            GlobalVariables.play = false;
+            string pathfichier = @"C:\LOGJ\stop.txt";
+            string content = "stop";
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(pathfichier))
+                {
+                    writer.WriteLine(content);
+                }
+
+            }
+            catch (Exception ex)
+            {}
         }
 
         private void Button_Play(object sender, RoutedEventArgs e)
         {
-            GlobalVariables.play = true;
+            string pathfichier = @"C:\LOGJ\stop.txt";
+
+            string content = "go";
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(pathfichier))
+                {
+                    writer.WriteLine(content);
+                }
+            }
+            catch (Exception ex)
+            {}
         }
     }
 }
