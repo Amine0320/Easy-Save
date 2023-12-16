@@ -1,12 +1,4 @@
-﻿using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Services.Description;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -46,8 +38,10 @@ namespace WpfApp2
             }
             */
         }
+        
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         DispatcherTimer timer = new DispatcherTimer();
+
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             Window4 Fenetre = new Window4();
@@ -57,23 +51,25 @@ namespace WpfApp2
             // Utiliser une boucle while pour attendre que OuiClicked devienne vrai
         
                 // Mise en veille pour éviter de bloquer le thread 
-                System.Threading.Thread.Sleep(100);
-                Application.Current.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Background);
-                string path = @"C:\LOGJ\quant.txt";
+            System.Threading.Thread.Sleep(100);
+            Application.Current.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Background);
+           
+            //string path = @"C:\LOGJ\quant.txt";
                 //Programproc program = new Programproc();
                 //program.EventMainAsync(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
             // Ouvrir la deuxième fenêtre 
             //Window2 Fenetre2 = new Window2();
             //Fenetre2.Show();   
 
-            await Task.Run(() =>
+            Task task = Task.Run(() =>
             {
                 Programproc program = new Programproc();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    program.EventMain(cancellationTokenSource, Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
+                    program.EventMain(cancellationTokenSource, Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), GlobalVariables.number.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
                 });
-            }); 
+            });
+            GlobalVariables.tasks.Add(task);
 
 
 
@@ -239,7 +235,6 @@ namespace WpfApp2
             CibleLabel.Content = "Destination";
             TypeLogLabel.Content = "LogType";
             TypeSauvLabel.Content = "LogSav";
-            NombLabel.Content = "Number of Backups";
             ExtLabel.Content = "Extensions to encrypt";
             ButtonCommence.Content = "Start";
             ButtonQuit.Content = "Quit";
@@ -252,7 +247,6 @@ namespace WpfApp2
             CibleLabel.Content = "Cible";
             TypeLogLabel.Content = "TypeLog";
             TypeSauvLabel.Content = "TypeSauv";
-            NombLabel.Content = "Nombres de Sauvegardes";
             ExtLabel.Content = "Extensions à chiffrer";
             ButtonCommence.Content = "Commence";
             ButtonQuit.Content = "Quitter";
@@ -265,7 +259,6 @@ namespace WpfApp2
             CibleLabel.Content = "Destino";
             TypeLogLabel.Content = "TipoLog";
             TypeSauvLabel.Content = "TipoGuar";
-            NombLabel.Content = "Cantidad de Salvaguardado";
             ExtLabel.Content = "Extensiones para cifrar";
             ButtonCommence.Content = "Comenzar";
             ButtonQuit.Content = "Salir";

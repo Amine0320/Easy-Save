@@ -1,17 +1,9 @@
-﻿using JetBrains.Annotations;
-using Microsoft.CodeAnalysis;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes; 
 
 namespace WpfApp2
 {
@@ -27,12 +19,6 @@ namespace WpfApp2
         {
             InitializeComponent();
 
-            Items = new ObservableCollection<ComboBoxItem>
-            {
-                new ComboBoxItem { Text = "Opción 1", ImagePath = "England.png" },
-                new ComboBoxItem { Text = "Opción 2", ImagePath = "Espagne.png" },
-                new ComboBoxItem { Text = "Opción 3", ImagePath = "Egypt.png" } 
-            };
         }
         public ObservableCollection<ComboBoxItem> Items { get; set; }
         public class ComboBoxItem
@@ -44,14 +30,26 @@ namespace WpfApp2
         // Button Oui 
         private void Button_Click(object sender, RoutedEventArgs e)
         { 
-           OuiClicked = true; 
-            Window1 Fenetre = new Window1();  
-            Window4 Fenetre4 = new Window4(); 
-            Fenetre4.Close(); 
-            Fenetre.Show();
+           OuiClicked = true;
+            GlobalVariables.number++;
+           Window1 Fenetre = new Window1();  
+           this.Close();
+           Fenetre.Show();
+           // If I clicked yes 
+           // Mise en veille pour éviter de bloquer le thread
+            
 
-            // If I clicked yes 
-            // Mise en veille pour éviter de bloquer le thread
+            // Ouvrir la deuxième fenêtre 
+            //Window2 Fenetre2 = new Window2();
+            //Fenetre2.Show() ;   
+
+        } 
+        // Button Non  
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {              
+            Window1 Fenetre = new Window1();
+            NonClicked = true;
+            /*
             System.Threading.Thread.Sleep(100);
             Application.Current.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Background);
             string path = @"C:\LOGJ\quant.txt";
@@ -66,21 +64,26 @@ namespace WpfApp2
                     Fenetre.Debut.Text.ToString() + Fenetre.Option1.Text.ToString() + Fenetre.Fin.Text.ToString(),
                     Fenetre.TypeLog.Text.ToString(),
                     Fenetre.GetExtension(Fenetre.Extension.Text.ToString())
-                ); 
+                );
             });
+            */
+            string pathfichier = @"C:\LOGJ\stop.txt";
 
-            // Ouvrir la deuxième fenêtre 
-            //Window2 Fenetre2 = new Window2();
-            //Fenetre2.Show() ;   
+            string content = "go";
 
-        } 
-        // Button Non  
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {  
-            NonClicked = true;
-            Window4 Fenetre1 = new Window4();
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(pathfichier))
+                {
+                    writer.WriteLine(content);
+                }
+
+            }
+            catch (Exception ex)
+            { }
             this.Close();
-            Window1 Fenetre = new Window1();
+            Task.WaitAll(GlobalVariables.tasks.ToArray());
+            Thread.Sleep(1500);
             Window3 Fenetre3 = new Window3(); 
             Fenetre3.Show(); 
         }  

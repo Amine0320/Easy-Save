@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,13 +21,20 @@ namespace WpfApp2
         public MainWindow()
         {
             InitializeComponent();
-        }
-        public ObservableCollection<ComboBoxItem> Items { get; set; }
-        public class ComboBoxItem
-        {
-            public string Text { get; set; }
-            public string ImagePath { get; set; }
-            public BitmapImage ImageSource => new BitmapImage(new Uri(ImagePath, UriKind.RelativeOrAbsolute));
+            string pathfichier = @"C:\LOGJ\stop.txt";
+
+            string content = "stop";
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(pathfichier))
+                {
+                    writer.WriteLine(content);
+                }
+
+            }
+            catch (Exception ex)
+            {}
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

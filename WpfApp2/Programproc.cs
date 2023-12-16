@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PowershellShowcase;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Text;
 using System.IO;
-using System.Web.Services.Description;
 using Programme_cryptosoft;
 using System.Diagnostics;
 using System.IO.Pipes;
@@ -18,11 +9,6 @@ namespace WpfApp2
     public class Programproc
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        public void EventMainAsync(string @Sources2, string @Cible2, string Type2, string saves2, string TypeLog, int ext)
-        {
-            Thread thread = new Thread(() => EventMain(cancellationTokenSource, @Sources2, @Cible2, Type2, saves2, TypeLog, ext));
-            thread.Start();
-        }
 
         public async void EventMain(CancellationTokenSource cancellationTokenSource, string @Sources2,string @Cible2, string Type2, string saves2, string TypeLog, int ext)
         {
@@ -183,5 +169,9 @@ namespace WpfApp2
             set { _Exist = value; }
         }
         public static string Dir {get; set;} = GetDir();
+
+        public static List<Task> tasks = new List<Task>();
+
+        public static int number = 1;
     }
 }
