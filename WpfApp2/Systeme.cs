@@ -61,8 +61,7 @@ namespace WpfApp2
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
             //string Execute = @"Copy-Item -Path " + NewSauvegarder.RepSource + " -Destination " + NewSauvegarder.RepCible + " -Recurse -Force";
             string[] files = Directory.GetFiles(NewSauvegarder.RepSource);
-            string pause = File.ReadAllText(@"C:\LOGJ\stop.txt");
-            while (pause.Equals("go"))
+            while (GlobalVariables.play)
             {
                 foreach (string file in files)
                 {
@@ -132,8 +131,7 @@ namespace WpfApp2
                     {
                         DateTime sourceLastModified = File.GetLastWriteTime(sourceFilePath);
                         DateTime targetLastModified = File.GetLastWriteTime(targetFilePath);
-                        string pause = File.ReadAllText(@"C:\LOGJ\stop.txt");
-                        while (pause.Equals("go"))
+                        while (GlobalVariables.play)
                         {
 
                             if (sourceLastModified < targetLastModified)

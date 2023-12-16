@@ -67,20 +67,7 @@ namespace WpfApp2
                 );
             });
             */
-            string pathfichier = @"C:\LOGJ\stop.txt";
-
-            string content = "go";
-
-            try
-            {
-                using (StreamWriter writer = new StreamWriter(pathfichier))
-                {
-                    writer.WriteLine(content);
-                }
-
-            }
-            catch (Exception ex)
-            { }
+            GlobalVariables.play = true;
             this.Close();
             Task.WaitAll(GlobalVariables.tasks.ToArray());
             Thread.Sleep(1500);

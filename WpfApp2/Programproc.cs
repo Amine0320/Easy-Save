@@ -143,5 +143,7 @@ namespace WpfApp2
         public static List<Task> tasks = new List<Task>();
 
         public static int number = 1;
+
+        public static bool play = false;
     }
 }
