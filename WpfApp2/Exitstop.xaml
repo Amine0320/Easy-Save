@@ -9,6 +9,36 @@
     <Grid>
         <Label x:Name="pbConteo2"  Content="Vous avez arrété l'enregistrement. Cliquez sur Quitter pour quitter l'application" HorizontalAlignment="Center" Margin="0,82,0,0" VerticalAlignment="Top" Height="32" Width="426"/>
         <Button x:Name="ButtonQuit" Content="Quitter" HorizontalAlignment="Left" Height="29" Margin="58,152,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click_1"/>
-
+        <Button HorizontalAlignment="Left" Margin="406,17,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_England">
+            <Button.Background>
+                <ImageBrush ImageSource="/England.png"/>
+            </Button.Background>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="254,17,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arab" RenderTransformOrigin="0.809,-0.605">
+            <Button.Background>
+                <ImageBrush ImageSource="/Egypt.png"/>
+            </Button.Background>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="330,17,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arab">
+            <Button.Background>
+                <ImageBrush ImageSource="/Tunisie.png"/>
+            </Button.Background>
+        </Button>
+        <Button Content="" HorizontalAlignment="Left" Margin="216,17,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_France" RenderTransformOrigin="-5.058,0.423" >
+            <Button.Background>
+                <ImageBrush ImageSource="/France.png"/>
+            </Button.Background>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="292,17,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arab" RenderTransformOrigin="-0.455,0.546">
+            <Button.Background>
+                <ImageBrush ImageSource="/Algerie.png"/>
+            </Button.Background>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="368,17,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Espagnol">
+            <Button.Background>
+                <ImageBrush ImageSource="/Peru.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
+
 </Window>

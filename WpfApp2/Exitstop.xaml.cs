@@ -27,12 +27,27 @@ namespace WpfApp2
             InitializeComponent();
         }
         
-        private int incremet =0;
         
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
             Application.Current.Shutdown();
+        }
+        private void Button_England(object sender, RoutedEventArgs e)
+        {
+           
+        }
+        private void Button_France(object sender, RoutedEventArgs e)
+        {
+         
+        }
+        private void Button_Espagnol(object sender, RoutedEventArgs e)
+        {
+         
+        }
+        private void Button_Arab(object sender, RoutedEventArgs e)
+        {
+
         }
 
     }

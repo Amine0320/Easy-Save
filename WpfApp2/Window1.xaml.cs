@@ -27,30 +27,16 @@ namespace WpfApp2
         public Window1()
         {
             InitializeComponent();
-            string path = @"C:\LOGJ\quant.txt";
-            /*
-            if (File.Exists(path))
-            {
-                Debut.IsReadOnly = true;
-                Fin.IsReadOnly = true;
-                Option1.Text = "";
-                Option1.IsEnabled = false;
-            }
-            */
         }
         
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         DispatcherTimer timer = new DispatcherTimer();
-
+        int saveNumber = GlobalVariables.number;
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             Window4 Fenetre = new Window4();
             Window1 Fenetre1 = new Window1();
             Fenetre.Show();
-
-            // Utiliser une boucle while pour attendre que OuiClicked devienne vrai
-        
-                // Mise en veille pour éviter de bloquer le thread 
             System.Threading.Thread.Sleep(100);
             Application.Current.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Background);
            
@@ -66,7 +52,7 @@ namespace WpfApp2
                 Programproc program = new Programproc();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    program.EventMain(cancellationTokenSource, Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), GlobalVariables.number.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
+                    program.EventMain(cancellationTokenSource, Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), saveNumber, TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
                 });
             });
             GlobalVariables.tasks.Add(task);
@@ -176,10 +162,18 @@ namespace WpfApp2
             if (File.Exists(pathfichier))
             {
                 string contenidoJson = File.ReadAllText(pathfichier);
-                string firststate = contenidoJson.Split("}")[0] + "}";
-                statelog statelog1 = JsonSerializer.Deserialize<statelog>(firststate);
-                incremet2 = statelog1.Progression;
-                pbConteo.Value = statelog1.Progression;
+                foreach (string i in contenidoJson.Split('}',StringSplitOptions.None))
+                {
+                    if (!string.IsNullOrWhiteSpace(i))
+                    {
+                        statelog statelog1 = JsonSerializer.Deserialize<statelog>(i + "}");
+                        if (statelog1.IdEtaTemp.Equals(saveNumber.ToString()) || statelog1.State.Equals("Active"))
+                        {
+                            incremet2 = statelog1.Progression;
+                            pbConteo.Value = statelog1.Progression;
+                        }
+                    }
+                }
             }
             else
             {

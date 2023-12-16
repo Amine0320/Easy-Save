@@ -51,24 +51,26 @@ namespace WpfApp2
             return NewSauvegarder;
         }
 
-        public void EnregistrerSauvegardeAsync(int i, TravailSauvegarde NewSauvegarder, int log)
-        {
-            // Create a new thread and start it with the EnregistrerSauvegarde method
-            Thread thread = new Thread(() => EnregistrerSauvegarde(i, NewSauvegarder, log, cancellationTokenSource));
-            thread.Start();
-        }
-
         public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log, CancellationTokenSource cancellationTokenSource)
         {
+
             EtatTempsReel etatTempsReel = new EtatTempsReel();
-            Console.WriteLine("************************");
-            Console.WriteLine("***Project Easy Save ***");
-            Console.WriteLine("************************");
             string dateString1 = DateTime.Now.ToString("yyyyMMdd_HHmm");
             var dateString2 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime date1 = DateTime.Now;
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
-            string Execute = @"Copy-Item -Path " + NewSauvegarder.RepSource + " -Destination " + NewSauvegarder.RepCible + " -Recurse -Force";
+            //string Execute = @"Copy-Item -Path " + NewSauvegarder.RepSource + " -Destination " + NewSauvegarder.RepCible + " -Recurse -Force";
+            string[] files = Directory.GetFiles(NewSauvegarder.RepSource);
+            string pause = File.ReadAllText(@"C:\LOGJ\stop.txt");
+            while (pause.Equals("go"))
+            {
+                foreach (string file in files)
+                {
+                    string destinationPath = Path.Combine(NewSauvegarder.RepCible, Path.GetFileName(file));
+                    File.Copy(file, destinationPath, true);
+                    Console.WriteLine($"Copied: {file} to {destinationPath}");
+                }
+            }
             string ExecuteFileSize = @"(Get-ChildItem -Path " + NewSauvegarder.RepSource + " -Recurse | Measure-Object -Property Length -Sum).Sum";
             //Console.WriteLine(ExecuteFileSize);
             string output2 = PowerShellHandler.Command(ExecuteFileSize);
@@ -102,12 +104,7 @@ namespace WpfApp2
             return;
 
         }
-        public void EnregistrerSauvegardeDiffAsync(int i, TravailSauvegarde NewSauvegarder, int log)
-        {
-            // Create a new thread and start it with the EnregistrerSauvegardeDiff method
-            Thread thread = new Thread(() => EnregistrerSauvegardeDiff(i, NewSauvegarder, log, cancellationTokenSource));
-            thread.Start();
-        }
+
         public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log, CancellationTokenSource cancellationTokenSource)
         {
             EtatTempsReel etatTempsReel = new EtatTempsReel();
@@ -135,15 +132,19 @@ namespace WpfApp2
                     {
                         DateTime sourceLastModified = File.GetLastWriteTime(sourceFilePath);
                         DateTime targetLastModified = File.GetLastWriteTime(targetFilePath);
-
-                        if (sourceLastModified < targetLastModified)
+                        string pause = File.ReadAllText(@"C:\LOGJ\stop.txt");
+                        while (pause.Equals("go"))
                         {
-                            File.Copy(sourceFilePath, targetFilePath, true);
-                            Console.WriteLine($"Le fichier {fileName} a été mis à jour dans le répertoire cible.");
-                            Console.WriteLine($"File {fileName} was updated in target directory.");
-                            FileInfo fileInfo = new FileInfo(sourceFilePath);
-                            FileSize += (int)fileInfo.Length;
-                            FileModifie++;
+
+                            if (sourceLastModified < targetLastModified)
+                            {
+                                File.Copy(sourceFilePath, targetFilePath, true);
+                                Console.WriteLine($"Le fichier {fileName} a été mis à jour dans le répertoire cible.");
+                                Console.WriteLine($"File {fileName} was updated in target directory.");
+                                FileInfo fileInfo = new FileInfo(sourceFilePath);
+                                FileSize += (int)fileInfo.Length;
+                                FileModifie++;
+                            }
                         }
                     }
                     else

@@ -118,7 +118,11 @@ namespace WpfApp2
             {
                 Console.WriteLine("Une erreur s'est produite : " + e.Message);
             }
-            return timetre;
+            if (timetre != "")
+            {
+                return timetre;
+            }
+            else { return "0"; }
         }
         /* public string Consulter()
          {
