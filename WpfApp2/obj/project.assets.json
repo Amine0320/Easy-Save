@@ -7373,6 +7373,7 @@
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
       "Microsoft.PowerShell.SDK >= 7.4.0",
+      "Newtonsoft.Json >= 13.0.3",
       "System.ComponentModel >= 4.3.0",
       "System.Management >= 8.0.0",
       "System.Management.Automation >= 7.4.0",
@@ -7381,23 +7382,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Elbah\\.nuget\\packages\\": {},
+    "C:\\Users\\kikou\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Elbah\\Source\\Repos\\EasySave5\\WpfApp2\\EasySavev2.csproj",
+      "projectUniqueName": "C:\\Users\\kikou\\source\\repos\\EasySaveWPF3\\WpfApp2\\EasySavev2.csproj",
       "projectName": "EasySavev2",
-      "projectPath": "C:\\Users\\Elbah\\Source\\Repos\\EasySave5\\WpfApp2\\EasySavev2.csproj",
-      "packagesPath": "C:\\Users\\Elbah\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Elbah\\Source\\Repos\\EasySave5\\WpfApp2\\obj\\",
+      "projectPath": "C:\\Users\\kikou\\source\\repos\\EasySaveWPF3\\WpfApp2\\EasySavev2.csproj",
+      "packagesPath": "C:\\Users\\kikou\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kikou\\source\\repos\\EasySaveWPF3\\WpfApp2\\obj\\",
       "projectStyle": "PackageReference",
+      "crossTargeting": true,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Elbah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kikou\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -7428,6 +7430,10 @@
           "Microsoft.PowerShell.SDK": {
             "target": "Package",
             "version": "[7.4.0, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.3, )"
           },
           "System.ComponentModel": {
             "target": "Package",
