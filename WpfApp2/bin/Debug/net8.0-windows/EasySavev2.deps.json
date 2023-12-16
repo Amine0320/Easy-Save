@@ -9,6 +9,7 @@
       "EasySavev2/1.0.0": {
         "dependencies": {
           "Microsoft.PowerShell.SDK": "7.4.0",
+          "Newtonsoft.Json": "13.0.3",
           "System.ComponentModel": "4.3.0",
           "System.Management": "8.0.0",
           "System.Management.Automation": "7.4.0",
