@@ -21,13 +21,6 @@ namespace WpfApp2
         {
             InitializeComponent();
         }
-        public ObservableCollection<ComboBoxItem> Items { get; set; }
-        public class ComboBoxItem
-        {
-            public string Text { get; set; }
-            public string ImagePath { get; set; }
-            public BitmapImage ImageSource => new BitmapImage(new Uri(ImagePath, UriKind.RelativeOrAbsolute));
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
