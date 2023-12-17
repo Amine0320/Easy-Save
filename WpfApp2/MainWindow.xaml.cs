@@ -21,6 +21,18 @@ namespace WpfApp2
         public MainWindow()
         {
             InitializeComponent();
+            string pathfichier = @"C:\LOGJ\stop.txt";
+            string content = "stop";
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(pathfichier))
+                {
+                    writer.WriteLine(content);
+                }
+
+            }
+            catch (Exception ex)
+            { }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

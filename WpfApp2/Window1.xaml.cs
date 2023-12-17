@@ -1,21 +1,8 @@
 ﻿using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Text.Json;
-using System.Threading.Tasks;
-using static WpfApp2.Window1;
-using System.Numerics;
-using System.Threading;
-using System.DirectoryServices.ActiveDirectory;
-using System.Reflection.Metadata;
 
 namespace WpfApp2
 {
@@ -159,6 +146,7 @@ namespace WpfApp2
                 LabelCible.Background = new SolidColorBrush(Colors.Red);
             }
             string pathfichier = @"C:\LOGJ\state.json";
+            statelog statelog1 = new statelog();
             if (File.Exists(pathfichier))
             {
                 string contenidoJson = File.ReadAllText(pathfichier);
@@ -166,7 +154,7 @@ namespace WpfApp2
                 {
                     if (!string.IsNullOrWhiteSpace(i))
                     {
-                        statelog statelog1 = JsonSerializer.Deserialize<statelog>(i + "}");
+                        statelog1 = JsonSerializer.Deserialize<statelog>(i + "}");
                         if (statelog1.IdEtaTemp.Equals(saveNumber.ToString()) || statelog1.State.Equals("Active"))
                         {
                             incremet2 = statelog1.Progression;
@@ -186,7 +174,6 @@ namespace WpfApp2
             Window1 Fenetre1 = new Window1();
             Window3 Fenetre3 = new Window3();
             Window4 Fenetre4 = new Window4(); 
-            if (GlobalVariables.Exist) { this.Close(); }
             if (pbConteo.Value == 100)
             {
                 string endstate = @"C:\LOGJ\state2.json";
@@ -203,21 +190,16 @@ namespace WpfApp2
                 
 
 
-            }else
+            }
+            else
             {
-                try
+                LogMetier.CheckAppsInDirectory(statelog1.SourceFilePath);
+                if (GlobalVariables.Active)
                 {
-                    if (cancellationTokenSource != null)
-                {
-                    
-                        //cancellationTokenSource.Token.ThrowIfCancellationRequested();
-                    
-
-                }
-                }
-                catch (OperationCanceledException)
-                {
-                    throw;
+                    using (StreamWriter escritor = new StreamWriter(@"C:\LOGJ\stop.exe"))
+                    {
+                        escritor.WriteLine("stop");
+                    }
                 }
 
             } 

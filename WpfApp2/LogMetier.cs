@@ -1,41 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace WpfApp2
 {
     class LogMetier
     {
-        public static bool CheckAppsInDirectory(string sourceDirectory)
+        public static void CheckAppsInDirectory(string sourceDirectory)
         {
             try
             {
-                // Read the list of apps from the file
-                string filePath = GlobalVariables.Dir + "logicielmetier.txt";
-                List<string> apps = new List<string>(File.ReadAllLines(filePath));
-                string[] alldirs = Directory.GetDirectories(sourceDirectory, "", SearchOption.AllDirectories);
-                string[] dirs = new string[alldirs.Length + 1];
-                Array.Copy(alldirs, dirs, alldirs.Length);
-                dirs[alldirs.Length] = sourceDirectory;
-                foreach (string dir in dirs)
+                if (!string.IsNullOrEmpty(sourceDirectory))
                 {
-                    foreach (string app in apps)
-                    {
-                        string appPath = Path.Combine(dir, app);
+                    string filePath = Path.Combine(GlobalVariables.Dir, "logicielmetier.txt");
+                    HashSet<string> apps = new HashSet<string>(File.ReadAllLines(filePath));
+                    string[] alldirs = Directory.GetDirectories(sourceDirectory, "", SearchOption.AllDirectories);
 
-                        if (Directory.Exists(appPath) || File.Exists(appPath))
+                    foreach (string dir in alldirs)
+                    {
+                        foreach (string app in apps)
                         {
-                            return true;
+                            string appPath = Path.Combine(dir, app);
+
+                            if (Directory.Exists(appPath) || File.Exists(appPath))
+                            {
+                                string appName = Path.GetFileName(appPath);
+                                GlobalVariables.Active = IsActive(appName);
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                //Console.WriteLine($"An error occurred: {ex.Message}");
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
-            return false;
         }
+
+        public static bool IsActive(string appName)
+        {
+            Process[] processes = Process.GetProcessesByName(appName);
+            return processes.Length > 0;
+        }
+
 
     }
 }

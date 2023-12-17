@@ -2249,7 +2249,6 @@ C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\Exitsto
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\MainWindow.g.cs
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\ParaWindow.g.cs
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\Window1.g.cs
-C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\Window2.g.cs
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\Window3.g.cs
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\Window4.g.cs
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\App.g.cs
@@ -2259,7 +2258,6 @@ C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\Exitsto
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\MainWindow.baml
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\ParaWindow.baml
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\Window1.baml
-C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\Window2.baml
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\Window3.baml
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\Window4.baml
 C:\Users\kikou\source\repos\EasySaveFin\WpfApp2\obj\Debug\net8.0-windows\EasySavev2.g.resources
