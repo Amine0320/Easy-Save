@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
+using System.ComponentModel;
+using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 
 namespace WpfApp2
@@ -50,6 +53,44 @@ namespace WpfApp2
 
         }
 
+        private void AjtExt_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string filePath = Path.Combine(GlobalVariables.Dir, "ExtensionsPriori.txt");
+                string Extensions = "";
+                if ((bool)txt.IsChecked)
+                {
+                    Extensions += ".txt\n";
+                }
+                if ((bool)pdf.IsChecked)
+                {
+                    Extensions += ".pdf\n";
+                }
+                if ((bool)png.IsChecked)
+                {
+                    Extensions += ".png\n";
+                }
+                if ((bool)jpg.IsChecked)
+                {
+                    Extensions += ".jpg\n";
+                }
+                if ((bool)docx.IsChecked)
+                {
+                    Extensions += ".docx\n";
+                }
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    writer.Write(Extensions);
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de l'enregistrement des extensions prioritaires : {ex.Message}");
+            }
+        }
+
         private void Retour (object sender, RoutedEventArgs e)
         {
             MainWindow Fenetre = new MainWindow();
@@ -62,10 +103,7 @@ namespace WpfApp2
             Application.Current.Shutdown();
             
         }
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
 
         private void Button_England(object sender, RoutedEventArgs e)

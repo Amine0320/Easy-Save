@@ -50,12 +50,12 @@
 
 
         <Label x:Name="ExtensionsLabel" Content="Extensions à prioritiser" HorizontalAlignment="Left" Margin="46,203,0,0" VerticalAlignment="Top"/>
-        <CheckBox  x:Name="txt" Content=".txt" HorizontalAlignment="Left" Height="14" Margin="54,240,0,0" VerticalAlignment="Top" Width="82" FontSize="11" Checked="txt_Checked"/>
-        <CheckBox x:Name="pdf" Content=".pdf" HorizontalAlignment="Left" Height="14" Margin="54,260,0,0" VerticalAlignment="Top" Width="82" FontSize="11" />
-        <CheckBox x:Name="png" Content=".png" HorizontalAlignment="Left" Height="14" Margin="54,279,0,0" VerticalAlignment="Top" Width="82" FontSize="11" />
-        <CheckBox x:Name="jpg" Content=".jpg" HorizontalAlignment="Left" Height="14" Margin="54,298,0,0" VerticalAlignment="Top" Width="82" FontSize="11" />
+        <CheckBox  x:Name="txt" Content=".txt" HorizontalAlignment="Left" Height="14" Margin="54,240,0,0" VerticalAlignment="Top" Width="82" FontSize="11" />
+        <CheckBox x:Name="pdf" Content=".pdf" HorizontalAlignment="Left" Height="14" Margin="54,260,0,0" VerticalAlignment="Top" Width="82" FontSize="11"  />
+        <CheckBox x:Name="png" Content=".png" HorizontalAlignment="Left" Height="14" Margin="54,279,0,0" VerticalAlignment="Top" Width="82" FontSize="11"  />
+        <CheckBox x:Name="jpg" Content=".jpg" HorizontalAlignment="Left" Height="14" Margin="54,298,0,0" VerticalAlignment="Top" Width="82" FontSize="11"  />
         <CheckBox x:Name="docx" Content=".docx" HorizontalAlignment="Left" Height="14" Margin="54,317,0,0" VerticalAlignment="Top" Width="82" FontSize="11" />
-        <Button x:Name = "AjtExt" Content="Ajoute" HorizontalAlignment="Left" Margin="84,339,0,0" VerticalAlignment="Top" Height="18" Width="52" FontSize="9"/>
+        <Button x:Name = "AjtExt" Content="Ajoute" HorizontalAlignment="Left" Margin="84,339,0,0" VerticalAlignment="Top" Height="18" Width="52" FontSize="9" Click="AjtExt_Click"/>
         <Label x:Name="LimitLabel" Content="Taille Limite (en Ko)" HorizontalAlignment="Left" Margin="45,150,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="Limite" HorizontalAlignment="Left" Margin="53,180,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Button x:Name = "BoutonAjtLimite" Content="Ajoute" HorizontalAlignment="Left" Margin="173,180,0,0" VerticalAlignment="Top" Height="18" Width="52" FontSize="9" Click="AjtLimite" />

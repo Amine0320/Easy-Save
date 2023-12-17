@@ -61,12 +61,13 @@ namespace WpfApp2
             var dateString2 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime date1 = DateTime.Now;
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
-            //string Execute = @"Copy-Item -Path " + NewSauvegarder.RepSource + " -Destination " + NewSauvegarder.RepCible + " -Recurse -Force";
             string[] files = Directory.GetFiles(NewSauvegarder.RepSource);
             string stopPath = @"C:\LOGJ\stop.txt";
+            
             while (File.ReadAllText(stopPath).Equals("go"))
             {
-                foreach (string file in files)
+                //D'abord les extensions prioritaires
+                foreach (string file in files.Where(file => ExtensionsPriori.ExtPriorite(file)))
                 {
                     long fileSize = new FileInfo(file).Length;
                     if (fileSize > limite * 1024)
@@ -84,16 +85,36 @@ namespace WpfApp2
                         string destinationPath = Path.Combine(NewSauvegarder.RepCible, Path.GetFileName(file));
                         File.Copy(file, destinationPath, true);
                     }
-                    
-                    
                 }
+            
+                // Extensions non prioritaires
+                
+                foreach (string file in files.Where(file => !ExtensionsPriori.ExtPriorite(file)))
+                {
+                    long fileSize = new FileInfo(file).Length;
+                    if (fileSize > limite * 1024)
+                    {
+                        semaphore.Wait();
+                        try
+                        {
+                            string destinationPath = Path.Combine(NewSauvegarder.RepCible, Path.GetFileName(file));
+                            File.Copy(file, destinationPath, true);
+                        }
+                        finally { semaphore.Release(); }
+                    }
+                    else
+                    {
+                        string destinationPath = Path.Combine(NewSauvegarder.RepCible, Path.GetFileName(file));
+                        File.Copy(file, destinationPath, true);
+                    }
+                }
+                
             }
             string ExecuteFileSize = @"(Get-ChildItem -Path " + NewSauvegarder.RepSource + " -Recurse | Measure-Object -Property Length -Sum).Sum";
             //Console.WriteLine(ExecuteFileSize);
             string output2 = PowerShellHandler.Command(ExecuteFileSize);
             //Console.WriteLine("*******************************");
             long FileSize = long.Parse(output2);
-            //string output = PowerShellHandler.Command(Execute);
             etatTempsReel.SaveToJson(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i, cancellationTokenSource);
             Console.WriteLine("***copie réussie ***");
             DateTime date2 = DateTime.Now;
@@ -139,7 +160,8 @@ namespace WpfApp2
                 string[] sourceFiles = Directory.GetFiles(NewSauvegarder.RepSource);
                 int totalFiles = sourceFiles.Length;
 
-                foreach (string sourceFilePath in sourceFiles)
+                //Extensions priorite
+                foreach (string sourceFilePath in sourceFiles.Where(file => ExtensionsPriori.ExtPriorite(file)))
                 {
                     string fileName = Path.GetFileName(sourceFilePath);
                     string targetFilePath = Path.Combine(NewSauvegarder.RepCible, fileName);
@@ -154,12 +176,24 @@ namespace WpfApp2
 
                             if (sourceLastModified < targetLastModified)
                             {
-                                File.Copy(sourceFilePath, targetFilePath, true);
-                                Console.WriteLine($"Le fichier {fileName} a été mis à jour dans le répertoire cible.");
-                                Console.WriteLine($"File {fileName} was updated in target directory.");
-                                FileInfo fileInfo = new FileInfo(sourceFilePath);
-                                FileSize += (int)fileInfo.Length;
-                                FileModifie++;
+                                long fileSize = new FileInfo(sourceFilePath).Length;
+                                if (fileSize > limite * 1024)
+                                {
+                                    semaphore.Wait();
+                                    try
+                                    {
+                                        File.Copy(sourceFilePath, targetFilePath, true);
+                                        FileSize += (int)fileSize;
+                                        FileModifie++;
+                                    }
+                                    finally { semaphore.Release(); }
+                                }
+                                else
+                                {
+                                    File.Copy(sourceFilePath, targetFilePath, true);
+                                    FileSize += (int)fileSize;
+                                    FileModifie++;
+                                }
                             }
                         }
                     }
@@ -172,8 +206,6 @@ namespace WpfApp2
                             try
                             {
                                 File.Copy(sourceFilePath, targetFilePath);
-                                //Console.WriteLine($"Le fichier {fileName} a été ajouté au répertoire cible.");
-                                //Console.WriteLine($"File {fileName} was added in target directory.");
                                 FileSize += (int)fileSize;
                                 FileModifie++;
                             }
@@ -182,8 +214,67 @@ namespace WpfApp2
                         else
                         {
                             File.Copy(sourceFilePath, targetFilePath);
-                            //Console.WriteLine($"Le fichier {fileName} a été ajouté au répertoire cible.");
-                            //Console.WriteLine($"File {fileName} was added in target directory.");
+                            FileSize += (int)fileSize;
+                            FileModifie++;
+                        }
+                    }
+                    int FilesRestant = totalFiles - FileProcessed - FileModifie;
+                    FileProcessed++;
+
+                }
+                foreach (string sourceFilePath in sourceFiles.Where(file => !ExtensionsPriori.ExtPriorite(file)))
+                {
+                    string fileName = Path.GetFileName(sourceFilePath);
+                    string targetFilePath = Path.Combine(NewSauvegarder.RepCible, fileName);
+
+                    if (File.Exists(targetFilePath))
+                    {
+                        DateTime sourceLastModified = File.GetLastWriteTime(sourceFilePath);
+                        DateTime targetLastModified = File.GetLastWriteTime(targetFilePath);
+                        string stopPath = @"C:\LOGJ\stop.txt";
+                        while (File.ReadAllText(stopPath).Equals("go"))
+                        {
+
+                            if (sourceLastModified < targetLastModified)
+                            {
+                                long fileSize = new FileInfo(sourceFilePath).Length;
+                                if (fileSize > limite * 1024)
+                                {
+                                    semaphore.Wait();
+                                    try
+                                    {
+                                        File.Copy(sourceFilePath, targetFilePath, true);
+                                        FileSize += (int)fileSize;
+                                        FileModifie++;
+                                    }
+                                    finally { semaphore.Release(); }
+                                }
+                                else
+                                {
+                                    File.Copy(sourceFilePath, targetFilePath, true);
+                                    FileSize += (int)fileSize;
+                                    FileModifie++;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        long fileSize = new FileInfo(sourceFilePath).Length;
+                        if (fileSize > limite * 1024)
+                        {
+                            semaphore.Wait();
+                            try
+                            {
+                                File.Copy(sourceFilePath, targetFilePath);
+                                FileSize += (int)fileSize;
+                                FileModifie++;
+                            }
+                            finally { semaphore.Release(); }
+                        }
+                        else
+                        {
+                            File.Copy(sourceFilePath, targetFilePath);
                             FileSize += (int)fileSize;
                             FileModifie++;
                         }

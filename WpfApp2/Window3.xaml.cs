@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.IO;
 
 namespace WpfApp2
@@ -26,11 +15,23 @@ namespace WpfApp2
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Log(object sender, RoutedEventArgs e)
         {
-            Process procesus = new Process();
-            procesus.StartInfo.FileName= @"C:\LOGJ\2023-11-30.json";
-            procesus.Start();
+            DateTime date1 = DateTime.Now;
+            string TodayDateForString = date1.ToString("yyyy-MM-dd");
+            string path = @"C:/LOGJ/" + TodayDateForString;
+            if (File.Exists(path + ".json")) 
+            { Process.Start("notepad.exe", path + ".json"); }
+            if (File.Exists(path + ".xml"))
+            { Process.Start("notepad.exe", path + ".xml"); }
+            
+        }
+
+        private void Button_Etat(object sender, RoutedEventArgs e)
+        {
+            string path = @"C:/LOGJ/state.json";
+            if (File.Exists(path))
+            { Process.Start("notepad.exe", path); }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
