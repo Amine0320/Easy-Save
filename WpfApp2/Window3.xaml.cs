@@ -67,7 +67,7 @@ namespace WpfApp2
   
             //Fenetre.Show();
         }
-        // Switch User Interface to Frensh 
+        // Switch User Interface to French 
         private void Button_France(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
@@ -77,7 +77,7 @@ namespace WpfApp2
             ButtonSortir.Content = "Quitter";
             //Fenetre.Show();
         }
-        // Switch User Interface to Espagnol 
+        // Switch User Interface to Espagnole 
         private void Button_Espagnol(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
