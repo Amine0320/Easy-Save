@@ -4,7 +4,7 @@ using System.IO;
 using System.IO.Pipes;
 using System.Linq;
 
-namespace Programme_cryptosoft
+namespace Programme_cryptosoft 
 {
     /// <summary>
     /// Represents the main program for CryptoSoft, responsible for encrypting files using XOR encryption.
