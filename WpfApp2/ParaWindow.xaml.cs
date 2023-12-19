@@ -14,11 +14,13 @@ namespace WpfApp2
     /// </summary>
     public partial class ParaWindow : Window
     {
+        // Constructor 
         public ParaWindow()
         {
             InitializeComponent();
 
         } 
+
         private void AjtMetier(object sender, RoutedEventArgs e)
         {
             string path = GlobalVariables.Dir + "logicielmetier.txt";
@@ -32,6 +34,7 @@ namespace WpfApp2
                 }
             }
         }
+        // Set File Size Limit 
         private void AjtLimite(object sender, RoutedEventArgs e)
         {
             string path = GlobalVariables.Dir + "limite.txt";
@@ -43,14 +46,14 @@ namespace WpfApp2
                 writer.Close();
             }
         }
-
+        // Open App List with Notepad
         private void Button_OuvreLM(object sender, RoutedEventArgs e) 
         {
             string path = GlobalVariables.Dir + "logicielmetier.txt";
             Process.Start( "notepad.exe", path);
 
         }
-
+        // Add Preferred Extensions 
         private void AjtExt_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -77,6 +80,7 @@ namespace WpfApp2
                 {
                     Extensions += ".docx\n";
                 }
+                // Save the preferred extensions 
                 using (StreamWriter writer = new StreamWriter(filePath))
                 {
                     writer.Write(Extensions);
@@ -85,19 +89,25 @@ namespace WpfApp2
             }
             catch (Exception ex)
             {
+                // Handle exception and print error message to the console 
                 Console.WriteLine($"Erreur lors de l'enregistrement des extensions prioritaires : {ex.Message}");
             }
         }
-
+        // Return to the Main Window 
         private void Retour (object sender, RoutedEventArgs e)
         {
+            // Create an instance of the main window 
             MainWindow Fenetre = new MainWindow();
+            // Close the current window 
             this.Close();
+            // Show the main window 
             Fenetre.Show();
         }
         private void Button_Click2(object sender, RoutedEventArgs e)
         {
+            // Close the current window 
             this.Close();
+            // Shutdown the application 
             Application.Current.Shutdown();
             
         } 
@@ -144,7 +154,8 @@ namespace WpfApp2
             ButtonRetour.Content = "عودة";
             AjtExt.Content = "ضف";
             BoutonAjtMetier.Content = AjtExt.Content; 
-        }  
+        }
+        // Event handler for checkbox Checked event 
         private void txt_Checked(object sender, RoutedEventArgs e)
         {
 
