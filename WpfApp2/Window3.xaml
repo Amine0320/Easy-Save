@@ -11,12 +11,12 @@
         <Button x:Name="VoirLog" Content="Voir Log" HorizontalAlignment="Left" Height="29" Margin="30,160,0,0" VerticalAlignment="Top" Width="58" Click="Button_Log"/>
         <Button x:Name="VoirEtat" Content="Voir Etat" HorizontalAlignment="Left" Height="29" Margin="124,160,0,0" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.514,0.523" Click="Button_Etat"/>
         <Button x:Name="ButtonSortir" Content="Quitter" HorizontalAlignment="Left" Height="29" Margin="218,160,0,0" VerticalAlignment="Top" Width="58" Click="Button_Click_1"/>
-        <Button HorizontalAlignment="Left" Margin="153,20,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Button HorizontalAlignment="Left" Margin="153,20,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arabic">
             <Button.Background>
                 <ImageBrush ImageSource="/Egypt.png"/>
             </Button.Background>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="190,20,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Button HorizontalAlignment="Left" Margin="190,20,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arabic">
             <Button.Background>
                 <ImageBrush ImageSource="/Tunisie.png"/>
             </Button.Background>
@@ -26,7 +26,7 @@
                 <ImageBrush ImageSource="/France.png"/>
             </Button.Background>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="115,20,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Button HorizontalAlignment="Left" Margin="115,20,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arabic">
             <Button.Background>
                 <ImageBrush ImageSource="/Algerie.png"/>
             </Button.Background>
