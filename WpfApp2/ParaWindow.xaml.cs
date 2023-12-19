@@ -110,6 +110,7 @@ namespace WpfApp2
         {
             ExtensionsLabel.Content = "Extensions to prioritize";
             MetierLabel.Content = "Work Apps";
+            LimitLabel.Content = "File Size Limit (in Ko)";
             ButtonQuit.Content = "Quit";
             ButtonRetour.Content = "Return";
             AjtExt.Content = "Add";
@@ -119,6 +120,7 @@ namespace WpfApp2
         {
             ExtensionsLabel.Content = "Extensions à prioritiser";
             MetierLabel.Content = "Logiciels Métiers";
+            LimitLabel.Content = "Taille Limite des Fichiers (en Ko)";
             ButtonQuit.Content = "Quitter";
             ButtonRetour.Content = "Retour";
             AjtExt.Content = "Ajoute";
@@ -126,7 +128,6 @@ namespace WpfApp2
         }
         private void Button_Espagnol(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void Button_Arabe(object sender, RoutedEventArgs e)

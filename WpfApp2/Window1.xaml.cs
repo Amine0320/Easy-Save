@@ -146,7 +146,7 @@ namespace WpfApp2
                 LabelCible.Background = new SolidColorBrush(Colors.Red);
             }
             string pathfichier = @"C:\LOGJ\state.json";
-            statelog statelog1 = new statelog();
+            EtatTempsReel statelog1 = new EtatTempsReel();
             if (File.Exists(pathfichier))
             {
                 string contenidoJson = File.ReadAllText(pathfichier);
@@ -154,7 +154,7 @@ namespace WpfApp2
                 {
                     if (!string.IsNullOrWhiteSpace(i))
                     {
-                        statelog1 = JsonSerializer.Deserialize<statelog>(i + "}");
+                        statelog1 = JsonSerializer.Deserialize<EtatTempsReel>(i + "}");
                         if (statelog1.IdEtaTemp.Equals(saveNumber.ToString()) || statelog1.State.Equals("Active"))
                         {
                             incremet2 = statelog1.Progression;
@@ -271,19 +271,7 @@ namespace WpfApp2
             exitstop.Show();
             this.Close();
         }
-        public class statelog
-        {
-            public string IdEtaTemp { get; set; }
-            public int NbFilesLeftToDo { get; set; }
-            public double Progression { get; set; }
-            public string State { get; set; }
-            public string NomETR { get; set; }
-            public long TotalFilesSize { get; set; }
-            public string SourceFilePath { get; set; }
-            public long TotalFilesToCopy { get; set; }
-            public string TargetFilePath { get; set; }
-        }
-
+        
         private void Button_Pause(object sender, RoutedEventArgs e)
         {
             string pathfichier = @"C:\LOGJ\stop.txt";
