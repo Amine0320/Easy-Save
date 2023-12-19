@@ -130,13 +130,11 @@ namespace WpfApp2
             {
                 logtype = ".xml";
             }
+            
             string nombrefichier = TodayDateForString + logtype;
             string pathcomplete = Path.Combine(fichier, nombrefichier);
-            string jsonString = JsonSerializer.Serialize(log1);
-            using (StreamWriter sw = File.AppendText(pathcomplete))
-            {
-                sw.WriteLine(jsonString);
-            }
+            JsonLogger jsonLogger = JsonLogger.Instance;
+            jsonLogger.Log(log1, pathcomplete);
 
             //Console.WriteLine($"Log created in: {pathcomplete}");
             return;

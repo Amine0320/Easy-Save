@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ExecuteJorJournalier.cs" />
     <Compile Remove="ExecuteLogTempReel.cs" />
     <Compile Remove="ExecuteLogTempReelDiff.cs" />
   </ItemGroup>
@@ -28,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="ExecuteJorJournalier.cs" />
     <None Include="ExecuteLogTempReel.cs" />
     <None Include="ExecuteLogTempReelDiff.cs" />
   </ItemGroup>
