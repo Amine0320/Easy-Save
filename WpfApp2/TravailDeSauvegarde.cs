@@ -9,7 +9,7 @@ namespace WpfApp2
 {
     public class TravailSauvegarde
     {
-        private int IdTravailS = 0;
+        public int IdTravailS;
         public string NomTDS;
         public string RepSource;
         public string RepCible;

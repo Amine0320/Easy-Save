@@ -21,7 +21,6 @@ namespace WpfApp2
     /// </summary>
     public partial class Exitstop : Window
     {
-        DispatcherTimer timer = new DispatcherTimer();
         public Exitstop()
         {
             InitializeComponent();

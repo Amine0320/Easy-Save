@@ -21,6 +21,9 @@ namespace WpfApp2
 {
     public class Systeme
     {
+        JsonLogger jsonLogger = JsonLogger.Instance;
+        CompleteSave completeSave = CompleteSave.Instance;
+
         static SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private int IdSys = 0;
@@ -45,12 +48,15 @@ namespace WpfApp2
         {
 
             TravailSauvegarde NewSauvegarder = new TravailSauvegarde();
+            NewSauvegarder.IdTravailS = i;
             NewSauvegarder.NomTDS = "Save" + i.ToString();
             NewSauvegarder.RepSource = saves;
             NewSauvegarder.RepCible = sources;
             NewSauvegarder.Type = Type;
             return NewSauvegarder;
-        }
+        }           
+        
+        
 
         public void EnregistrerSauvegarde(int i, TravailSauvegarde NewSauvegarder, int log, CancellationTokenSource cancellationTokenSource)
         {
@@ -61,9 +67,9 @@ namespace WpfApp2
             var dateString2 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime date1 = DateTime.Now;
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
+            completeSave.CopyFiles(NewSauvegarder.IdTravailS, NewSauvegarder.RepSource, NewSauvegarder.RepCible);
+            /* string stopPath = @"C:\LOGJ\stop.txt";
             string[] files = Directory.GetFiles(NewSauvegarder.RepSource);
-            string stopPath = @"C:\LOGJ\stop.txt";
-            
             while (File.ReadAllText(stopPath).Equals("go"))
             {
                 //D'abord les extensions prioritaires
@@ -110,6 +116,8 @@ namespace WpfApp2
                 }
                 
             }
+            */
+
             string ExecuteFileSize = @"(Get-ChildItem -Path " + NewSauvegarder.RepSource + " -Recurse | Measure-Object -Property Length -Sum).Sum";
             //Console.WriteLine(ExecuteFileSize);
             string output2 = PowerShellHandler.Command(ExecuteFileSize);
@@ -133,7 +141,7 @@ namespace WpfApp2
             
             string nombrefichier = TodayDateForString + logtype;
             string pathcomplete = Path.Combine(fichier, nombrefichier);
-            JsonLogger jsonLogger = JsonLogger.Instance;
+
             jsonLogger.Log(log1, pathcomplete);
 
             //Console.WriteLine($"Log created in: {pathcomplete}");
@@ -180,7 +188,7 @@ namespace WpfApp2
                                     semaphore.Wait();
                                     try
                                     {
-                                        File.Copy(sourceFilePath, targetFilePath, true);
+                                        File.Copy(sourceFilePath, targetFilePath);
                                         FileSize += (int)fileSize;
                                         FileModifie++;
                                     }
@@ -188,7 +196,7 @@ namespace WpfApp2
                                 }
                                 else
                                 {
-                                    File.Copy(sourceFilePath, targetFilePath, true);
+                                    File.Copy(sourceFilePath, targetFilePath);
                                     FileSize += (int)fileSize;
                                     FileModifie++;
                                 }
@@ -284,7 +292,7 @@ namespace WpfApp2
             }
             //string output = PowerShellHandler.Command(Execute);
             etatTempsReel.SaveToJsonDiff(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i, cancellationTokenSource);
-            Console.WriteLine("***copie réussie ***");
+            //Console.WriteLine("***copie réussie ***");
             DateTime date2 = DateTime.Now;
             string timeCrypt = "";
             TimeSpan soustraction = date2 - date1;
@@ -299,13 +307,8 @@ namespace WpfApp2
             }
             string nombrefichier = TodayDateForString + logtype;
             string pathcomplete = Path.Combine(fichier, nombrefichier);
-            string jsonString = JsonSerializer.Serialize(log1);
-            using (StreamWriter sw = File.AppendText(pathcomplete))
-            {
-                sw.WriteLine(jsonString);
-            }
-
-                //Console.WriteLine($"Json created in: {pathcomplete}");
+            jsonLogger.Log(log1, pathcomplete);
+            
             return;
         }
     }

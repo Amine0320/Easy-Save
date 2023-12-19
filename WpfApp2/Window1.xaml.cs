@@ -126,11 +126,7 @@ namespace WpfApp2
             
         }
 
-        // CheckBox Checked Event Handler 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
 
-        }
         // Window Loaded Event Handler 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

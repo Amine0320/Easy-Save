@@ -29,7 +29,7 @@ namespace WpfApp2
         // Method to perform logging in the JSON file
         public void Log(LogJournalier logJournalier, string FilePath)
 		{
-			string jsonString = JsonConvert.SerializeObject(logJournalier, Formatting.Indented);
+			string jsonString = JsonConvert.SerializeObject(logJournalier, Formatting.Indented) + "/n";
 
 			lock (lockObject)
 			{
