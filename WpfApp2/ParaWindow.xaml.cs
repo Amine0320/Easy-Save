@@ -128,10 +128,25 @@ namespace WpfApp2
         }
         private void Button_Espagnol(object sender, RoutedEventArgs e)
         {
-        }
+            ExtensionsLabel.Content = "Extensiones para priorizar";
+            MetierLabel.Content = "Software de negocios;
+            LimitLabel.Content = "Límite de tamaño de archivo (en KB)";
+            ButtonQuit.Content = "Dejar";
+            ButtonRetour.Content = "atrás";
+            AjtExt.Content = "Agregar";
+            BoutonAjtMetier.Content = AjtExt.Content;
+        } 
 
         private void Button_Arabe(object sender, RoutedEventArgs e)
-        { }
+        {
+            ExtensionsLabel.Content = "ملحقات لتحديد الأولويات";
+            MetierLabel.Content = "اللوق الشغالين ";
+            LimitLabel.Content = "الحجم الاقصى للملفات لالكيلو اوكتي"; 
+            ButtonQuit.Content = "خروج";
+            ButtonRetour.Content = "عودة";
+            AjtExt.Content = "ضف";
+            BoutonAjtMetier.Content = AjtExt.Content; 
+        }
 
         private void txt_Checked(object sender, RoutedEventArgs e)
         {
