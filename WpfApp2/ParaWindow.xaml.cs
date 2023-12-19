@@ -10,7 +10,7 @@ using Path = System.IO.Path;
 namespace WpfApp2
 {
     /// <summary>
-    /// Logique d'interaction pour Window1.xaml
+    /// Interaction logic for Window1.xaml
     /// </summary>
     public partial class ParaWindow : Window
     {
@@ -18,9 +18,7 @@ namespace WpfApp2
         {
             InitializeComponent();
 
-        }
-
-
+        } 
         private void AjtMetier(object sender, RoutedEventArgs e)
         {
             string path = GlobalVariables.Dir + "logicielmetier.txt";
@@ -102,10 +100,8 @@ namespace WpfApp2
             this.Close();
             Application.Current.Shutdown();
             
-        }
-        
-
-
+        } 
+        // Switch User Interface to English 
         private void Button_England(object sender, RoutedEventArgs e)
         {
             ExtensionsLabel.Content = "Extensions to prioritize";
@@ -116,6 +112,7 @@ namespace WpfApp2
             AjtExt.Content = "Add";
             BoutonAjtMetier.Content = AjtExt.Content;
         }
+        // Switch User Interface to French  
         private void Button_France(object sender, RoutedEventArgs e)
         {
             ExtensionsLabel.Content = "Extensions à prioritiser";
@@ -126,17 +123,18 @@ namespace WpfApp2
             AjtExt.Content = "Ajoute";
             BoutonAjtMetier.Content = AjtExt.Content;
         }
+        // Switch User Interface to Espagnol 
         private void Button_Espagnol(object sender, RoutedEventArgs e)
         {
             ExtensionsLabel.Content = "Extensiones para priorizar";
-            MetierLabel.Content = "Software de negocios;
+            MetierLabel.Content = "Software de negocios";
             LimitLabel.Content = "Límite de tamaño de archivo (en KB)";
             ButtonQuit.Content = "Dejar";
             ButtonRetour.Content = "atrás";
             AjtExt.Content = "Agregar";
             BoutonAjtMetier.Content = AjtExt.Content;
-        } 
-
+        }
+        // Switch User Interface to Arabic 
         private void Button_Arabe(object sender, RoutedEventArgs e)
         {
             ExtensionsLabel.Content = "ملحقات لتحديد الأولويات";
@@ -146,8 +144,7 @@ namespace WpfApp2
             ButtonRetour.Content = "عودة";
             AjtExt.Content = "ضف";
             BoutonAjtMetier.Content = AjtExt.Content; 
-        }
-
+        }  
         private void txt_Checked(object sender, RoutedEventArgs e)
         {
 
