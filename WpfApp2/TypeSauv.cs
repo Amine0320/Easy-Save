@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace WpfApp2
 {
+    /// <summary>
+    /// Enum representing types of backup.
+    /// </summary>
     public enum TypeSauv
     {
-        Complete,
-        Differentielle
+        Complete,        // Represents a complete backup
+        Differentielle   // Represents a differential backup
     }
-
 }
+ 
