@@ -6,43 +6,49 @@ using System.Linq;
 
 namespace Programme_cryptosoft
 {
-
-     class Program
+    /// <summary>
+    /// Represents the main program for CryptoSoft, responsible for encrypting files using XOR encryption.
+    /// </summary>
+    class Program
     {
+        /// <summary>
+        /// The main entry point for the CryptoSoft program.
+        /// </summary>
         void Main()
         {
-            // Générer la clé XOR dans CryptoSoft
+            // Generate XOR key in CryptoSoft
             byte[] cle = GenererCleXOR64Bits();
 
-            // Utiliser un tube nommé pour transmettre la clé
+            // Use a named pipe to transmit the key
             using (NamedPipeServerStream pipeServer = new NamedPipeServerStream("CryptoSoftPipe"))
             {
                 pipeServer.WaitForConnection();
 
+                // Write the XOR key to the named pipe
                 using (StreamWriter sw = new StreamWriter(pipeServer))
                 {
                     sw.Write(Convert.ToBase64String(cle));
                 }
 
-                // Lire les arguments de la ligne de commande
+                // Read command line arguments
                 string[] args = Environment.GetCommandLineArgs();
 
-                // Récupérer les variables source et Cible
+                // Retrieve source and target variables
                 string Sources = args.Length > 2 ? args[1] : null;
                 string Cible = args.Length > 3 ? args[3] : null;
 
                 if (!string.IsNullOrEmpty(Sources) && !string.IsNullOrEmpty(Cible))
                 {
-                    // Récupérer les extensions à chiffrer
+                    // Retrieve extensions to encrypt
                     string selectedExtensionsInput = args.Length > 4 ? args[4] : string.Empty;
                     List<int> selectedExtensions = selectedExtensionsInput.Split(',')
                         .Select(part => int.Parse(part.Trim()))
                         .ToList();
 
-                    // Utiliser la clé pour chiffrer avec les variables Sources, Cible, et extensions
+                    // Use the key to encrypt with source, target, and extensions variables
                     int returnCode = ChiffrerDossier(Sources, Cible, cle, selectedExtensions);
 
-                    // Envoyer le code de retour via le tube nommé
+                    // Send the return code via the named pipe
                     using (StreamWriter swReturnCode = new StreamWriter(pipeServer))
                     {
                         swReturnCode.Write(returnCode);
@@ -51,24 +57,34 @@ namespace Programme_cryptosoft
             }
         }
 
+        /// <summary>
+        /// Encrypts files in the specified source directory and saves them to the target directory.
+        /// </summary>
+        /// <param name="Sources">Source directory.</param>
+        /// <param name="Cible">Target directory.</param>
+        /// <param name="cle">XOR key for encryption.</param>
+        /// <param name="selectedExtensions">List of selected extensions to encrypt.</param>
+        /// <returns>Return code indicating success or failure.</returns>
         public int ChiffrerDossier(string Sources, string Cible, byte[] cle, List<int> selectedExtensions)
         {
             try
             {
+                // Check if the source directory exists
                 if (!Directory.Exists(Sources))
                 {
-                    Console.WriteLine("Sourcess directory does not exist.");
-                    return -3; // Code d'erreur pour répertoire Sourcess invalide
+                    Console.WriteLine("Sources directory does not exist.");
+                    return -3; // Error code for invalid Sources directory
                 }
 
+                // Check if the target directory exists
                 if (!Directory.Exists(Cible))
                 {
-                    Console.WriteLine("Cible directory does not exist.");
-                    return -4; // Code d'erreur pour répertoire Cible invalide
+                    Console.WriteLine("Target directory does not exist.");
+                    return -4; // Error code for invalid Target directory
                 }
 
-                Console.WriteLine($"Sourcess Directory: {Sources}");
-                Console.WriteLine($"Cible Directory: {Cible}");
+                Console.WriteLine($"Sources Directory: {Sources}");
+                Console.WriteLine($"Target Directory: {Cible}");
 
                 string[] files = Directory.GetFiles(Sources);
 
@@ -79,7 +95,7 @@ namespace Programme_cryptosoft
 
                     if (selectedExtensions.Contains(GetExtensionIndex(fileExtension)))
                     {
-                        // Construct the full path for the new encrypted text file in the Cible directory
+                        // Construct the full path for the new encrypted text file in the Target directory
                         string encryptedFilePath = Path.Combine(Cible, "encrypted_" + fileName + ".txt");
 
                         using (FileStream fsSources = new FileStream(filePath, FileMode.Open, FileAccess.Read))
@@ -109,30 +125,39 @@ namespace Programme_cryptosoft
                     }
                 }
 
-                return 1; // Code de succès
+                return 1; // Success code
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Encryption failed. Exception: {ex.Message}");
-                return -2; // Code d'erreur général
+                return -2; // General error code
             }
         }
 
+        /// <summary>
+        /// Gets the index corresponding to the given file extension.
+        /// </summary>
+        /// <param name="fileExtension">File extension.</param>
+        /// <returns>Index corresponding to the file extension.</returns>
         public int GetExtensionIndex(string fileExtension)
         {
             Dictionary<int, string> extensions = new Dictionary<int, string>
-        {
-            { 1, ".txt" },
-            { 2, ".jpg" },
-            { 3, ".png" },
-            { 4, ".pdf" },
-            { 5, ".docx" },
-            // Add more extensions as needed
-        };
+            {
+                { 1, ".txt" },
+                { 2, ".jpg" },
+                { 3, ".png" },
+                { 4, ".pdf" },
+                { 5, ".docx" },
+                // Add more extensions as needed
+            };
 
             return extensions.FirstOrDefault(x => x.Value.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)).Key;
         }
 
+        /// <summary>
+        /// Generates a 64-bit XOR key.
+        /// </summary>
+        /// <returns>Generated XOR key.</returns>
         static byte[] GenererCleXOR64Bits()
         {
             byte[] cleBytes = new byte[8];
@@ -140,5 +165,5 @@ namespace Programme_cryptosoft
             return cleBytes;
         }
     }
-
 }
+ 
