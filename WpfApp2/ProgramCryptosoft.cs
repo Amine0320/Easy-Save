@@ -9,15 +9,20 @@ using System.Threading.Tasks;
 
 namespace Programme_cryptosoft
 {
-
-     class ProgramCryptoSoft
+    /// <summary>
+    /// Represents the CryptoSoft program for encrypting files using XOR encryption.
+    /// </summary>
+    class ProgramCryptoSoft
     {
+        /// <summary>
+        /// Main entry point for the CryptoSoft program.
+        /// </summary>
         public void Main()
         {
-            // Générer la clé XOR dans CryptoSoft
-            byte[] cle = GenererCleXOR64Bits();
+            // Generate XOR key in CryptoSoft
+            byte[] key = GenerateXORKey();
 
-            // Utiliser un tube nommé pour transmettre la clé
+            // Use a named pipe to transmit the key
             Task.Factory.StartNew(() =>
             {
                 var pipeServer = new NamedPipeServerStream("CryptoSoftPipe");
@@ -25,28 +30,28 @@ namespace Programme_cryptosoft
 
                 using (StreamWriter sw = new StreamWriter(pipeServer))
                 {
-                    sw.Write(Convert.ToBase64String(cle));
+                    sw.Write(Convert.ToBase64String(key));
                 }
 
-                // Lire les arguments de la ligne de commande
+                // Read command line arguments
                 string[] args = Environment.GetCommandLineArgs();
 
-                // Récupérer les variables source et Cible
-                string Sources = args.Length > 2 ? args[1] : null;
-                string Cible = args.Length > 3 ? args[3] : null;
+                // Get source and target variables
+                string source = args.Length > 2 ? args[1] : null;
+                string target = args.Length > 3 ? args[3] : null;
 
-                if (!string.IsNullOrEmpty(Sources) && !string.IsNullOrEmpty(Cible))
+                if (!string.IsNullOrEmpty(source) && !string.IsNullOrEmpty(target))
                 {
-                    // Récupérer les extensions à chiffrer
+                    // Get extensions to encrypt
                     string selectedExtensionsInput = args.Length > 4 ? args[4] : string.Empty;
                     List<int> selectedExtensions = selectedExtensionsInput.Split(',')
                         .Select(part => int.Parse(part.Trim()))
                         .ToList();
 
-                    // Utiliser la clé pour chiffrer avec les variables Sources, Cible, et extensions
-                    int returnCode = ChiffrerDossier(Sources, Cible, cle, selectedExtensions);
+                    // Use the key to encrypt with source, target, and extensions
+                    int returnCode = EncryptFolder(source, target, key, selectedExtensions);
 
-                    // Envoyer le code de retour via le tube nommé
+                    // Send the return code through the named pipe
                     using (StreamWriter swReturnCode = new StreamWriter(pipeServer))
                     {
                         swReturnCode.Write(returnCode);
@@ -55,27 +60,35 @@ namespace Programme_cryptosoft
             });
         }
 
-        public int ChiffrerDossier(string Sources, string Cible, byte[] cle, List<int> selectedExtensions)
+        /// <summary>
+        /// Encrypts files in the specified source folder and saves them to the target folder.
+        /// </summary>
+        /// <param name="source">Source folder path.</param>
+        /// <param name="target">Target folder path.</param>
+        /// <param name="key">Encryption key.</param>
+        /// <param name="selectedExtensions">List of selected extensions.</param>
+        /// <returns>Return code indicating success or failure.</returns>
+        public int EncryptFolder(string source, string target, byte[] key, List<int> selectedExtensions)
         {
             try
             {
-                if (!Directory.Exists(Sources))
+                if (!Directory.Exists(source))
                 {
-                    Console.WriteLine("Sourcess directory does not exist.");
-                    return -3; // Code d'erreur pour répertoire Sourcess invalide
+                    Console.WriteLine("Source directory does not exist.");
+                    return -3; // Error code for invalid source directory
                 }
 
-                if (!Directory.Exists(Cible))
+                if (!Directory.Exists(target))
                 {
-                    Console.WriteLine("Cible directory does not exist.");
-                    return -4; // Code d'erreur pour répertoire Cible invalide
+                    Console.WriteLine("Target directory does not exist.");
+                    return -4; // Error code for invalid target directory
                 }
 
-                Console.WriteLine($"Sources Directory: {Sources}");
-                Console.WriteLine($"Cible Directory: {Cible}");
+                Console.WriteLine($"Source Directory: {source}");
+                Console.WriteLine($"Target Directory: {target}");
                 int extExist = 0;
 
-                string[] files = Directory.GetFiles(Sources);
+                string[] files = Directory.GetFiles(source);
 
                 Stopwatch encryptionStopwatch = new Stopwatch();
                 encryptionStopwatch.Start();
@@ -88,23 +101,23 @@ namespace Programme_cryptosoft
                     if (selectedExtensions.Contains(GetExtensionIndex(fileExtension)))
                     {
                         extExist++;
-                        string encryptedFilePath = Path.Combine(Cible, "encrypted_" + fileName + ".txt");
+                        string encryptedFilePath = Path.Combine(target, "encrypted_" + fileName + ".txt");
 
-                        using (FileStream fsSources = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                        using (FileStream fsSource = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                         using (StreamWriter sw = new StreamWriter(encryptedFilePath))
                         {
                             int keyIndex = 0;
 
-                            while (fsSources.Position < fsSources.Length)
+                            while (fsSource.Position < fsSource.Length)
                             {
                                 byte[] buffer = new byte[4096];
-                                int bytesRead = fsSources.Read(buffer, 0, buffer.Length);
+                                int bytesRead = fsSource.Read(buffer, 0, buffer.Length);
 
                                 // Apply XOR encryption directly
                                 for (int j = 0; j < bytesRead; j++)
                                 {
-                                    buffer[j] = (byte)(buffer[j] ^ cle[keyIndex]);
-                                    keyIndex = (keyIndex + 1) % cle.Length;
+                                    buffer[j] = (byte)(buffer[j] ^ key[keyIndex]);
+                                    keyIndex = (keyIndex + 1) % key.Length;
                                 }
 
                                 // Convert the encrypted buffer to a Base64 string and write it to the text file
@@ -120,72 +133,85 @@ namespace Programme_cryptosoft
                 encryptionStopwatch.Stop();
                 TimeSpan timeCrypt = TimeSpan.FromSeconds(0);
                 if (extExist != 0) { timeCrypt = encryptionStopwatch.Elapsed; }
-                
 
-                Console.WriteLine($"Temps de cryptage total : {timeCrypt.TotalMilliseconds} millisecondes");
+                Console.WriteLine($"Total encryption time: {timeCrypt.TotalMilliseconds} milliseconds");
 
-                // Enregistre le temps de cryptage dans le log
-                EnregistrerDansLeJournal(timeCrypt.TotalMilliseconds);
+                // Record encryption time in the log
+                RecordInLog(timeCrypt.TotalMilliseconds);
 
-                return 1; // Code de succès
+                return 1; // Success code
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Encryption failed. Exception: {ex.Message}");
-                return -2; // Code d'erreur général
+                return -2; // General error code
             }
         }
 
+        /// <summary>
+        /// Gets the index of the extension from the dictionary.
+        /// </summary>
+        /// <param name="fileExtension">File extension.</param>
+        /// <returns>Extension index.</returns>
         public int GetExtensionIndex(string fileExtension)
         {
             Dictionary<int, string> extensions = new Dictionary<int, string>
-        {
-            { 1, ".txt" },
-            { 2, ".jpg" },
-            { 3, ".png" },
-            { 4, ".pdf" },
-            { 5, ".docx" },
-            // Add more extensions as needed
-        };
+            {
+                { 1, ".txt" },
+                { 2, ".jpg" },
+                { 3, ".png" },
+                { 4, ".pdf" },
+                { 5, ".docx" },
+                // Add more extensions as needed
+            };
 
             return extensions.FirstOrDefault(x => x.Value.Equals(fileExtension, StringComparison.OrdinalIgnoreCase)).Key;
         }
 
-        static byte[] GenererCleXOR64Bits()
+        /// <summary>
+        /// Generates a 64-bit XOR key.
+        /// </summary>
+        /// <returns>XOR key.</returns>
+        static byte[] GenerateXORKey()
         {
-            byte[] cleBytes = new byte[8];
-            new Random().NextBytes(cleBytes);
-            return cleBytes;
+            byte[] keyBytes = new byte[8];
+            new Random().NextBytes(keyBytes);
+            return keyBytes;
         }
 
-        public void EnregistrerDansLeJournal(double timeCrypt)
+        /// <summary>
+        /// Records the encryption time in the JSON log.
+        /// </summary>
+        /// <param name="timeCrypt">Encryption time.</param>
+        public void RecordInLog(double timeCrypt)
         {
             try
             {
-                // Spécifie le chemin du fichier JSON
-                string rutaArchivo = @"C:\LOGJ\state3.json";
-                File.Delete(rutaArchivo);
-                // Crée un nouvel objet pour enregistrer les informations
+                // Specifies the JSON file path
+                string filePath = @"C:\LOGJ\state3.json";
+                File.Delete(filePath);
+
+                // Creates a new object to save the information
                 var logInfo = new
                 {
                     timeCrypt = timeCrypt,
-                    DateEnregistrement = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-                    // Ajoute d'autres informations que tu souhaites enregistrer
+                    RecordingDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                    // Add other information you want to record
                 };
 
-                // Convertit l'objet en une chaîne JSON
+                // Converts the object to a JSON string
                 string logInfoJson = JsonSerializer.Serialize(logInfo);
 
-                // Enregistre la chaîne JSON dans le fichier
-                File.WriteAllText(rutaArchivo, logInfoJson);
+                // Writes the JSON string to the file
+                File.WriteAllText(filePath, logInfoJson);
 
-                Console.WriteLine($"Temps de cryptage enregistré dans le journal JSON : {rutaArchivo}");
+                Console.WriteLine($"Encryption time recorded in JSON log: {filePath}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erreur lors de l'enregistrement dans le journal. Exception : {ex.Message}");
+                Console.WriteLine($"Error recording in the log. Exception: {ex.Message}");
             }
         }
     }
-
 }
+ 
