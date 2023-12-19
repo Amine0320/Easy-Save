@@ -18,13 +18,17 @@ namespace WpfApp2
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Constructor 
         public MainWindow()
         {
             InitializeComponent();
-            string pathfichier = @"C:\LOGJ\stop.txt";
+
+            // Initialize stop file to "stop" when the application starts 
+            string pathfichier = @"C:\LOGJ\stop.txt"; 
             string content = "stop";
             try
             {
+                // Create or overwrite the stop file with "stop" content 
                 using (StreamWriter writer = new StreamWriter(pathfichier))
                 {
                     writer.WriteLine(content);
@@ -32,29 +36,50 @@ namespace WpfApp2
 
             }
             catch (Exception ex)
-            { }
-        }
+            {
+                // Handle exceptions, if any, during file initialization 
+            }
+        } 
 
+        // Button click event to open Window1 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Window1 Fenetre = new Window1();
+            // Create instances of Window1 
+            Window1 Fenetre = new Window1(); 
+
+            //Close Main Window
             this.Close();
-            Fenetre.Show();
-        }
-        private void Button_Parameters(object sender, RoutedEventArgs e)
-        {
-            ParaWindow Fenetre = new ParaWindow();
-            this.Close();
+
+            //Show ParaWindow 
             Fenetre.Show();
         }
 
+        // Button click event to open ParaWindow 
+        private void Button_Parameters(object sender, RoutedEventArgs e)
+        {
+            // Create instances of ParaWindow 
+            ParaWindow Fenetre = new ParaWindow();
+
+            //Close Main Window 
+            this.Close();
+
+            //Show ParaWindow 
+            Fenetre.Show();
+        }
+
+        // Button click 1  event to close the application 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
+
+            //Close Window
             this.Close();
+
+            //Close the Application 
             Application.Current.Shutdown();
             //Fenetre.Show();
         }
+        // Button click event to set the user interface to English 
         private void Button_England(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
@@ -64,6 +89,7 @@ namespace WpfApp2
             Parameters.Content = "Settings";
             //Fenetre.Show();
         }
+        // Button click event to set the user interface to Frensh 
         private void Button_France(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
@@ -73,6 +99,7 @@ namespace WpfApp2
             ButtonSave.Content = "Enregister";
             //Fenetre.Show();
         }
+        // Button click event to set the user interface to Espagnole
         private void Button_Espagnol(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
@@ -82,6 +109,7 @@ namespace WpfApp2
             Parameters.Content = "Parámetros";
             //Fenetre.Show();
         }
+        // Button click event to set the user interface to Arabic 
         private void Button_Arab(object sender, RoutedEventArgs e)
         {
             //Window1 Fenetre = new Window1();
@@ -90,6 +118,6 @@ namespace WpfApp2
             ButtonSave.Content = "نسخ";
             Parameters.Content = "إعدادات";
             //Fenetre.Show();
-        }
-    }
+        } 
+    } 
 }
