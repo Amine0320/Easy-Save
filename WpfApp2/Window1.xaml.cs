@@ -18,7 +18,7 @@ namespace WpfApp2
         
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         DispatcherTimer timer = new DispatcherTimer();
-        int saveNumber = GlobalVariables.number;
+        int saveNumber = 0;
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             Window4 Fenetre = new Window4();

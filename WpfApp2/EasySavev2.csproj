@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ExecuteJorJournalier.cs" />
+    <Compile Remove="ExecuteLogTempReel.cs" />
+    <Compile Remove="ExecuteLogTempReelDiff.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Algerie.png" />
     <None Remove="Arab.png" />
     <None Remove="Egypt.png" />
@@ -19,6 +25,12 @@
     <None Remove="Peru.png" />
     <None Remove="Tunisie.png" />
     <None Remove="téléchargement.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ExecuteJorJournalier.cs" />
+    <None Include="ExecuteLogTempReel.cs" />
+    <None Include="ExecuteLogTempReelDiff.cs" />
   </ItemGroup>
 
   <ItemGroup>
