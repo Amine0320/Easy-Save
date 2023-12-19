@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WpfApp2
@@ -21,77 +22,104 @@ namespace WpfApp2
         public int NbFilesLeftToDo { get; set; }
         public int Progression { get; set; }
 
-        public void SaveToJson(string Source, string Target, int iden)
+        
+        
+        public async void SaveToJson(string Source, string Target, int iden, CancellationTokenSource cancellationTokenSource)
         {
-            string rutaScriptPowerShell = GlobalVariables.Dir + "ExecuteLogTempReel.ps1";
-            ProcessStartInfo psi = new ProcessStartInfo
+            //cancellationTokenSource = new CancellationTokenSource();
+            try
             {
-                FileName = "powershell.exe",
-                RedirectStandardInput = true,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true,
-                UseShellExecute = false
-            };
-            //Console.WriteLine("***Ejecutando ***");
-            using (Process proceso = new Process { StartInfo = psi })
+                await Task.Run(() =>
             {
-                proceso.Start();
-
-                // Cargar y ejecutar el script PowerShell
-                using (System.IO.StreamWriter sw = proceso.StandardInput)
+                string rutaScriptPowerShell = GlobalVariables.Dir + "ExecuteLogTempReel.ps1";
+                ProcessStartInfo psi = new ProcessStartInfo
                 {
-                    if (sw.BaseStream.CanWrite)
+                    FileName = "powershell.exe",
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true, 
+                    CreateNoWindow = true,
+                    UseShellExecute = false
+                };
+                //Console.WriteLine("***Ejecutando ***");
+                using (Process proceso = new Process { StartInfo = psi })
+                {
+                    proceso.Start();
+
+                    // Cargar y ejecutar el script PowerShell
+                    using (System.IO.StreamWriter sw = proceso.StandardInput)
                     {
-                        sw.WriteLine($"& '{rutaScriptPowerShell}' -sourcePath " + Source + " -destinationPath " + Target + " -ID " + iden);
+                        if (sw.BaseStream.CanWrite)
+                        {
+                            sw.WriteLine($"& '{rutaScriptPowerShell}' -sourcePath " + Source + " -destinationPath " + Target + " -ID " + iden);
+                        }
                     }
+                    //cancellationTokenSource.Cancel();
+                    // Obtener la salida del proceso
+                    //string resultado = proceso.StandardOutput.ReadToEnd();
+
+                    // Mostrar la salida (puedes hacer otras cosas con el resultado)
+                    //Console.WriteLine("Resultado:");
+                    //Console.WriteLine(resultado);
                 }
-
-                // Obtener la salida del proceso
-                //string resultado = proceso.StandardOutput.ReadToEnd();
-
-                // Mostrar la salida (puedes hacer otras cosas con el resultado)
-                //Console.WriteLine("Resultado:");
-                //Console.WriteLine(resultado);
+            }, cancellationTokenSource.Token);
+                
+            } catch (OperationCanceledException)
+            {
+                throw;
             }
+            
             return;
         }
-        public void SaveToJsonDiff(string Source, string Target, int iden)
+        public async void SaveToJsonDiff(string Source, string Target, int iden, CancellationTokenSource cancellationTokenSource)
         {
             //Console.WriteLine("***En proceso ***");
-            string rutaScriptPowerShell = GlobalVariables.Dir + "ExecuteLogTempReelDiff.ps1";
-            ProcessStartInfo psi = new ProcessStartInfo
-            {
-                FileName = "powershell.exe",
-                RedirectStandardInput = true,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true,
-                UseShellExecute = false
-            };
-            //Console.WriteLine("***Ejecutando ***");
-            using (Process proceso = new Process { StartInfo = psi })
-            {
-                proceso.Start();
-
-                // Cargar y ejecutar el script PowerShell
-                using (System.IO.StreamWriter sw = proceso.StandardInput)
+            try {
+                await Task.Run(() =>
                 {
-                    if (sw.BaseStream.CanWrite)
+                    string rutaScriptPowerShell = GlobalVariables.Dir + "ExecuteLogTempReelDiff.ps1";
+                    ProcessStartInfo psi = new ProcessStartInfo
                     {
-                        sw.WriteLine($"& '{rutaScriptPowerShell}' -sourcePath " + Source + " -destinationPath " + Target + " -ID " + iden);
+                        FileName = "powershell.exe",
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    };
+                    //Console.WriteLine("***Ejecutando ***");
+                    using (Process proceso = new Process { StartInfo = psi })
+                    {
+                        proceso.Start();
+
+                        // Cargar y ejecutar el script PowerShell
+                        using (System.IO.StreamWriter sw = proceso.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                sw.WriteLine($"& '{rutaScriptPowerShell}' -sourcePath " + Source + " -destinationPath " + Target + " -ID " + iden);
+                            }
+                        }
+
+                        // Obtener la salida del proceso
+                        //string resultado = proceso.StandardOutput.ReadToEnd();
+
+                        // Mostrar la salida (puedes hacer otras cosas con el resultado)
+                        //Console.WriteLine("Resultado:");
+                        //Console.WriteLine(resultado);
                     }
-                }
-
-                // Obtener la salida del proceso
-                //string resultado = proceso.StandardOutput.ReadToEnd();
-
-                // Mostrar la salida (puedes hacer otras cosas con el resultado)
-                //Console.WriteLine("Resultado:");
-                //Console.WriteLine(resultado);
+                }, cancellationTokenSource.Token);
+                cancellationTokenSource.Token.ThrowIfCancellationRequested();
             }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            
+            
             return;
         }
-
+        
     }
+
 }

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="EasySavev2.0" Height="450" Width="423" Loaded="Window_Loaded">
-    <Grid Background="#FFD1D1D1" Margin="0,0,1,0">
+        Title="EasySavev2.0" Height="508" Width="423" Loaded="Window_Loaded">
+    <Grid Background="#FFD1D1D1" Margin="0,0,1,-32">
         <Label x:Name="SourceLabel" Content="Source" HorizontalAlignment="Left" Margin="45,86,0,0" VerticalAlignment="Top"/>
         <Label x:Name="CibleLabel" Content="Cible" HorizontalAlignment="Left" Margin="45,154,0,0" VerticalAlignment="Top"/>
         <Label x:Name="TypeLogLabel" Content="TypeLog" HorizontalAlignment="Left" Margin="45,212,0,0" VerticalAlignment="Top"/>
@@ -20,17 +20,10 @@
             <ListBoxItem Content="1"/>
             <ListBoxItem Content="2"/>
         </ComboBox>
-        <ComboBox x:Name="Option1" HorizontalAlignment="Left" Margin="288,127,0,0" VerticalAlignment="Top" Width="36" SelectedIndex="0" Text="-">
-            <ListBoxItem Content=";"/>
-            <ListBoxItem Content="-"/>
-        </ComboBox>
-        <Label x:Name="NombLabel" Content="Nombres de Sauvegardes" HorizontalAlignment="Left" Margin="213,87,0,0" VerticalAlignment="Top" Width="147" RenderTransformOrigin="0.183,0.53"/>
         <Button x:Name="ButtonCommence" Content="Commence" HorizontalAlignment="Left" Height="29" Margin="285,248,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
         <Button x:Name="ButtonQuit" Content="Quitter" HorizontalAlignment="Left" Height="29" Margin="285,301,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click2"/>
         <TextBox x:Name="Cible" HorizontalAlignment="Left" Margin="51,187,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="Source" HorizontalAlignment="Left" Margin="53,130,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Debut" HorizontalAlignment="Left" Margin="225,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="47"/>
-        <TextBox x:Name="Fin" HorizontalAlignment="Left" Margin="339,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="47" RenderTransformOrigin="0.454,0.596"/>
         <Label x:Name="LabelSource" Content=" " HorizontalAlignment="Left" Margin="181,127,0,0" VerticalAlignment="Top" Width="22" Background="#FFD0D0D0"/>
         <Label x:Name="LabelCible" Content=" " HorizontalAlignment="Left" Margin="181,183,0,0" VerticalAlignment="Top" Width="22" Background="#FFD0D0D0"/>
         <TextBlock x:Name="outputTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -64,7 +57,7 @@
                 <ImageBrush ImageSource="/England.png"/>
             </Button.Background>
         </Button>
-        <ComboBox x:Name="Extension" HorizontalAlignment="Left" Margin="266,185,0,0" VerticalAlignment="Top" Width="111" SelectedIndex="0" IsTextSearchCaseSensitive="True" Height="21">
+        <ComboBox x:Name="Extension" HorizontalAlignment="Left" Margin="235,129,0,0" VerticalAlignment="Top" Width="111" SelectedIndex="0" IsTextSearchCaseSensitive="True" Height="21">
             <ListBoxItem Content="Aucune"/>
             <ListBoxItem Content=".txt"/>
             <ListBoxItem Content=".jpg"/>
@@ -72,6 +65,10 @@
             <ListBoxItem Content=".pdf"/>
             <ListBoxItem Content=".docx"/>
         </ComboBox>
-        <Label x:Name="ExtLabel" Content="Extensions à chiffrer" HorizontalAlignment="Left" Margin="213,154,0,0" VerticalAlignment="Top" Width="147" RenderTransformOrigin="0.183,0.53"/>
+        <Label x:Name="ExtLabel" Content="Extensions à chiffrer" HorizontalAlignment="Left" Margin="213,86,0,0" VerticalAlignment="Top" Width="147" RenderTransformOrigin="0.183,0.53"/>
+        <ProgressBar x:Name="pbConteo" HorizontalAlignment="Left" Height="36" Margin="63,359,0,0" VerticalAlignment="Top" Width="317"/>
+        <Button Content="Pause" HorizontalAlignment="Left" Height="33" Margin="66,416,0,0" VerticalAlignment="Top" Width="83" Click="Button_Pause"/>
+        <Button Content="Stop" HorizontalAlignment="Left" Height="31" Margin="171,416,0,0" VerticalAlignment="Top" Width="93" Click="Button_Stop"/>
+        <Button Content="Play" HorizontalAlignment="Left" Height="32" Margin="284,417,0,0" VerticalAlignment="Top" Width="97" Click="Button_Play"/>
     </Grid>
 </Window>

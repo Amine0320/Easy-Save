@@ -7,9 +7,11 @@ param (
 # Source and destination paths
 $rutaArchivoJson = "C:\LOGJ\state.json"
 $rutaArchivoJson2 = "C:\LOGJ\state2.json"
+$rutaArchivo = "C:\LOGJ\stop.txt"
 # Get the list of files to copy
+$contenidoArchivo = Get-Content -Path $rutaArchivo
 $filesToCopy = Get-ChildItem -Path $sourcePath
-
+#$ririt="txt"
 # Initialize progress bar
 $progress = 0
 $totalFiles = $filesToCopy.Count
@@ -25,7 +27,14 @@ if (-not (Test-Path $destinationPath -PathType Container)) {
 
 # Copy files with progress
 foreach ($file in $filesToCopy) {
+	do{
+		Write-Host "Sigo Esperando"
+		Write-Host $file
+		$contenidoArchivo = Get-Content -Path $rutaArchivo 
+	}while ($contenidoArchivo -ne "go")
+	
     $progress++
+	$contenidoArchivo = Get-Content -Path $rutaArchivo 
     $progressPercentage = ($progress / $totalFiles) * 100
 	$EtatReel = @{
 	IdEtaTemp = $ID
@@ -38,13 +47,16 @@ foreach ($file in $filesToCopy) {
 	NbFilesLeftToDo = (Get-ChildItem -Path $sourcePath -File).Count - (Get-ChildItem -Path $destinationPath -File).Count
 	Progression = $progressPercentage
 	}
+	
 	$jsonString = $EtatReel | ConvertTo-Json
     # Display progress bar
     #Write-Progress -Activity "Copying Files" -Status "Progress: $progress/$totalFiles" -PercentComplete $progressPercentage
 	
     # Copy the file
     Copy-Item -Path $file.FullName -Destination $destinationPath -Force
+
 	$jsonString | Out-File -FilePath $rutaArchivoJson -Encoding UTF8 -Force
+	
 }
 ##Write-Host "La carpeta ya existe en $destinationPath"
 $EtatReel = @{

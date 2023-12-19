@@ -1,11 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+
 
 namespace WpfApp2
 {
@@ -122,7 +118,11 @@ namespace WpfApp2
             {
                 Console.WriteLine("Une erreur s'est produite : " + e.Message);
             }
-            return timetre;
+            if (timetre != "")
+            {
+                return timetre;
+            }
+            else { return "0"; }
         }
         /* public string Consulter()
          {

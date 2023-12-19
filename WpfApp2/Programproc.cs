@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PowershellShowcase;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Text;
 using System.IO;
-using System.Web.Services.Description;
 using Programme_cryptosoft;
 using System.Diagnostics;
 using System.IO.Pipes;
@@ -17,8 +8,12 @@ namespace WpfApp2
 {
     public class Programproc
     {
-        public void EventMain(string @Sources2,string @Cible2, string Type2, string saves2, string TypeLog, int ext)
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        
+        public async void EventMain(CancellationTokenSource cancellationTokenSource, string @Sources2,string @Cible2, string Type2, int saves2, string TypeLog, int ext)
         {
+
+            
             string rutaArchivo = @"C:\LOGJ\state.json";
             try
             {
@@ -30,116 +25,84 @@ namespace WpfApp2
             }
             catch (Exception ex)
             {}
+            Systeme TravailNouvelle = new Systeme(); 
+            string Sources = Sources2;
+            string Cible = Cible2;
+            string Type = Type2;
+            int log = 2;
+            if (TypeLog.Equals("JSON")) { log = 1; }
+            TypeSauv sauvType = Convertir(Type);
+            string selectedExtensionsInput = ext.ToString();
+            List<int> selectedExtensions = selectedExtensionsInput.Split(',')
+            .Select(part => int.Parse(part.Trim()))
+            .ToList();
 
-            string saves = saves2;
-            List<int> listeDeSauvegardes = ListeDeSauv(saves);
-            Systeme TravailNouvelle = new Systeme();
-            if (Systeme.VerifieDispo(listeDeSauvegardes))
+            if (ext != 0)
             {
-                foreach (int i in listeDeSauvegardes)
+                // Lancer le programme CryptoSoft avec les arguments nécessaires
+                ProcessStartInfo startInfo = new ProcessStartInfo
                 {
+                    FileName = "Programme cryptosoft.exe",
+                    Arguments = $"{Sources} {Cible} {selectedExtensionsInput}",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+                ProgramCryptoSoft cryptoSoft = new ProgramCryptoSoft();
+                var pipeClient = new NamedPipeClientStream("CryptoSoftPipe");
+                cryptoSoft.Main();
+                try
+                {
+                    pipeClient.Connect();
 
-                    string Sources = Sources2;
-                    string Cible = Cible2;
-                    string Type = Type2;
-                    int log = 2;
-                    if (TypeLog.Equals("JSON")) { log = 1; }
-                    TypeSauv sauvType = Convertir(Type);
-                    GlobalVariables.Exist = LogMetier.CheckAppsInDirectory(Sources);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error connecting to CryptoSoftPipe: {ex.Message}");
+                    return; // Arrêter le processus si la connexion échoue
+                }
+
+                try
+                {
+                    using (StreamReader sr = new StreamReader(pipeClient))
+                    using (StreamWriter sw = new StreamWriter(pipeClient, Encoding.UTF8))
+                    {
+
+
+
+                        // Lire la clé du tube nommé
+                        string cleString = sr.ReadLine();
+                        byte[] cle = Convert.FromBase64String(cleString);
+                        Task.Delay(10000).Wait();
+                        // Appeler la fonction de chiffrement dans le programme CryptoSoft
+                        //  ProgramCryptoSoft cryptoSoft = new ProgramCryptoSoft();
+
+                        int returnCode = cryptoSoft.ChiffrerDossier(Sources, Cible, cle, selectedExtensions);
+                        Console.WriteLine(returnCode == 1 ? "Encryption successful." : $"Encryption failed. Error code: {returnCode}");
+
+
+                    }
+                }
+                catch (IOException ex)
+                {
+                    // Handle the exception
+                }
+            }
                     
-                    string selectedExtensionsInput = ext.ToString();
-                    List<int> selectedExtensions = selectedExtensionsInput.Split(',')
-                     .Select(part => int.Parse(part.Trim()))
-                     .ToList();
-
-
-                    // Lancer le programme CryptoSoft avec les arguments nécessaires
-                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    
+                    if (sauvType == TypeSauv.Complete)
                     {
-                        FileName = "Programme cryptosoft.exe",
-                        Arguments = $"{Sources} {Cible} {selectedExtensionsInput}",
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        CreateNoWindow = true
-                    };
-                    ProgramCryptoSoft cryptoSoft = new ProgramCryptoSoft();
-                    var pipeClient = new NamedPipeClientStream("CryptoSoftPipe");
-                    cryptoSoft.Main();
-                    try
-                    {
-                        pipeClient.Connect();
-
+                        TravailNouvelle.EnregistrerSauvegarde(saves2, TravailNouvelle.CreerSauvegarde(saves2, Sources, Cible, sauvType), log, cancellationTokenSource);
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error connecting to CryptoSoftPipe: {ex.Message}");
-                        return; // Arrêter le processus si la connexion échoue
-                    }
+                    else { TravailNouvelle.EnregistrerSauvegardeDiff(saves2, TravailNouvelle.CreerSauvegarde(saves2, Sources, Cible, sauvType), log,cancellationTokenSource); }
+                    Systeme.SauvDejaCreee.Add(saves2);
+                    
 
-                    try
-                    {
-                        using (StreamReader sr = new StreamReader(pipeClient))
-                        using (StreamWriter sw = new StreamWriter(pipeClient, Encoding.UTF8))
-                        {
-
-
-
-                            // Lire la clé du tube nommé
-                            string cleString = sr.ReadLine();
-                            byte[] cle = Convert.FromBase64String(cleString);
-                            Task.Delay(10000).Wait();
-                            // Appeler la fonction de chiffrement dans le programme CryptoSoft
-                            //  ProgramCryptoSoft cryptoSoft = new ProgramCryptoSoft();
-
-                            int returnCode = cryptoSoft.ChiffrerDossier(Sources, Cible, cle, selectedExtensions);
-                            Console.WriteLine(returnCode == 1 ? "Encryption successful." : $"Encryption failed. Error code: {returnCode}");
-
-
-                        }
-                    }
-                    catch (IOException ex)
-                    {
-                        // Handle the exception
-                    }
-                    if (!GlobalVariables.Exist)
-                    {
-                        if (sauvType == TypeSauv.Complete)
-                        {
-                            TravailNouvelle.EnregistrerSauvegarde(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log);
-                        }
-                        else { TravailNouvelle.EnregistrerSauvegardeDiff(i, TravailNouvelle.CreerSauvegarde(i, Sources, Cible, sauvType), log); }
-                        Systeme.SauvDejaCreee.Add(i);
-                    }
-
-                }
-                
-
-            }
-
-
+            
         }
 
-        static List<int> ListeDeSauv(string sauv)
-        {
-            List<int> listeSauv = new List<int>();
-            ArraySegment<char> arr = sauv.ToCharArray();
-            int len = arr.Count;
 
-            for (int i = 0; i < len; i++)
-            {
-                if (arr[i].Equals(';')) { }
-                else if (arr[i].Equals('-'))
-                {
-                    for (int j = int.Parse(arr[i - 1].ToString()) + 1; j < int.Parse(arr[i + 1].ToString()); j++)
-                    {
-                        listeSauv.Add(j);
-                    }
-                }
-                else { listeSauv.Add(int.Parse(arr[i].ToString())); }
-            }
-            return listeSauv;
-        }
         static TypeSauv Convertir(string Type)
         {
             if (Type.Equals("1"))
@@ -156,6 +119,7 @@ namespace WpfApp2
 
     public class GlobalVariables
     {   
+        Systeme systeme = new Systeme();
         private static string GetDir() 
             {            
                 string DossierPro = Directory.GetCurrentDirectory();
@@ -167,12 +131,16 @@ namespace WpfApp2
                 }
                 return Dir;
             }
-        public static bool _Exist {get; set;} = false;
-        public static bool Exist 
-        {        
-            get { return _Exist; }
-            set { _Exist = value; }
+        public static bool _Active { get; set; } = false;
+        public static bool Active
+        {
+            get { return _Active; }
+            set { _Active = value; }
         }
         public static string Dir {get; set;} = GetDir();
+
+        public static List<Task> tasks = new List<Task>();
+
+        public static int number = 1;
     }
 }

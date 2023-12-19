@@ -1,22 +1,8 @@
-﻿using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Services.Description;
+﻿using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-
+using System.Text.Json;
 
 namespace WpfApp2
 {
@@ -28,36 +14,61 @@ namespace WpfApp2
         public Window1()
         {
             InitializeComponent();
-            string path = @"C:\LOGJ\quant.txt";
-            if (File.Exists(path))
-            {
-                Debut.IsReadOnly = true;
-                Fin.IsReadOnly = true;
-                Option1.Text = "";
-                Option1.IsEnabled = false;
-            }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+        private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        DispatcherTimer timer = new DispatcherTimer();
+        int saveNumber = GlobalVariables.number;
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            Window4 Fenetre = new Window4();
+            Window1 Fenetre1 = new Window1();
+            Fenetre.Show();
+            System.Threading.Thread.Sleep(100);
+            Application.Current.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Background);
+           
+            //string path = @"C:\LOGJ\quant.txt";
+                //Programproc program = new Programproc();
+                //program.EventMainAsync(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
+            // Ouvrir la deuxième fenêtre 
+            //Window2 Fenetre2 = new Window2();
+            //Fenetre2.Show();   
+
+            Task task = Task.Run(() =>
+            {
+                Programproc program = new Programproc();
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    program.EventMain(cancellationTokenSource, Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), saveNumber, TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
+                });
+            });
+            GlobalVariables.tasks.Add(task);
+
+
+
+
+
+            /*
+             * Version Bruno
             string path = @"C:\LOGJ\quant.txt";
             int quan;
-            if (Option1.Text.ToString()=="-")
+            
+            /*if (Option1.Text.ToString() == "-")
             {
-                 quan = int.Parse(Fin.Text) - int.Parse(Debut.Text) + 1;
+                quan = int.Parse(Fin.Text) - int.Parse(Debut.Text) + 1;
                 using (StreamWriter writer = new StreamWriter(path))
                 {
                     writer.Write(quan);
                     writer.Close();
                 }
-                } 
+            }
             else if (Option1.Text.ToString() == ";")
             {
                 if (Fin.Text.Equals(""))
                 {
                     quan = 1;
                 }
-                else 
+                else
                 {
                     quan = 2;
                 }
@@ -67,14 +78,33 @@ namespace WpfApp2
                     writer.Close();
                 }
             }
-
             
+                
 
-            Programproc program = new Programproc();
-            program.EventMain(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString())) ;
-            Window2 Fenetre2 = new Window2();
-            this.Close();
-            Fenetre2.Show();
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    
+                    this.Close();
+                    Fenetre2.Show();
+                });
+             */
+            //cancellationTokenSource = new CancellationTokenSource();
+            /*
+             * Autre partie ver Bruno
+             await Task.Run(() =>
+             {
+                 Programproc program = new Programproc();
+                 Application.Current.Dispatcher.Invoke(() =>
+                 { 
+                  program.EventMain(cancellationTokenSource, Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
+                 });
+             });
+             bool ejer = cancellationTokenSource.IsCancellationRequested;
+
+             Window2 Fenetre2 = new Window2();
+             cancellationTokenSource.Cancel();
+             ejer = cancellationTokenSource.IsCancellationRequested;
+            */
         }
         private void Button_Click2(object sender, RoutedEventArgs e)
         {
@@ -89,12 +119,14 @@ namespace WpfApp2
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DispatcherTimer timer = new DispatcherTimer();
+            
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Dt_tick;
             timer.Start();
+            
         }
         private int incremet = 0;
+        private double incremet2 = 0;
         private void Dt_tick(object sender, EventArgs e)
         {
             incremet ++;
@@ -113,6 +145,64 @@ namespace WpfApp2
             {
                 LabelCible.Background = new SolidColorBrush(Colors.Red);
             }
+            string pathfichier = @"C:\LOGJ\state.json";
+            statelog statelog1 = new statelog();
+            if (File.Exists(pathfichier))
+            {
+                string contenidoJson = File.ReadAllText(pathfichier);
+                foreach (string i in contenidoJson.Split('}',StringSplitOptions.None))
+                {
+                    if (!string.IsNullOrWhiteSpace(i))
+                    {
+                        statelog1 = JsonSerializer.Deserialize<statelog>(i + "}");
+                        if (statelog1.IdEtaTemp.Equals(saveNumber.ToString()) || statelog1.State.Equals("Active"))
+                        {
+                            incremet2 = statelog1.Progression;
+                            pbConteo.Value = statelog1.Progression;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                pbConteo.Value = 0;
+            }
+            int drro;
+            //string path = @"C:\LOGJ\quant.txt";
+            string contenido;
+            string trutj;
+            Window1 Fenetre1 = new Window1();
+            Window3 Fenetre3 = new Window3();
+            Window4 Fenetre4 = new Window4(); 
+            if (pbConteo.Value == 100)
+            {
+                string endstate = @"C:\LOGJ\state2.json";
+                if (File.Exists(endstate))
+                {
+                    File.Delete(pathfichier);
+                    File.Move(endstate, pathfichier);
+                }
+                timer.Stop();
+    
+                //Fenetre3.Show();
+                //this.Close();
+                pbConteo.Value = pbConteo.Value + 10;
+                
+
+
+            }
+            else
+            {
+                LogMetier.CheckAppsInDirectory(statelog1.SourceFilePath);
+                if (GlobalVariables.Active)
+                {
+                    using (StreamWriter escritor = new StreamWriter(@"C:\LOGJ\stop.exe"))
+                    {
+                        escritor.WriteLine("stop");
+                    }
+                }
+
+            } 
         }
         private void Button_England(object sender, RoutedEventArgs e)
         {
@@ -121,7 +211,6 @@ namespace WpfApp2
             CibleLabel.Content = "Destination";
             TypeLogLabel.Content = "LogType";
             TypeSauvLabel.Content = "LogSav";
-            NombLabel.Content = "Number of Backups";
             ExtLabel.Content = "Extensions to encrypt";
             ButtonCommence.Content = "Start";
             ButtonQuit.Content = "Quit";
@@ -134,7 +223,6 @@ namespace WpfApp2
             CibleLabel.Content = "Cible";
             TypeLogLabel.Content = "TypeLog";
             TypeSauvLabel.Content = "TypeSauv";
-            NombLabel.Content = "Nombres de Sauvegardes";
             ExtLabel.Content = "Extensions à chiffrer";
             ButtonCommence.Content = "Commence";
             ButtonQuit.Content = "Quitter";
@@ -147,13 +235,12 @@ namespace WpfApp2
             CibleLabel.Content = "Destino";
             TypeLogLabel.Content = "TipoLog";
             TypeSauvLabel.Content = "TipoGuar";
-            NombLabel.Content = "Cantidad de Salvaguardado";
             ExtLabel.Content = "Extensiones para cifrar";
             ButtonCommence.Content = "Comenzar";
             ButtonQuit.Content = "Salir";
             //Fenetre.Show();
         }
-        private int GetExtension(string ext)
+        public int GetExtension(string ext)
         {
             if (ext.Equals("Aucune")) { return 0; }
             else if (ext.Equals(".txt")) { return 1; }
@@ -162,9 +249,73 @@ namespace WpfApp2
             else if (ext.Equals(".pdf")) { return 4; }
             else { return 5; }
         }
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
+
+        private void Button_Stop(object sender, RoutedEventArgs e)
+        {
+            string pathfichier = @"C:\LOGJ\stop.txt";
+
+            string content = "stop";
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(pathfichier))
+                {
+                    writer.WriteLine(content);
+                }
+
+            }
+            catch (Exception ex)
+            { }
+            Exitstop exitstop = new Exitstop();
+            exitstop.Show();
+            this.Close();
+        }
+        public class statelog
+        {
+            public string IdEtaTemp { get; set; }
+            public int NbFilesLeftToDo { get; set; }
+            public double Progression { get; set; }
+            public string State { get; set; }
+            public string NomETR { get; set; }
+            public long TotalFilesSize { get; set; }
+            public string SourceFilePath { get; set; }
+            public long TotalFilesToCopy { get; set; }
+            public string TargetFilePath { get; set; }
+        }
+
+        private void Button_Pause(object sender, RoutedEventArgs e)
+        {
+            string pathfichier = @"C:\LOGJ\stop.txt";
+            string content = "stop";
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(pathfichier))
+                {
+                    writer.WriteLine(content);
+                }
+
+            }
+            catch (Exception ex)
+            {}
+        }
+
+        private void Button_Play(object sender, RoutedEventArgs e)
+        {
+            string pathfichier = @"C:\LOGJ\stop.txt";
+
+            string content = "go";
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(pathfichier))
+                {
+                    writer.WriteLine(content);
+                }
+            }
+            catch (Exception ex)
+            {}
         }
     }
 }

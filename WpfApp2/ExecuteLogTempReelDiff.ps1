@@ -6,6 +6,8 @@ param (
 
 $rutaArchivoJson = "C:\LOGJ\state.json"
 $rutaArchivoJson2 = "C:\LOGJ\state2.json"
+$rutaArchivo = "C:\LOGJ\stop.txt"
+$contenidoArchivo = Get-Content -Path $rutaArchivo
 ## primera parte
 # Source and destination paths
 $fichier = 0
@@ -14,6 +16,7 @@ $TotalFilesSize =0
 
 $filesToCopy = Get-ChildItem -Path $sourcePath -Recurse
 foreach ($file in $filesToCopy) {
+
 	$file2=$file.FullName -replace [regex]::Escape($sourcePath), ""
 	$newfile=$destinationPath+$file2
 	if (Test-Path $newfile -PathType Leaf) {
@@ -43,6 +46,11 @@ if (-not (Test-Path $destinationPath -PathType Container)) {
 
 # Copy files with progress
 foreach ($file in $filesToCopy) {
+	do{
+		Write-Host "Sigo Esperando"
+		Write-Host $file
+		$contenidoArchivo = Get-Content -Path $rutaArchivo 
+	}while ($contenidoArchivo -ne "go")
 	$file2=$file.FullName -replace [regex]::Escape($sourcePath), ""
 	$newfile=$destinationPath+$file2
 	$newfile2=Get-ChildItem -Path $newfile
