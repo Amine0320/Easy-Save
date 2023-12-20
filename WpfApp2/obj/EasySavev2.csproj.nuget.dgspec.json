@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kikou\\Source\\Repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj": {}
+    "C:\\Users\\kikou\\source\\repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kikou\\Source\\Repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj": {
+    "C:\\Users\\kikou\\source\\repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kikou\\Source\\Repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj",
+        "projectUniqueName": "C:\\Users\\kikou\\source\\repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj",
         "projectName": "EasySavev2",
-        "projectPath": "C:\\Users\\kikou\\Source\\Repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj",
+        "projectPath": "C:\\Users\\kikou\\source\\repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj",
         "packagesPath": "C:\\Users\\kikou\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kikou\\Source\\Repos\\EasySaveFin\\WpfApp2\\obj\\",
+        "outputPath": "C:\\Users\\kikou\\source\\repos\\EasySaveFin\\WpfApp2\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
