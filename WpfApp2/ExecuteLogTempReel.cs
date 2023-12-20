@@ -36,9 +36,6 @@ namespace WpfApp2
             string filePath = GlobalVariables.Dir + "limite.txt";
             int limite = Convert.ToInt32(File.ReadAllText(filePath));
 
-            // Lire le fichier d'arrêt
-            string stopFilePath = "C:\\LOGJ\\stop.txt";
-
             int fichier = 0;
             long totalFilesSize = 0;
 
@@ -71,7 +68,7 @@ namespace WpfApp2
             }
             while (filesToCopy.Count > 0)
             {
-                if (File.Exists(stopFilePath) && File.ReadAllText(stopFilePath).Equals("go"))
+                if (GlobalVariables.Play)
                 {
                     List<string> files = new List<string>(filesToCopy);
                     foreach (string file in files)

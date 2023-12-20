@@ -36,14 +36,6 @@ namespace WpfApp2
             // Invoke Dispatcher to handle background tasks 
             Application.Current.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Background);
 
-            //string path = @"C:\LOGJ\quant.txt";
-            //Programproc program = new Programproc();
-            //program.EventMainAsync(Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
-            // Ouvrir la deuxième fenêtre 
-            //Window2 Fenetre2 = new Window2();
-            //Fenetre2.Show();   
-
-
             // Create and run a new task 
             Task task = Task.Run(() =>
             {
@@ -58,63 +50,6 @@ namespace WpfApp2
             });
             // Add the task to the global list of tasks 
             GlobalVariables.tasks.Add(task); 
-            /*
-             * Version Bruno
-            string path = @"C:\LOGJ\quant.txt";
-            int quan;
-            
-            /*if (Option1.Text.ToString() == "-")
-            {
-                quan = int.Parse(Fin.Text) - int.Parse(Debut.Text) + 1;
-                using (StreamWriter writer = new StreamWriter(path))
-                {
-                    writer.Write(quan);
-                    writer.Close();
-                }
-            }
-            else if (Option1.Text.ToString() == ";")
-            {
-                if (Fin.Text.Equals(""))
-                {
-                    quan = 1;
-                }
-                else
-                {
-                    quan = 2;
-                }
-                using (StreamWriter writer = new StreamWriter(path))
-                {
-                    writer.Write(quan);
-                    writer.Close();
-                }
-            }
-            
-                
-
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    
-                    this.Close();
-                    Fenetre2.Show();
-                });
-             */
-            //cancellationTokenSource = new CancellationTokenSource();
-            /*
-             * Autre partie ver Bruno
-             await Task.Run(() =>
-             {
-                 Programproc program = new Programproc();
-                 Application.Current.Dispatcher.Invoke(() =>
-                 { 
-                  program.EventMain(cancellationTokenSource, Source.Text.ToString(), Cible.Text.ToString(), TypeSauv.Text.ToString(), Debut.Text.ToString() + Option1.Text.ToString() + Fin.Text.ToString(), TypeLog.Text.ToString(), GetExtension(Extension.Text.ToString()));
-                 });
-             });
-             bool ejer = cancellationTokenSource.IsCancellationRequested;
-
-             Window2 Fenetre2 = new Window2();
-             cancellationTokenSource.Cancel();
-             ejer = cancellationTokenSource.IsCancellationRequested;
-            */
         }
         // Button Click2 Event Handler 
         private void Button_Click2(object sender, RoutedEventArgs e)
@@ -239,11 +174,8 @@ namespace WpfApp2
                 if (GlobalVariables.Active)
                 {
 
-                    // Create a stop file to signal stopping the process 
-                    using (StreamWriter escritor = new StreamWriter(@"C:\LOGJ\stop.exe"))
-                    {
-                        escritor.WriteLine("stop");
-                    }
+                    // Signal to stop the process 
+                    GlobalVariables.Play = false;
                 }
 
             } 
@@ -327,23 +259,9 @@ namespace WpfApp2
         // Button Stop integrated in Window1 
         private void Button_Stop(object sender, RoutedEventArgs e)
         {
-            // Define the file path for the stop command 
-            string pathfichier = @"C:\LOGJ\stop.txt";
- 
-            // Define the content to be written (stop command)
-            string content = "stop";
-
-            try
-            {
-                // Write the stop command to the file 
-                using (StreamWriter writer = new StreamWriter(pathfichier))
-                {
-                    writer.WriteLine(content);
-                }
-
-            }
-            catch (Exception ex) 
-            { }
+            // Stop the Active Saves 
+            GlobalVariables.Play = false;
+       
             // Display the Exitstop window 
             Exitstop exitstop = new Exitstop();
             exitstop.Show();
@@ -354,43 +272,14 @@ namespace WpfApp2
         // Button Pause integrated in Window1 
         private void Button_Pause(object sender, RoutedEventArgs e)
         {
-            // Define the file path for the stop command 
-            string pathfichier = @"C:\LOGJ\stop.txt";
-
-            // Define the content to be written (stop command) 
-            string content = "stop";
-
-            try
-            {
-                // Write the stop command to the file 
-                using (StreamWriter writer = new StreamWriter(pathfichier))
-                {
-                    writer.WriteLine(content);
-                }
-
-            }
-            catch (Exception ex)
-            {}
+            // Stop the Active Saves 
+            GlobalVariables.Play = false;
         }
         // Button Play integrated in Window1 
         private void Button_Play(object sender, RoutedEventArgs e)
         {
-            // Define the file path for the stop command 
-            string pathfichier = @"C:\LOGJ\stop.txt";
-
-            // Define the content to be written (go command) 
-            string content = "go";
-
-            try
-            {
-                // Write the go command to the file 
-                using (StreamWriter writer = new StreamWriter(pathfichier))
-                {
-                    writer.WriteLine(content);
-                }
-            }
-            catch (Exception ex)
-            {}
+            // Resume the Active Saves 
+            GlobalVariables.Play = true;
         }
     } 
 }

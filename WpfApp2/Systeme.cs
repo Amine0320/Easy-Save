@@ -68,62 +68,11 @@ namespace WpfApp2
             DateTime date1 = DateTime.Now;
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
             completeSave.CopyFiles(NewSauvegarder.IdTravailS, NewSauvegarder.RepSource, NewSauvegarder.RepCible, semaphore);
-            /* string stopPath = @"C:\LOGJ\stop.txt";
-            string[] files = Directory.GetFiles(NewSauvegarder.RepSource);
-            while (File.ReadAllText(stopPath).Equals("go"))
-            {
-                //D'abord les extensions prioritaires
-                foreach (string file in files.Where(file => ExtensionsPriori.ExtPriorite(file)))
-                {
-                    long fileSize = new FileInfo(file).Length;
-                    if (fileSize > limite * 1024)
-                    {
-                        semaphore.Wait();
-                        try
-                        {
-                            string destinationPath = Path.Combine(NewSauvegarder.RepCible, Path.GetFileName(file));
-                            File.Copy(file, destinationPath, true);
-                        }
-                        finally { semaphore.Release(); }
-                    }
-                    else 
-                    { 
-                        string destinationPath = Path.Combine(NewSauvegarder.RepCible, Path.GetFileName(file));
-                        File.Copy(file, destinationPath, true);
-                    }
-                }
-            
-                // Extensions non prioritaires
-                
-                foreach (string file in files.Where(file => !ExtensionsPriori.ExtPriorite(file)))
-                {
-                    long fileSize = new FileInfo(file).Length;
-                    if (fileSize > limite * 1024)
-                    {
-                        semaphore.Wait();
-                        try
-                        {
-                            string destinationPath = Path.Combine(NewSauvegarder.RepCible, Path.GetFileName(file));
-                            File.Copy(file, destinationPath, true);
-                        }
-                        finally { semaphore.Release(); }
-                    }
-                    else
-                    {
-                        string destinationPath = Path.Combine(NewSauvegarder.RepCible, Path.GetFileName(file));
-                        File.Copy(file, destinationPath, true);
-                    }
-                }
-                
-            }
-            */
-
             string ExecuteFileSize = @"(Get-ChildItem -Path " + NewSauvegarder.RepSource + " -Recurse | Measure-Object -Property Length -Sum).Sum";
             //Console.WriteLine(ExecuteFileSize);
             string output2 = PowerShellHandler.Command(ExecuteFileSize);
             //Console.WriteLine("*******************************");
             long FileSize = long.Parse(output2);
-            etatTempsReel.SaveToJson(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i, cancellationTokenSource);
             Console.WriteLine("***copie réussie ***");
             DateTime date2 = DateTime.Now;
             string timeCrypt = "";

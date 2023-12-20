@@ -8,98 +8,36 @@ using System.Windows.Media.Imaging;
 namespace WpfApp2
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml 
+    /// Interaction logic for Window4.xaml 
     /// </summary>
     public partial class Window4: Window 
     {
-        // Properties to track button clicks 
-        public bool OuiClicked { get; private set; }
-        public bool NonClicked { get; private set; }  
-        
         //Constructor  
         public Window4() 
         {
             InitializeComponent();
 
         }
-        //ObservableCollection for ComboBox items 
-        public ObservableCollection<ComboBoxItem> Items { get; set; }
-        public class ComboBoxItem
-        {
-            // Gets or sets the text associated with the ComboBoxItem 
-            public string Text { get; set; }
 
-            // Gets or sets the file path for the image associated with the ComboBoxItem 
-            public string ImagePath { get; set; }
-
-            // Create a BitmapImage from the specified ImagePath
-            public BitmapImage ImageSource => new BitmapImage(new Uri(ImagePath, UriKind.RelativeOrAbsolute));
-        }
         // Button Oui Click Event 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           // Set OuiClicked to true 
-           OuiClicked = true;
-
+          
            // Increment the global variable "number"
            GlobalVariables.number++;
 
            // Open Window1
             Window1 Fenetre = new Window1();  
            this.Close();
-           Fenetre.Show();
-           // If I clicked yes 
-           // Mise en veille pour éviter de bloquer le thread
-            
-
-            // Ouvrir la deuxième fenêtre 
-            //Window2 Fenetre2 = new Window2();
-            //Fenetre2.Show() ;   
+           Fenetre.Show(); 
 
         }
         // Button Non Click Event
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {              
+            // Execute the saves
+            GlobalVariables.Play = true;
 
-            Window1 Fenetre = new Window1();
-
-            // Set NonClicked to true 
-            NonClicked = true;
-            /*
-            System.Threading.Thread.Sleep(100);
-            Application.Current.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Background);
-            string path = @"C:\LOGJ\quant.txt";
-            Programproc program = new Programproc();
-            //program.EventMainAsync(Fenetre.Source.Text.ToString(), Fenetre.Cible.Text.ToString(), Fenetre.TypeSauv.Text.ToString(), Fenetre.Debut.Text.ToString() + Fenetre.Option1.Text.ToString() + Fenetre.Fin.Text.ToString(), Fenetre.TypeLog.Text.ToString(), Fenetre.GetExtension(Fenetre.Extension.Text.ToString()));
-            this.Dispatcher.Invoke(() =>
-            {
-                program.EventMainAsync(
-                    Fenetre.Source.Text.ToString(),
-                    Fenetre.Cible.Text.ToString(),
-                    Fenetre.TypeSauv.Text.ToString(),
-                    Fenetre.Debut.Text.ToString() + Fenetre.Option1.Text.ToString() + Fenetre.Fin.Text.ToString(),
-                    Fenetre.TypeLog.Text.ToString(),
-                    Fenetre.GetExtension(Fenetre.Extension.Text.ToString())
-                );
-            });
-            */
-            string pathfichier = @"C:\LOGJ\stop.txt";
-
-            string content = "go";
-
-            try
-            {
-                // Writes the specified content to a file at the specified path 
-                using (StreamWriter writer = new StreamWriter(pathfichier))
-                {
-                    writer.WriteLine(content);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions, if any 
-            }
             // Close the current window 
             this.Close();
 
@@ -113,23 +51,7 @@ namespace WpfApp2
             Window3 Fenetre3 = new Window3(); 
             Fenetre3.Show(); 
         }
-        // ComboBox SelectionChanged Event 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        // ListBox SelectionChanged Event 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
- 
-        // ComboBox SelectionChanged Event 
-        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+     
         // language buttons 
 
         // Switch User Interface to English 
