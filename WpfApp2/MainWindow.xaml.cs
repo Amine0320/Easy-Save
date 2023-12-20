@@ -23,22 +23,6 @@ namespace WpfApp2
         {
             InitializeComponent();
 
-            // Initialize stop file to "stop" when the application starts 
-            string pathfichier = @"C:\LOGJ\stop.txt"; 
-            string content = "stop";
-            try
-            {
-                // Create or overwrite the stop file with "stop" content 
-                using (StreamWriter writer = new StreamWriter(pathfichier))
-                {
-                    writer.WriteLine(content);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions, if any, during file initialization 
-            }
             //Remove old state
             string rutaArchivo = @"C:\LOGJ\state.json";
             try

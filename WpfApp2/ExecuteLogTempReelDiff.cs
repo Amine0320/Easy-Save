@@ -2,147 +2,213 @@ using System.Linq;
 using System.IO;
 using System.Threading;
 using Newtonsoft.Json;
-using WpfApp2;
+using System.ComponentModel;
 
-
-// Classe qui suit le modèle Singleton pour gérer la copie de fichiers
-public sealed class SaveDiff
+namespace WpfApp2
 {
-    private static SaveDiff instance;
-    private static readonly object lockObject = new object();
-
-    // Propriété pour obtenir l'instance du Singleton
-    public static SaveDiff Instance
+    // Class that follows the Singleton Design Pattern to copy files
+    public sealed class SaveDiff
     {
-        get
+        private static SaveDiff instance;
+        private static readonly object lockObject = new object();
+
+        // Property to get the Singleton instance
+        public static SaveDiff Instance
         {
-            lock (lockObject)
+            get
             {
-                if (instance == null)
+                lock (lockObject)
                 {
-                    instance = new SaveDiff();
+                    if (instance == null)
+                    {
+                        instance = new SaveDiff();
+                    }
+                    return instance;
                 }
-                return instance;
             }
         }
-    }
 
-    // Méthode pour effectuer la copie des fichiers
-    public long CopyFiles(int ID, string sourcePath, string destinationPath, SemaphoreSlim semaphore)
-    {
-        // Lire le fichier d'arrêt
-        string stopFilePath = "C:\\LOGJ\\stop.txt";
-        while (!File.Exists(stopFilePath) || File.ReadAllText(stopFilePath) != "go")
+        // Method to copy the files
+        public async void CopyFiles(int ID, string sourcePath, string destinationPath, SemaphoreSlim semaphore)
         {
-            Console.WriteLine("En attente...");
-            Thread.Sleep(1000); // Attendre une seconde avant de vérifier à nouveau
-        }
-        
 
-        // Logique spécifique à C#
-        int fichier = 0;
-        long totalFilesSize = 0;
+            // Get the file limit dictated by the user
+            string filePath = GlobalVariables.Dir + "limite.txt";
+            int limite = Convert.ToInt32(File.ReadAllText(filePath));
 
-        // Obtenir la liste des fichiers à copier
+            // Initiation
+            int fichier = 0;
+            long totalFilesSize = 0;
 
-        //FileInfo[] filesToCopy = new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories);
+            // Get an array of all the files
+            string[] sourceFiles = Directory.GetFiles(sourcePath);
 
-        // Première partie
-        EtatTempsReel currentState = new EtatTempsReel();
-        List<string> filesToCopy = Directory.GetFiles(sourcePath).ToList();
-        foreach (var file in filesToCopy)
-        {
-            string fileName = Path.GetFileName(sourcePath);
-            string targetFilePath = Path.Combine(destinationPath, fileName);
+            // Create State Object
+            EtatTempsReel currentState = new EtatTempsReel();
 
+            // Get the list of files to copy
+            List<string> filesToCopy = new List<string>();
 
-            if (File.Exists(targetFilePath))
+            //Extensions to prioritize
+            foreach (var file in sourceFiles.Where(file => ExtensionsPriori.ExtPriorite(file)))
             {
-                DateTime sourceLastModified = File.GetLastWriteTime(file);
-                DateTime targetLastModified = File.GetLastWriteTime(targetFilePath);
+                string fileName = Path.GetFileName(file);
+                string targetFilePath = Path.Combine(destinationPath, fileName);
 
-                if (targetLastModified == sourceLastModified)
+
+                if (File.Exists(targetFilePath))
                 {
-                    filesToCopy.Remove(file); // Le fichier existe déjà et n'a pas changé, on ne le copie pas
+                    DateTime sourceLastModified = File.GetLastWriteTime(file);
+                    DateTime targetLastModified = File.GetLastWriteTime(targetFilePath);
+
+                    if (targetLastModified == sourceLastModified)
+                    {
+                        continue; // The file already exists, do not copy
+                    }
+                    else
+                    {
+                        // Add the file to be copied if modified
+                        filesToCopy.Add(file);
+                        fichier++;
+                        totalFilesSize += new FileInfo(file).Length;
+                    }
                 }
                 else
                 {
+                    // The file doesn't exist, to be copied
+                    filesToCopy.Add(file);
                     fichier++;
                     totalFilesSize += new FileInfo(file).Length;
                 }
             }
-            else 
+
+            //Extensions not prioritized
+            foreach (var file in sourceFiles.Where(file => !ExtensionsPriori.ExtPriorite(file)))
             {
-                fichier++;
-                totalFilesSize += new FileInfo(file).Length;
+                string fileName = Path.GetFileName(sourcePath);
+                string targetFilePath = Path.Combine(destinationPath, fileName);
+
+                // Same Logic
+                if (File.Exists(targetFilePath))
+                {
+                    DateTime sourceLastModified = File.GetLastWriteTime(file);
+                    DateTime targetLastModified = File.GetLastWriteTime(targetFilePath);
+
+                    if (targetLastModified == sourceLastModified)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        filesToCopy.Add(file);
+                        fichier++;
+                        totalFilesSize += new FileInfo(file).Length;
+                    }
+                }
+                else
+                {
+                    filesToCopy.Add(file);
+                    fichier++;
+                    totalFilesSize += new FileInfo(file).Length;
+                }
             }
-        }
 
-        // Initialiser la barre de progression
-        int progress = 0;
-        int totalFiles = fichier;
+            // Initialize progress
+            int progress = 0;
+            int totalFiles = fichier;
 
-        // Vérifier si le dossier de destination existe
-        if (!Directory.Exists(destinationPath))
-        {
-            // S'il n'existe pas, le créer
-            Directory.CreateDirectory(destinationPath);
-            //Console.WriteLine("Dossier créé à {0}", destinationPath);
-        }
+            //Get the total file size for the logs
+            GlobalVariables.FileSize = (int)totalFilesSize;
+
+            // Check if directory exists
+            if (!Directory.Exists(destinationPath))
+            {
+                // If not, create it
+                Directory.CreateDirectory(destinationPath);
+            }
 
 
-        // Copier les fichiers avec une barre de progression
-        foreach (var file in filesToCopy)
-        {
-            progress++;
-            double progressPercentage = (double)progress / totalFiles * 100;
+            // Copy the files while updating the progress
 
-            // État actuel
+            // If there are files to copy
+            while (filesToCopy.Count > 0)
+            {
+                // Check if Play condition is valid
+                if (GlobalVariables.Play)
+                {
+                    // Copy each file while updating the state
+                    List<string> files = new List<string>(filesToCopy);
+                    foreach (var file in files)
+                    {
+                        progress++;
+                        double progressPercentage = (double)progress / totalFiles * 100;
+
+                        // Current State 
+                        currentState.IdEtaTemp = ID;
+                        currentState.NomETR = "Save " + ID;
+                        currentState.SourceFilePath = sourcePath;
+                        currentState.TargetFilePath = destinationPath;
+                        currentState.State = "Active";
+                        currentState.TotalFilesToCopy = totalFiles;
+                        currentState.TotalFilesSize = (int)totalFilesSize;
+                        currentState.NbFilesLeftToDo = fichier - progress;
+                        currentState.Progression = (int)progressPercentage;
+
+                        // Convert the current State to JSON
+                        string jsonString = JsonConvert.SerializeObject(currentState, Formatting.Indented);
+
+                        // Copy the file
+                        string fileName = Path.GetFileName(file);
+                        string targetFilePath = Path.Combine(destinationPath, fileName);
+                        long fileSize = new FileInfo(file).Length;
+
+                        if (fileSize > limite * 1024)
+                        {
+                            //Doesn't allow two files more than the limit to be copied at the same time
+                            semaphore.Wait();
+                            try
+                            {
+                                if (!File.Exists(targetFilePath))
+                                { File.Copy(file, targetFilePath); }
+                            }
+                            finally { semaphore.Release(); }
+                        }
+                        else
+                        {
+                            if (!File.Exists(targetFilePath))
+                            { File.Copy(file, targetFilePath); }
+                        }
+
+                        filesToCopy.Remove(file);
+
+                        // Write current state to file
+                        File.WriteAllText("C:\\LOGJ\\state.json", jsonString);
+                    }
+                }
+                else { await Task.Delay(1000); }
+            }
+
+
+            // Final State
             currentState.IdEtaTemp = ID;
             currentState.NomETR = "Save " + ID;
-            currentState.SourceFilePath = sourcePath;
-            currentState.TargetFilePath = destinationPath;
-            currentState.State = "Active";
-            currentState.TotalFilesToCopy = totalFiles;
-            currentState.TotalFilesSize = (int)totalFilesSize;
-            currentState.NbFilesLeftToDo = fichier - progress;
-            currentState.Progression = (int)progressPercentage;
+            currentState.SourceFilePath = "";
+            currentState.TargetFilePath = "";
+            currentState.State = "End";
+            currentState.TotalFilesToCopy = 0;
+            currentState.TotalFilesSize = 0;
+            currentState.NbFilesLeftToDo = 0;
+            currentState.Progression = 0;
 
-            // Convertir l'état actuel en JSON
-            string jsonString = JsonConvert.SerializeObject(currentState, Formatting.Indented);
+            // Convert final state to JSON
+            string finalJsonString = JsonConvert.SerializeObject(currentState, Formatting.Indented);
 
-            string fileName = Path.GetFileName(file);
-            string targetFilePath = Path.Combine(destinationPath, fileName);
+            // Write final state to file without overwritting
+            File.AppendAllText("C:\\LOGJ\\state2.json", finalJsonString);
 
-            // Copier le fichier
-            if (!File.Exists(targetFilePath))
-            { File.Copy(file, targetFilePath); }
-
-            // Écrire l'état actuel dans le fichier JSON
-            File.WriteAllText("C:\\LOGJ\\state.json", jsonString);
         }
 
-        // État final
-        currentState.IdEtaTemp = ID;
-        currentState.NomETR = "Save " + ID;
-        currentState.SourceFilePath = "";
-        currentState.TargetFilePath = "";
-        currentState.State = "End";
-        currentState.TotalFilesToCopy = 0;
-        currentState.TotalFilesSize = 0;
-        currentState.NbFilesLeftToDo = 0;
-        currentState.Progression = 0;
-
-        // Convertir l'état final en JSON
-        string finalJsonString = JsonConvert.SerializeObject(currentState, Formatting.Indented);
-
-        // Écrire l'état final dans le fichier JSON2 (en mode Append)
-        File.AppendAllText("C:\\LOGJ\\state2.json", finalJsonString);
-
-        return totalFilesSize;
+        // Private Constructor to avoid direct instanciation
+        private SaveDiff() { }
     }
-
-    // Constructeur privé pour éviter une instanciatisation directe
-    private SaveDiff() { }
 }
- 

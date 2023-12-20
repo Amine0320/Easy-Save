@@ -100,156 +100,19 @@ namespace WpfApp2
 
         public void EnregistrerSauvegardeDiff(int i, TravailSauvegarde NewSauvegarder, int log, CancellationTokenSource cancellationTokenSource)
         {
-            string filePath = GlobalVariables.Dir + "limite.txt";
-            int limite = Convert.ToInt32(File.ReadAllText(filePath));
             EtatTempsReel etatTempsReel = new EtatTempsReel();
-            string dateString1 = DateTime.Now.ToString("yyyyMMdd_HHmm");
+            //string dateString1 = DateTime.Now.ToString("yyyyMMdd_HHmm");
             var dateString2 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime date1 = DateTime.Now;
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
             SaveDiff saveDiff = SaveDiff.Instance;
-            long FileSize = saveDiff.CopyFiles(NewSauvegarder.IdTravailS, NewSauvegarder.RepSource, NewSauvegarder.RepCible, semaphore);
-            /*int FileModifie = 0;
-            int FileSize = 0;
-            int FileProcessed = 0;
-            if (Directory.Exists(NewSauvegarder.RepSource) && Directory.Exists(NewSauvegarder.RepCible))
-            {
-                string[] sourceFiles = Directory.GetFiles(NewSauvegarder.RepSource);
-                int totalFiles = sourceFiles.Length;
-
-                //Extensions priorite
-                foreach (string sourceFilePath in sourceFiles.Where(file => ExtensionsPriori.ExtPriorite(file)))
-                {
-                    string fileName = Path.GetFileName(sourceFilePath);
-                    string targetFilePath = Path.Combine(NewSauvegarder.RepCible, fileName);
-
-                    if (File.Exists(targetFilePath))
-                    {
-                        DateTime sourceLastModified = File.GetLastWriteTime(sourceFilePath);
-                        DateTime targetLastModified = File.GetLastWriteTime(targetFilePath);
-                        string stopPath = @"C:\LOGJ\stop.txt";
-                        while (File.ReadAllText(stopPath).Equals("go"))
-                        {
-
-                            if (sourceLastModified < targetLastModified)
-                            {
-                                long fileSize = new FileInfo(sourceFilePath).Length;
-                                if (fileSize > limite * 1024)
-                                {
-                                    semaphore.Wait();
-                                    try
-                                    {
-                                        File.Copy(sourceFilePath, targetFilePath);
-                                        FileSize += (int)fileSize;
-                                        FileModifie++;
-                                    }
-                                    finally { semaphore.Release(); }
-                                }
-                                else
-                                {
-                                    File.Copy(sourceFilePath, targetFilePath);
-                                    FileSize += (int)fileSize;
-                                    FileModifie++;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        long fileSize = new FileInfo(sourceFilePath).Length;
-                        if (fileSize > limite * 1024)
-                        {
-                            semaphore.Wait();
-                            try
-                            {
-                                File.Copy(sourceFilePath, targetFilePath);
-                                FileSize += (int)fileSize;
-                                FileModifie++;
-                            }
-                            finally { semaphore.Release(); }
-                        }
-                        else
-                        {
-                            File.Copy(sourceFilePath, targetFilePath);
-                            FileSize += (int)fileSize;
-                            FileModifie++;
-                        }
-                    }
-                    int FilesRestant = totalFiles - FileProcessed - FileModifie;
-                    FileProcessed++;
-
-                }
-                foreach (string sourceFilePath in sourceFiles.Where(file => !ExtensionsPriori.ExtPriorite(file)))
-                {
-                    string fileName = Path.GetFileName(sourceFilePath);
-                    string targetFilePath = Path.Combine(NewSauvegarder.RepCible, fileName);
-
-                    if (File.Exists(targetFilePath))
-                    {
-                        DateTime sourceLastModified = File.GetLastWriteTime(sourceFilePath);
-                        DateTime targetLastModified = File.GetLastWriteTime(targetFilePath);
-                        string stopPath = @"C:\LOGJ\stop.txt";
-                        while (File.ReadAllText(stopPath).Equals("go"))
-                        {
-
-                            if (sourceLastModified < targetLastModified)
-                            {
-                                long fileSize = new FileInfo(sourceFilePath).Length;
-                                if (fileSize > limite * 1024)
-                                {
-                                    semaphore.Wait();
-                                    try
-                                    {
-                                        File.Copy(sourceFilePath, targetFilePath, true);
-                                        FileSize += (int)fileSize;
-                                        FileModifie++;
-                                    }
-                                    finally { semaphore.Release(); }
-                                }
-                                else
-                                {
-                                    File.Copy(sourceFilePath, targetFilePath, true);
-                                    FileSize += (int)fileSize;
-                                    FileModifie++;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        long fileSize = new FileInfo(sourceFilePath).Length;
-                        if (fileSize > limite * 1024)
-                        {
-                            semaphore.Wait();
-                            try
-                            {
-                                File.Copy(sourceFilePath, targetFilePath);
-                                FileSize += (int)fileSize;
-                                FileModifie++;
-                            }
-                            finally { semaphore.Release(); }
-                        }
-                        else
-                        {
-                            File.Copy(sourceFilePath, targetFilePath);
-                            FileSize += (int)fileSize;
-                            FileModifie++;
-                        }
-                    }
-                    int FilesRestant = totalFiles - FileProcessed - FileModifie;
-                    FileProcessed++;
-
-                }
-            }
-            //string output = PowerShellHandler.Command(Execute);
-            etatTempsReel.SaveToJsonDiff(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i, cancellationTokenSource);
-            //Console.WriteLine("***copie réussie ***");
-            */
+            //long FileSize = 
+            saveDiff.CopyFiles(NewSauvegarder.IdTravailS, NewSauvegarder.RepSource, NewSauvegarder.RepCible, semaphore);
             DateTime date2 = DateTime.Now;
             string timeCrypt = "";
             TimeSpan soustraction = date2 - date1;
             double Secondssoustraction = soustraction.TotalSeconds;
-            LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, FileSize, Secondssoustraction, dateString2, timeCrypt);
+            LogJournalier log1 = new LogJournalier(1, "Journal " + i.ToString(), NewSauvegarder.RepSource, NewSauvegarder.RepCible, GlobalVariables.FileSize, Secondssoustraction, dateString2, timeCrypt);
             log1.timeCrypt = log1.ObtenuValeur();
             string fichier = @"C:\LOGJ";
             string logtype = ".json";

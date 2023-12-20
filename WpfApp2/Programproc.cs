@@ -145,6 +145,8 @@ namespace WpfApp2
 
         public static int number = 1;
 
+        public static int FileSize = 0;
+
         public static bool _Play { get; set; } = false;
         public static bool Play
         {
