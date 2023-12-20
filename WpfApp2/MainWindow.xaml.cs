@@ -39,6 +39,19 @@ namespace WpfApp2
             {
                 // Handle exceptions, if any, during file initialization 
             }
+            //Remove old states
+            string rutaArchivo = @"C:\LOGJ\state.json";
+            try
+            {
+                if (File.Exists(rutaArchivo))
+                {
+                    // Borrar el archivo
+                    File.Delete(rutaArchivo);
+                }
+            }
+
+            catch (Exception ex)
+            { }
         } 
 
         // Button click event to open Window1 

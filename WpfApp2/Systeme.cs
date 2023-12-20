@@ -67,7 +67,7 @@ namespace WpfApp2
             var dateString2 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime date1 = DateTime.Now;
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
-            completeSave.CopyFiles(NewSauvegarder.IdTravailS, NewSauvegarder.RepSource, NewSauvegarder.RepCible);
+            completeSave.CopyFiles(NewSauvegarder.IdTravailS, NewSauvegarder.RepSource, NewSauvegarder.RepCible, semaphore);
             /* string stopPath = @"C:\LOGJ\stop.txt";
             string[] files = Directory.GetFiles(NewSauvegarder.RepSource);
             while (File.ReadAllText(stopPath).Equals("go"))

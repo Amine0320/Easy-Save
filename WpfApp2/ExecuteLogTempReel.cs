@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.IO;
+using System.Threading;
 using Newtonsoft.Json;
 
 namespace WpfApp2
@@ -29,8 +30,12 @@ namespace WpfApp2
         }
 
         // Méthode pour effectuer la copie des fichiers
-        public void CopyFiles(int ID, string sourcePath, string destinationPath)
+        public void CopyFiles(int ID, string sourcePath, string destinationPath, SemaphoreSlim semaphore)
         {
+            //Lire la limite des fichiesr imposée par l'utilisateur
+            string filePath = GlobalVariables.Dir + "limite.txt";
+            int limite = Convert.ToInt32(File.ReadAllText(filePath));
+
             // Lire le fichier d'arrêt
             string stopFilePath = "C:\\LOGJ\\stop.txt";
             /*
@@ -87,9 +92,26 @@ namespace WpfApp2
 
                 // Copier le fichier
                 string fileName = Path.GetFileName(file);
-                string targetFilePath = Path.Combine(destinationPath, fileName);
-                if (!File.Exists(targetFilePath))
-                File.Copy(file, targetFilePath);
+                string targetFilePath = Path.Combine(destinationPath, fileName); 
+                long fileSize = new FileInfo(file).Length;
+
+                if (fileSize > limite * 1024)
+                {
+                    //Ne permet pas de copier 2 fichiers de taille de plus de la limite en même temps
+                    semaphore.Wait();
+                    try
+                    {
+                        if (!File.Exists(targetFilePath))
+                        { File.Copy(file, targetFilePath); }
+                    }
+                    finally { semaphore.Release(); }
+                }
+                else
+                {
+                    if (!File.Exists(targetFilePath))
+                    { File.Copy(file, targetFilePath); }
+                }
+                
 
 
                 // Écrire l'état actuel dans le fichier JSON
@@ -118,11 +140,27 @@ namespace WpfApp2
                 string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(currentState, Newtonsoft.Json.Formatting.Indented);
 
 
-                // Copier le fichier
+                // Copier le fichier s'il n'existe pas
                 string fileName = Path.GetFileName(file);
                 string targetFilePath = Path.Combine(destinationPath, fileName);
+                long fileSize = new FileInfo(file).Length;
                 if (!File.Exists(targetFilePath))
-                    File.Copy(file, targetFilePath);
+                {
+                    if (fileSize > limite * 1024)
+                    {
+                        //Ne permet pas de copier 2 fichiers de taille de plus de la limite en même temps
+                        semaphore.Wait();
+                        try
+                        {
+                            File.Copy(file, targetFilePath);
+                        }
+                        finally { semaphore.Release(); }
+                    }
+                    else
+                    {
+                        File.Copy(file, targetFilePath);
+                    }
+                }
 
 
                 // Écrire l'état actuel dans le fichier JSON
