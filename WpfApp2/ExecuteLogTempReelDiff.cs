@@ -1,34 +1,18 @@
-using System;
+using System.Linq;
 using System.IO;
 using System.Threading;
+using Newtonsoft.Json;
+using WpfApp2;
 
-class Program
-{
-    static void Main()
-    {
-        // Obtenez l'instance de FileCopier (Singleton)
-        FileCopier fileCopier = FileCopier.Instance;
-
-        // Paramètres d'exemple 
-        int ID = 1;
-        string sourcePath = @"C:\Chemin\Source";
-        string destinationPath = @"C:\Chemin\Destination";
-
-        // Lancer la copie des fichiers
-        fileCopier.CopyFiles(ID, sourcePath, destinationPath);
-
-        Console.WriteLine("Processus de copie de fichiers terminé.");
-    }
-}
 
 // Classe qui suit le modèle Singleton pour gérer la copie de fichiers
-public sealed class FileCopier
+public sealed class SaveDiff
 {
-    private static FileCopier instance;
+    private static SaveDiff instance;
     private static readonly object lockObject = new object();
 
     // Propriété pour obtenir l'instance du Singleton
-    public static FileCopier Instance
+    public static SaveDiff Instance
     {
         get
         {
@@ -36,7 +20,7 @@ public sealed class FileCopier
             {
                 if (instance == null)
                 {
-                    instance = new FileCopier();
+                    instance = new SaveDiff();
                 }
                 return instance;
             }
@@ -44,7 +28,7 @@ public sealed class FileCopier
     }
 
     // Méthode pour effectuer la copie des fichiers
-    public void CopyFiles(int ID, string sourcePath, string destinationPath)
+    public long CopyFiles(int ID, string sourcePath, string destinationPath, SemaphoreSlim semaphore)
     {
         // Lire le fichier d'arrêt
         string stopFilePath = "C:\\LOGJ\\stop.txt";
@@ -53,39 +37,50 @@ public sealed class FileCopier
             Console.WriteLine("En attente...");
             Thread.Sleep(1000); // Attendre une seconde avant de vérifier à nouveau
         }
+        
 
         // Logique spécifique à C#
         int fichier = 0;
         long totalFilesSize = 0;
 
         // Obtenir la liste des fichiers à copier
-        FileInfo[] filesToCopy = new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories);
+
+        //FileInfo[] filesToCopy = new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories);
 
         // Première partie
+        EtatTempsReel currentState = new EtatTempsReel();
+        List<string> filesToCopy = Directory.GetFiles(sourcePath).ToList();
         foreach (var file in filesToCopy)
         {
-            string relativePath = file.FullName.Substring(sourcePath.Length);
-            string newFilePath = Path.Combine(destinationPath, relativePath);
+            string fileName = Path.GetFileName(sourcePath);
+            string targetFilePath = Path.Combine(destinationPath, fileName);
 
-            if (File.Exists(newFilePath))
+
+            if (File.Exists(targetFilePath))
             {
-                FileInfo existingFile = new FileInfo(newFilePath);
+                DateTime sourceLastModified = File.GetLastWriteTime(file);
+                DateTime targetLastModified = File.GetLastWriteTime(targetFilePath);
 
-                if (existingFile.LastWriteTime == file.LastWriteTime)
+                if (targetLastModified == sourceLastModified)
                 {
-                    continue; // Le fichier existe déjà et n'a pas changé, passer au suivant
+                    filesToCopy.Remove(file); // Le fichier existe déjà et n'a pas changé, on ne le copie pas
                 }
                 else
                 {
                     fichier++;
-                    totalFilesSize += existingFile.Length;
+                    totalFilesSize += new FileInfo(file).Length;
                 }
+            }
+            else 
+            {
+                fichier++;
+                totalFilesSize += new FileInfo(file).Length;
             }
         }
 
         // Initialiser la barre de progression
         int progress = 0;
-        int totalFiles = filesToCopy.Length;
+        int totalFiles = fichier;
 
         // Vérifier si le dossier de destination existe
         if (!Directory.Exists(destinationPath))
@@ -94,10 +89,7 @@ public sealed class FileCopier
             Directory.CreateDirectory(destinationPath);
             //Console.WriteLine("Dossier créé à {0}", destinationPath);
         }
-        else
-        {
-            //Console.WriteLine("Le dossier existe déjà à {0}", destinationPath);
-        }
+
 
         // Copier les fichiers avec une barre de progression
         foreach (var file in filesToCopy)
@@ -106,55 +98,51 @@ public sealed class FileCopier
             double progressPercentage = (double)progress / totalFiles * 100;
 
             // État actuel
-            var currentState = new
-            {
-                IdEtaTemp = ID,
-                NomETR = "Save " + ID,
-                SourceFilePath = sourcePath,
-                TargetFilePath = destinationPath,
-                State = "Active",
-                TotalFilesToCopy = filesToCopy.Length,
-                TotalFilesSize = totalFilesSize,
-                NbFilesLeftToDo = filesToCopy.Length - progress,
-                Progression = progressPercentage
-            };
+            currentState.IdEtaTemp = ID;
+            currentState.NomETR = "Save " + ID;
+            currentState.SourceFilePath = sourcePath;
+            currentState.TargetFilePath = destinationPath;
+            currentState.State = "Active";
+            currentState.TotalFilesToCopy = totalFiles;
+            currentState.TotalFilesSize = (int)totalFilesSize;
+            currentState.NbFilesLeftToDo = fichier - progress;
+            currentState.Progression = (int)progressPercentage;
 
             // Convertir l'état actuel en JSON
-            string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(currentState);
+            string jsonString = JsonConvert.SerializeObject(currentState, Formatting.Indented);
 
-            // Afficher la barre de progression
-            //Console.WriteLine($"Progression : {progress}/{totalFiles} - {progressPercentage}%");
+            string fileName = Path.GetFileName(file);
+            string targetFilePath = Path.Combine(destinationPath, fileName);
 
             // Copier le fichier
-            string newFilePath = Path.Combine(destinationPath, file.FullName.Substring(sourcePath.Length));
-            File.Copy(file.FullName, newFilePath, true);
+            if (!File.Exists(targetFilePath))
+            { File.Copy(file, targetFilePath); }
 
             // Écrire l'état actuel dans le fichier JSON
             File.WriteAllText("C:\\LOGJ\\state.json", jsonString);
         }
 
         // État final
-        var finalState = new
-        {
-            IdEtaTemp = ID,
-            NomETR = "Save " + ID,
-            SourceFilePath = "",
-            TargetFilePath = "",
-            State = "End",
-            TotalFilesToCopy = 0,
-            TotalFilesSize = 0,
-            NbFilesLeftToDo = 0,
-            Progression = 0
-        };
+        currentState.IdEtaTemp = ID;
+        currentState.NomETR = "Save " + ID;
+        currentState.SourceFilePath = "";
+        currentState.TargetFilePath = "";
+        currentState.State = "End";
+        currentState.TotalFilesToCopy = 0;
+        currentState.TotalFilesSize = 0;
+        currentState.NbFilesLeftToDo = 0;
+        currentState.Progression = 0;
 
         // Convertir l'état final en JSON
-        string finalJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(finalState);
+        string finalJsonString = JsonConvert.SerializeObject(currentState, Formatting.Indented);
 
         // Écrire l'état final dans le fichier JSON2 (en mode Append)
         File.AppendAllText("C:\\LOGJ\\state2.json", finalJsonString);
+
+        return totalFilesSize;
     }
 
     // Constructeur privé pour éviter une instanciatisation directe
-    private FileCopier() { }
+    private SaveDiff() { }
 }
  

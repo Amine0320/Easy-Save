@@ -39,7 +39,7 @@ namespace WpfApp2
             {
                 // Handle exceptions, if any, during file initialization 
             }
-            //Remove old states
+            //Remove old state
             string rutaArchivo = @"C:\LOGJ\state.json";
             try
             {

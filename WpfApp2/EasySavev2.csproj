@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ExecuteLogTempReelDiff.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Algerie.png" />
     <None Remove="Arab.png" />
     <None Remove="Egypt.png" />
@@ -23,10 +19,6 @@
     <None Remove="Peru.png" />
     <None Remove="Tunisie.png" />
     <None Remove="téléchargement.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="ExecuteLogTempReelDiff.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -30,7 +30,7 @@ namespace WpfApp2
         }
 
         // Méthode pour effectuer la copie des fichiers
-        public void CopyFiles(int ID, string sourcePath, string destinationPath, SemaphoreSlim semaphore)
+        public async Task CopyFiles(int ID, string sourcePath, string destinationPath, SemaphoreSlim semaphore)
         {
             //Lire la limite des fichiesr imposée par l'utilisateur
             string filePath = GlobalVariables.Dir + "limite.txt";
@@ -38,15 +38,7 @@ namespace WpfApp2
 
             // Lire le fichier d'arrêt
             string stopFilePath = "C:\\LOGJ\\stop.txt";
-            /*
-            while (!File.Exists(stopFilePath) || File.ReadAllText(stopFilePath) != "go")
-            {
-                Console.WriteLine("En attente...");
-                Thread.Sleep(10000); // Attendre une seconde avant de vérifier à nouveau
-            }
-            */
 
-            // Logique spécifique à C#
             int fichier = 0;
             long totalFilesSize = 0;
 
@@ -68,107 +60,71 @@ namespace WpfApp2
 
             // Copier les fichiers avec une barre de progression
             EtatTempsReel currentState = new EtatTempsReel();
-            foreach (var file in sourceFiles.Where(file => ExtensionsPriori.ExtPriorite(file)))
+            List<string> filesToCopy = new List<string>();
+            foreach (var File in sourceFiles.Where(file => ExtensionsPriori.ExtPriorite(file)))
             {
-                progress++;
-                double progressPercentage = (double)progress / totalFiles * 100;
-
-                // État actuel
-                currentState.IdEtaTemp = ID;
-                currentState.NomETR = "Save " + ID;
-                currentState.SourceFilePath = sourcePath;
-                currentState.TargetFilePath = destinationPath;
-                currentState.State = "Active";
-                currentState.TotalFilesToCopy = new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Length;
-                currentState.TotalFilesSize = (int)new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Sum(f => f.Length);
-                currentState.NbFilesLeftToDo = (int)new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Length - new DirectoryInfo(destinationPath).GetFiles("*.*", SearchOption.AllDirectories).Length;
-                currentState.Progression = (int)progressPercentage;
-                
-
-                // Convertir l'état actuel en JSON
-                string jsonString = JsonConvert.SerializeObject(currentState, Formatting.Indented);
-                jsonString = "test";
-
-
-                // Copier le fichier
-                string fileName = Path.GetFileName(file);
-                string targetFilePath = Path.Combine(destinationPath, fileName); 
-                long fileSize = new FileInfo(file).Length;
-
-                if (fileSize > limite * 1024)
-                {
-                    //Ne permet pas de copier 2 fichiers de taille de plus de la limite en même temps
-                    semaphore.Wait();
-                    try
-                    {
-                        if (!File.Exists(targetFilePath))
-                        { File.Copy(file, targetFilePath); }
-                    }
-                    finally { semaphore.Release(); }
-                }
-                else
-                {
-                    if (!File.Exists(targetFilePath))
-                    { File.Copy(file, targetFilePath); }
-                }
-                
-
-
-                // Écrire l'état actuel dans le fichier JSON
-                File.WriteAllText(@"C:\LOGJ\state.json", jsonString);
-
-                
+                filesToCopy.Add(File);
             }
-            foreach (var file in sourceFiles.Where(file => !ExtensionsPriori.ExtPriorite(file)))
+            foreach (var File in sourceFiles.Where(file => !ExtensionsPriori.ExtPriorite(file)))
             {
-                progress++;
-                double progressPercentage = (double)progress / totalFiles * 100;
-
-                // État actuel
-                currentState.IdEtaTemp = ID;
-                currentState.NomETR = "Save " + ID;
-                currentState.SourceFilePath = sourcePath;
-                currentState.TargetFilePath = destinationPath;
-                currentState.State = "Active";
-                currentState.TotalFilesToCopy = new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Length;
-                currentState.TotalFilesSize = (int)new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Sum(f => f.Length);
-                currentState.NbFilesLeftToDo = (int)new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Length - new DirectoryInfo(destinationPath).GetFiles("*.*", SearchOption.AllDirectories).Length;
-                currentState.Progression = (int)progressPercentage;
-
-
-                // Convertir l'état actuel en JSON
-                string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(currentState, Newtonsoft.Json.Formatting.Indented);
-
-
-                // Copier le fichier s'il n'existe pas
-                string fileName = Path.GetFileName(file);
-                string targetFilePath = Path.Combine(destinationPath, fileName);
-                long fileSize = new FileInfo(file).Length;
-                if (!File.Exists(targetFilePath))
+                filesToCopy.Add(File);
+            }
+            while (filesToCopy.Count > 0)
+            {
+                if (File.Exists(stopFilePath) && File.ReadAllText(stopFilePath).Equals("go"))
                 {
-                    if (fileSize > limite * 1024)
+                    List<string> files = new List<string>(filesToCopy);
+                    foreach (string file in files)
                     {
-                        //Ne permet pas de copier 2 fichiers de taille de plus de la limite en même temps
-                        semaphore.Wait();
-                        try
+                        progress++;
+                        double progressPercentage = (double)progress / totalFiles * 100;
+
+                        // État actuel
+                        currentState.IdEtaTemp = ID;
+                        currentState.NomETR = "Save " + ID;
+                        currentState.SourceFilePath = sourcePath;
+                        currentState.TargetFilePath = destinationPath;
+                        currentState.State = "Active";
+                        currentState.TotalFilesToCopy = new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Length;
+                        currentState.TotalFilesSize = (int)new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Sum(f => f.Length);
+                        currentState.NbFilesLeftToDo = (int)new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Length - new DirectoryInfo(destinationPath).GetFiles("*.*", SearchOption.AllDirectories).Length;
+                        currentState.Progression = (int)progressPercentage;
+
+
+                        // Convertir l'état actuel en JSON
+                        string jsonString = JsonConvert.SerializeObject(currentState, Formatting.Indented);
+
+                        // Copier le fichier
+                        string fileName = Path.GetFileName(file);
+                        string targetFilePath = Path.Combine(destinationPath, fileName);
+                        long fileSize = new FileInfo(file).Length;
+
+                        if (fileSize > limite * 1024)
                         {
-                            File.Copy(file, targetFilePath);
+                            //Ne permet pas de copier 2 fichiers de taille de plus de la limite en même temps
+                            semaphore.Wait();
+                            try
+                            {
+                                if (!File.Exists(targetFilePath))
+                                { File.Copy(file, targetFilePath); }
+                            }
+                            finally { semaphore.Release(); }
                         }
-                        finally { semaphore.Release(); }
+                        else
+                        {
+                            if (!File.Exists(targetFilePath))
+                            { File.Copy(file, targetFilePath); }
+                        }
+
+                        filesToCopy.Remove(file);
+
+                        // Écrire l'état actuel dans le fichier JSON
+                        File.WriteAllText(@"C:\LOGJ\state.json", jsonString);
                     }
-                    else
-                    {
-                        File.Copy(file, targetFilePath);
-                    }
+
                 }
-
-
-                // Écrire l'état actuel dans le fichier JSON
-                File.WriteAllText(@"C:\LOGJ\state.json", jsonString);
-
-
+                else { await Task.Delay(1000); }
             }
-
             // État final
             currentState.IdEtaTemp = ID;
             currentState.NomETR = "Save " + ID;

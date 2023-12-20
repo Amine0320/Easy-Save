@@ -158,7 +158,9 @@ namespace WpfApp2
             var dateString2 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime date1 = DateTime.Now;
             string TodayDateForString = date1.ToString("yyyy-MM-dd");
-            int FileModifie = 0;
+            SaveDiff saveDiff = SaveDiff.Instance;
+            long FileSize = saveDiff.CopyFiles(NewSauvegarder.IdTravailS, NewSauvegarder.RepSource, NewSauvegarder.RepCible, semaphore);
+            /*int FileModifie = 0;
             int FileSize = 0;
             int FileProcessed = 0;
             if (Directory.Exists(NewSauvegarder.RepSource) && Directory.Exists(NewSauvegarder.RepCible))
@@ -293,6 +295,7 @@ namespace WpfApp2
             //string output = PowerShellHandler.Command(Execute);
             etatTempsReel.SaveToJsonDiff(NewSauvegarder.RepSource, NewSauvegarder.RepCible, i, cancellationTokenSource);
             //Console.WriteLine("***copie réussie ***");
+            */
             DateTime date2 = DateTime.Now;
             string timeCrypt = "";
             TimeSpan soustraction = date2 - date1;
