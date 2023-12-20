@@ -1,6 +1,7 @@
 using System;
+using System.Data;
 using System.IO;
-using System.Threading;
+using Newtonsoft.Json;
 
 namespace WpfApp2
 {
@@ -62,7 +63,7 @@ namespace WpfApp2
 
             // Copier les fichiers avec une barre de progression
             EtatTempsReel currentState = new EtatTempsReel();
-            foreach (var file in sourceFiles)
+            foreach (var file in sourceFiles.Where(file => ExtensionsPriori.ExtPriorite(file)))
             {
                 progress++;
                 double progressPercentage = (double)progress / totalFiles * 100;
@@ -80,19 +81,54 @@ namespace WpfApp2
                 
 
                 // Convertir l'état actuel en JSON
-                string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(currentState, Newtonsoft.Json.Formatting.Indented) + "/n";
+                string jsonString = JsonConvert.SerializeObject(currentState, Formatting.Indented);
+                jsonString = "test";
 
 
                 // Copier le fichier
                 string fileName = Path.GetFileName(file);
                 string targetFilePath = Path.Combine(destinationPath, fileName);
+                if (!File.Exists(targetFilePath))
                 File.Copy(file, targetFilePath);
 
 
                 // Écrire l'état actuel dans le fichier JSON
-                File.WriteAllText("C:\\LOGJ\\state.json", jsonString);
+                File.WriteAllText(@"C:\LOGJ\state.json", jsonString);
 
                 
+            }
+            foreach (var file in sourceFiles.Where(file => !ExtensionsPriori.ExtPriorite(file)))
+            {
+                progress++;
+                double progressPercentage = (double)progress / totalFiles * 100;
+
+                // État actuel
+                currentState.IdEtaTemp = ID;
+                currentState.NomETR = "Save " + ID;
+                currentState.SourceFilePath = sourcePath;
+                currentState.TargetFilePath = destinationPath;
+                currentState.State = "Active";
+                currentState.TotalFilesToCopy = new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Length;
+                currentState.TotalFilesSize = (int)new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Sum(f => f.Length);
+                currentState.NbFilesLeftToDo = (int)new DirectoryInfo(sourcePath).GetFiles("*.*", SearchOption.AllDirectories).Length - new DirectoryInfo(destinationPath).GetFiles("*.*", SearchOption.AllDirectories).Length;
+                currentState.Progression = (int)progressPercentage;
+
+
+                // Convertir l'état actuel en JSON
+                string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(currentState, Newtonsoft.Json.Formatting.Indented);
+
+
+                // Copier le fichier
+                string fileName = Path.GetFileName(file);
+                string targetFilePath = Path.Combine(destinationPath, fileName);
+                if (!File.Exists(targetFilePath))
+                    File.Copy(file, targetFilePath);
+
+
+                // Écrire l'état actuel dans le fichier JSON
+                File.WriteAllText(@"C:\LOGJ\state.json", jsonString);
+
+
             }
 
             // État final

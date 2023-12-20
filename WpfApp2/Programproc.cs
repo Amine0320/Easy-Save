@@ -23,8 +23,10 @@ namespace WpfApp2
                     File.Delete(rutaArchivo);
                 }
             }
+            
             catch (Exception ex)
             {}
+            
             Systeme TravailNouvelle = new Systeme(); 
             string Sources = Sources2;
             string Cible = Cible2;

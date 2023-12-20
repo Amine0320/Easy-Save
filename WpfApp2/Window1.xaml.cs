@@ -219,7 +219,7 @@ namespace WpfApp2
                     File.Delete(pathfichier);
                     File.Move(endstate, pathfichier);
                 }
-
+                
                 // Stop the timer
                 timer.Stop();
 
