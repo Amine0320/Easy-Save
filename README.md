@@ -16,6 +16,12 @@ Vous pouvez définir des logiciels métiers à ne pas copier dans le fichier "C:
 
 Vous trouverez l'application dans ".../bin/Debug/net8.0-windows/EasySavev2.exe".
 
+Dans cette application, vous avez la possibilité d'effectuer plusieurs sauvegardes simultanément. Pour configurer vos paramètres de sauvegarde, cliquez sur "Paramètres" dans la fenêtre principale (MainWindow), ce qui ouvrira une autre fenêtre. Dans cette fenêtre de paramètres (Window1), vous pouvez choisir la tâche de sauvegarde, spécifier les extensions de fichier par priorité et définir d'autres préférences.
+
+Pour lancer une sauvegarde, retournez à la fenêtre principale et cliquez sur "Enregistre". Cette action vous redirigera vers Window1, où vous pourrez saisir les informations nécessaires. Sélectionnez les extensions de fichier que vous souhaitez crypter. Si vous préférez ne pas crypter, choisissez  "Aucune". De plus, vous devez spécifier le type de sauvegarde : 1 pour complète et 2 pour différentielle. Choisissez le format de journal, soit XML soit JSON.
+
+Une fois que vous avez rempli les informations requises, cliquez sur "Commence". Vous serez alors redirigé vers la Window4, où vous devrez décider si vous souhaitez effectuer une autre sauvegarde. Si vous choisissez "Oui", vous serez redirigé vers Window1 pour fournir de nouvelles informations. Si vous sélectionnez "Non", la première tâche de sauvegarde commencera, et la Window3 apparaîtra, vous permettant de consulter les journaux et l'état actuel en cliquant sur les boutons respectifs.
+
 ***********************
 
 
@@ -43,5 +49,8 @@ You can define the work apps you do not want to copy in the file "C:/LOGJ/logici
 You will find the app in ".../bin/Debug/net8.0-windows/EasySavev2.exe".
 
 
+In this application, you have the capability to perform multiple backups simultaneously. To configure your backup settings, click on "Settings" in the MainWindow, which will open another window. In this Settings window (Window1), you can choose the backup job, specify file extensions by priority, and set other preferences.
 
+To initiate a backup, return to the MainWindow and click on "Save." This action will redirect you to Window1, where you can input the necessary information. Select the file extensions you wish to encrypt. If you prefer not to encrypt, choose either "Nothing"  Additionally, you must specify the type of backup: 1 for complete and 2 for differential. Choose the log format, either XML or JSON.
 
+Once you have filled in the required information, click "Start" You will then be redirected to the Window4, where you will be prompted to decide whether you would like to perform another backup. If you choose "Yes," you will be redirected to Window1 to provide new information. If you select "No," the first backup job will commence, and the Window3 will appear, allowing you to view logs and the current state by clicking on the respective buttons.
