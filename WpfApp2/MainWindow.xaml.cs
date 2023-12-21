@@ -22,23 +22,6 @@ namespace WpfApp2
         public MainWindow()
         {
             InitializeComponent();
-
-            // Initialize stop file to "stop" when the application starts 
-            string pathfichier = @"C:\LOGJ\stop.txt"; 
-            string content = "stop";
-            try
-            {
-                // Create or overwrite the stop file with "stop" content 
-                using (StreamWriter writer = new StreamWriter(pathfichier))
-                {
-                    writer.WriteLine(content);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions, if any, during file initialization 
-            }
         } 
 
         // Button click event to open Window1 
