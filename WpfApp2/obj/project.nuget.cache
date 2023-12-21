@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PtyhcZaLt9ACuN/uwAGisbvx69MUyYQzfn8YJQX+vFh1awXuxehZ3NOgBcXMf6lwEokJ4UFXfsx7ysaBYADr2g==",
+  "dgSpecHash": "cccWOwExSQEvPFNDt940U87lxDZ8qmB6vP6mmfWgVXkEQJlftmFq8TrxDIoF5EfvqRbKIDQOqM0C9XWZXgzG8Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\kikou\\Source\\Repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj",
+  "projectFilePath": "C:\\Users\\kikou\\source\\repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kikou\\.nuget\\packages\\jetbrains.annotations\\2021.2.0\\jetbrains.annotations.2021.2.0.nupkg.sha512",
     "C:\\Users\\kikou\\.nuget\\packages\\json.more.net\\1.9.0\\json.more.net.1.9.0.nupkg.sha512",
