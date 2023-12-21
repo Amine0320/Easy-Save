@@ -27,12 +27,12 @@
         <Label x:Name="LabelSource" Content=" " HorizontalAlignment="Left" Margin="181,127,0,0" VerticalAlignment="Top" Width="22" Background="#FFD0D0D0"/>
         <Label x:Name="LabelCible" Content=" " HorizontalAlignment="Left" Margin="181,183,0,0" VerticalAlignment="Top" Width="22" Background="#FFD0D0D0"/>
         <TextBlock x:Name="outputTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button HorizontalAlignment="Left" Margin="281,44,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Button HorizontalAlignment="Left" Margin="281,44,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arabic"> 
             <Button.Background>
                 <ImageBrush ImageSource="/Egypt.png"/>
             </Button.Background>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="320,44,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Button HorizontalAlignment="Left" Margin="320,44,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arabic">
             <Button.Background>
                 <ImageBrush ImageSource="/Tunisie.png"/>
             </Button.Background>
@@ -42,7 +42,7 @@
                 <ImageBrush ImageSource="/France.png"/>
             </Button.Background>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="244,44,0,0" VerticalAlignment="Top" Height="26" Width="38">
+        <Button HorizontalAlignment="Left" Margin="244,44,0,0" VerticalAlignment="Top" Height="26" Width="38" Click="Button_Arabic">
             <Button.Background>
                 <ImageBrush ImageSource="/Algerie.png"/>
             </Button.Background>

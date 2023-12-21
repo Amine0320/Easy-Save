@@ -23,8 +23,10 @@ namespace WpfApp2
                     File.Delete(rutaArchivo);
                 }
             }
+            
             catch (Exception ex)
             {}
+            
             Systeme TravailNouvelle = new Systeme(); 
             string Sources = Sources2;
             string Cible = Cible2;
@@ -142,5 +144,15 @@ namespace WpfApp2
         public static List<Task> tasks = new List<Task>();
 
         public static int number = 1;
+
+        public static int FileSize = 0;
+
+        public static bool _Play { get; set; } = false;
+        public static bool Play
+        {
+            get { return _Play; }
+            set { _Play = value; }
+        }
+
     }
 }

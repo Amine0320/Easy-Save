@@ -5,44 +5,48 @@ using WpfApp2;
 
 namespace WpfApp2
 {
+    // Class responsible for managing prioritized extensions during file backup
     public class ExtensionsPriori
     {
-        public static void ExtPriori(string RepSource, string RepCible)
+        // Method to copy prioritized files from source directory to target directory
+        public static void ExtPriori(string RepSource, string RepCible) 
         {
             try
             {
-                // Assurez-vous que le dossier cible existe
+                // Ensure that the target folder exists
                 Directory.CreateDirectory(RepCible);
 
-                // Lire la liste des extensions prioritaires à partir du fichier
+                // Read the list of prioritized extensions from the file
                 string filePath = Path.Combine(GlobalVariables.Dir, "ExtensionsPriori.txt");
                 List<string> prioritizedExtensions = new List<string>(File.ReadAllLines(filePath));
 
-                // Obtenir tous les fichiers dans le répertoire et ses sous-répertoires
+                // Get all files in the directory and its subdirectories
                 string[] allFiles = Directory.GetFiles(RepSource, "*", SearchOption.AllDirectories);
 
-                // Parcourir tous les fichiers
+                // Iterate through all files
                 foreach (string file in allFiles)
                 {
-                    // Obtenir l'extension du fichier
+                    // Get the file extension
                     string fileExtension = Path.GetExtension(file);
 
-                    // Vérifier si l'extension est dans la liste des extensions prioritaires
+                    // Check if the extension is in the list of prioritized extensions
                     if (prioritizedExtensions.Contains(fileExtension))
                     {
-                        // Copier le fichier directement vers le répertoire cible avec le nom de fichier original
+                        // Copy the file directly to the target directory with the original file name
                         string destinationFilePath = Path.Combine(RepCible, Path.GetFileName(file));
                         File.Copy(file, destinationFilePath, true);
                     }
                 }
 
-                Console.WriteLine("Extensions prioritaires copiées avec succès.");
+                Console.WriteLine("Prioritized extensions copied successfully.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Une erreur s'est produite : {ex.Message}");
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
-        }
+        } 
+
+        // Method to check if a given file has a prioritized extension
         public static bool ExtPriorite(string file)
         {
             string filePath = Path.Combine(GlobalVariables.Dir, "ExtensionsPriori.txt");
@@ -51,6 +55,4 @@ namespace WpfApp2
             return prioritizedExtensions.Contains(fileExtension);
         }
     }
-
-    
 }
