@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="EasySavev2.0" Height="450" Width="423" >
+        Title="EasySavev3.0" Height="450" Width="423" >
     <Grid Background="#FFD1D1D1" Margin="0,0,1,0">
         <Label x:Name="MetierLabel" Content="Logiciels Métiers" HorizontalAlignment="Left" Margin="45,100,0,0" VerticalAlignment="Top"/>
         <Button x:Name="ButtonRetour" Content="Retour" HorizontalAlignment="Left" Height="29" Margin="286,279,0,0" VerticalAlignment="Top" Width="92" Click="Retour"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="EasySavev2.0" Height="250" Width="462">
+        Title="EasySavev3.0" Height="250" Width="462">
     <Grid>
         <Label x:Name="pbConteo2"  Content="Vous avez arrété l'enregistrement. Cliquez sur Quitter pour quitter l'application" HorizontalAlignment="Center" Margin="0,82,0,0" VerticalAlignment="Top" Height="32" Width="426"/>
         <Button x:Name="ButtonQuit" Content="Quitter" HorizontalAlignment="Left" Height="29" Margin="58,152,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click_1"/>

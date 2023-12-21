@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="EasySavev2.0" Height="508" Width="423" Loaded="Window_Loaded">
+        Title="EasySavev3.0" Height="508" Width="423" Loaded="Window_Loaded">
     <Grid Background="#FFD1D1D1" Margin="0,0,1,-32">
         <Label x:Name="SourceLabel" Content="Source" HorizontalAlignment="Left" Margin="45,86,0,0" VerticalAlignment="Top"/>
         <Label x:Name="CibleLabel" Content="Cible" HorizontalAlignment="Left" Margin="45,154,0,0" VerticalAlignment="Top"/>
