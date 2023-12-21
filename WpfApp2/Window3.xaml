@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="EasySavev2.0" Height="239" Width="303">
+        Title="EasySavev3.0" Height="239" Width="303">
     <Grid Margin="0,0,4,0">
         <Label x:Name="SauvReu" Content="Fin des sauvegardes" HorizontalAlignment="Left" Margin="45,94,0,0" VerticalAlignment="Top" Width="226" />
         <Button x:Name="VoirLog" Content="Voir Log" HorizontalAlignment="Left" Height="29" Margin="30,160,0,0" VerticalAlignment="Top" Width="58" Click="Button_Log"/>

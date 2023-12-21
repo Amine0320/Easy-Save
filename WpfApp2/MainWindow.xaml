@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="EasySavev2.0" Height="583" Width="714">
+        Title="EasySavev3.0" Height="583" Width="714">
     <Grid Margin="-6,-22,0,-3" HorizontalAlignment="Left" Width="1161">
         <Grid.RowDefinitions>
             <RowDefinition Height="216*"/>
@@ -62,5 +62,6 @@
             </Button.Background>
         </Button>
         <Button x:Name="Parameters" Grid.Column="2" Content="Paramètres" HorizontalAlignment="Left" Margin="14,426,0,0" VerticalAlignment="Top" Height="56" Width="109" Click="Button_Parameters" FontSize="14"/>
+        <RadioButton Grid.Column="2" Content="ServerOn" HorizontalAlignment="Left" Margin="290,131,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
     </Grid>
 </Window>

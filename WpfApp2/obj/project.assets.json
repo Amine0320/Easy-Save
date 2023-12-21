@@ -7388,9 +7388,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kikou\\source\\repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj",
-      "projectName": "EasySavev2",
-      "projectPath": "C:\\Users\\kikou\\source\\repos\\EasySaveFin\\WpfApp2\\EasySavev2.csproj",
+      "projectUniqueName": "C:\\Users\\kikou\\source\\repos\\EasySaveFin\\WpfApp2\\EasySavev3.csproj",
+      "projectName": "EasySavev3",
+      "projectPath": "C:\\Users\\kikou\\source\\repos\\EasySaveFin\\WpfApp2\\EasySavev3.csproj",
       "packagesPath": "C:\\Users\\kikou\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\kikou\\source\\repos\\EasySaveFin\\WpfApp2\\obj\\",
       "projectStyle": "PackageReference",

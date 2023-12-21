@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Algerie.png" />
+    <None Remove="Egypt.png" />
+    <None Remove="England.png" />
+    <None Remove="France.png" />
+    <None Remove="Peru.png" />
+    <None Remove="Tunisie.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Algerie.png" />
+    <Resource Include="Egypt.png" />
+    <Resource Include="England.png" />
+    <Resource Include="France.png" />
+    <Resource Include="Peru.png" />
+    <Resource Include="Tunisie.png" />
+  </ItemGroup>
+
+</Project>
