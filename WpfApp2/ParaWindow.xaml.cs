@@ -155,5 +155,10 @@ namespace WpfApp2
             AjtExt.Content = "ضف";
             BoutonAjtMetier.Content = AjtExt.Content; 
         }
+        // Event handler for checkbox Checked event 
+        private void txt_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
