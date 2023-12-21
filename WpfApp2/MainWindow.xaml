@@ -62,5 +62,6 @@
             </Button.Background>
         </Button>
         <Button x:Name="Parameters" Grid.Column="2" Content="Paramètres" HorizontalAlignment="Left" Margin="14,426,0,0" VerticalAlignment="Top" Height="56" Width="109" Click="Button_Parameters" FontSize="14"/>
+        <RadioButton Grid.Column="2" Content="ServerOn" HorizontalAlignment="Left" Margin="290,131,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
     </Grid>
 </Window>
